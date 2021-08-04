@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
+import { ValidationError } from 'UI/validationError';
+
 import { TextInputWrapper } from '../textInput/styles';
+
 import { FixTypeLater } from 'types';
 
 export const PasswordInput = (props: FixTypeLater) => {
@@ -11,6 +14,7 @@ export const PasswordInput = (props: FixTypeLater) => {
     required = false,
     name = 'name',
     id = 'id',
+    error,
   } = props;
 
   const [isVisible, setVisible] = useState(false);
@@ -31,6 +35,7 @@ export const PasswordInput = (props: FixTypeLater) => {
         value={value}
         onChange={onChange}
       />
+      {error && <ValidationError error={error} />}
       <button onClick={handleVisibleChange}>
         {isVisible ? 'hide password' : 'show password'}
       </button>

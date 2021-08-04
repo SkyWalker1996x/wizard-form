@@ -7,6 +7,7 @@ import { FixTypeLater } from 'types';
 export const TextInput = (props: FixTypeLater) => {
   const {
     onChange = () => {},
+    onBlur = () => {},
     label = '',
     value = '',
     type = 'text',
@@ -14,6 +15,7 @@ export const TextInput = (props: FixTypeLater) => {
     name = 'name',
     id = 'id',
     error,
+    touched,
   } = props;
 
   return (
@@ -22,8 +24,15 @@ export const TextInput = (props: FixTypeLater) => {
         <span>{label}</span>
         {required && <span>*</span>}
       </label>
-      <input id={id} type={type} value={value} onChange={onChange} name={name} />
-      {error && <ValidationError error={error} />}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        name={name}
+        onBlur={onBlur}
+      />
+      {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>
   );
 };

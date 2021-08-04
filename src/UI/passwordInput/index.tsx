@@ -9,13 +9,17 @@ import { FixTypeLater } from 'types';
 export const PasswordInput = (props: FixTypeLater) => {
   const {
     onChange = () => {},
+    onBlur = () => {},
     label = '',
     value = '',
     required = false,
     name = 'name',
     id = 'id',
     error,
+    touched,
   } = props;
+
+  console.log('touched', touched);
 
   const [isVisible, setVisible] = useState(false);
   const handleVisibleChange = () => {
@@ -34,8 +38,9 @@ export const PasswordInput = (props: FixTypeLater) => {
         type={isVisible ? 'text' : 'password'}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
-      {error && <ValidationError error={error} />}
+      {touched && error && <ValidationError error={error} />}
       <button onClick={handleVisibleChange}>
         {isVisible ? 'hide password' : 'show password'}
       </button>

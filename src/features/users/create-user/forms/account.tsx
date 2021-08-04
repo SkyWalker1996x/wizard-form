@@ -18,7 +18,6 @@ const initialValues: IAccountForm = {
 };
 
 const validate = (values: IAccountForm) => {
-  console.log('validate values', values);
   let errors: FormikErrors<IAccountForm> = {};
 
   if (!values.userName) {
@@ -56,8 +55,10 @@ export const AccountForm = () => {
           type="text"
           label="User name"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.userName}
           error={formik.errors.userName}
+          touched={formik.touched.userName}
         />
 
         <PasswordInput
@@ -65,8 +66,10 @@ export const AccountForm = () => {
           name="password"
           label="Password"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.password}
           error={formik.errors.password}
+          touched={formik.touched.password}
         />
 
         <PasswordInput
@@ -74,8 +77,10 @@ export const AccountForm = () => {
           name="confirmPassword"
           label="Repeat Password"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.confirmPassword}
           error={formik.errors.confirmPassword}
+          touched={formik.touched.confirmPassword}
         />
 
         <button type="submit">Submit</button>

@@ -2,8 +2,9 @@ import { useFormik, FormikErrors } from 'formik';
 
 import { TextInput } from 'UI/textInput';
 import { PasswordInput } from 'UI/passwordInput';
+import { Button } from 'UI/button/Button';
 
-import { FormWrapper } from './styles';
+import { FormWrapper, ButtonWrapper } from './styles';
 
 interface IAccountForm {
   userName: string;
@@ -83,7 +84,9 @@ export const AccountForm = () => {
           touched={formik.touched.confirmPassword}
         />
 
-        <button type="submit">Submit</button>
+        <ButtonWrapper>
+          <Button type="submit" text="Forward" />
+        </ButtonWrapper>
       </form>
     </FormWrapper>
   );

@@ -2,10 +2,8 @@ import { memo, useCallback, ChangeEvent } from 'react';
 
 import { FixTypeLater } from 'types';
 
-import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
-
 export const FileUpload = memo((props: FixTypeLater) => {
-  const { onChange, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES, name } = props;
+  const { onChange, name } = props;
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +15,7 @@ export const FileUpload = memo((props: FixTypeLater) => {
       const file = e.target.files[0];
 
       reader.onloadend = () => {
-        onChange(name, reader.result);
+        onChange(name, file);
       };
 
       if (file) {
@@ -27,9 +25,5 @@ export const FileUpload = memo((props: FixTypeLater) => {
     [name, onChange]
   );
 
-  return (
-    <>
-      <input type="file" onChange={handleUpload} />
-    </>
-  );
+  return <input type="file" onChange={handleUpload} />;
 });

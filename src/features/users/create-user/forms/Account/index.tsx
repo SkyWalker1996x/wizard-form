@@ -1,5 +1,6 @@
 import { useFormik, FormikErrors } from 'formik';
 import db from 'app/indexedDB';
+import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 
 import { TextInput } from 'UI/TextInput';
 import { PasswordInput } from 'UI/PasswordInput';
@@ -8,12 +9,13 @@ import { ImageUpload } from './ImageUpload';
 
 import { FormWrapper, ButtonWrapper } from 'features/users/create-user/forms/styles';
 import { AccountWrapper, InputGroupWrapper } from './styles';
+import { FixTypeLater } from 'types';
 
 interface IAccountForm {
   username: string;
   password: string;
   confirmPassword: string;
-  avatar: string;
+  avatar: FixTypeLater;
 }
 
 const initialValues: IAccountForm = {
@@ -46,6 +48,10 @@ const validate = async (values: IAccountForm) => {
     errors.confirmPassword = "Password don't match";
   }
 
+  if (values?.avatar?.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
+    errors.avatar = 'File size should be less 1 MB';
+  }
+
   return errors;
 };
 
@@ -66,6 +72,8 @@ export const AccountForm = () => {
           name="avatar"
           onChange={formik.setFieldValue}
           avatar={formik.values.avatar}
+          error={formik.errors.avatar}
+          touched={formik.touched.avatar}
         />
 
         <InputGroupWrapper>

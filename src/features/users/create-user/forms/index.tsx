@@ -1,4 +1,4 @@
-import { AccountForm } from './account';
+import { AccountForm } from './Account';
 
 import { PageWrapper } from './styles';
 

@@ -1,4 +1,4 @@
-import { ValidationError } from 'UI/validationError';
+import { ValidationError } from 'UI/ValidationError';
 
 import { TextInputWrapper } from './styles';
 

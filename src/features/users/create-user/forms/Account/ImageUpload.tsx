@@ -1,4 +1,4 @@
-import { FileUpload } from 'UI/fileUpload';
+import { FileUpload } from 'UI/FileUpload';
 
 import { ImageUploadWrapper, ImageWrapper } from './styles';
 

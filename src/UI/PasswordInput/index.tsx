@@ -1,10 +1,10 @@
-import {useCallback, useState} from 'react';
+import { useCallback, useState } from 'react';
 
-import {ValidationError} from 'UI/validationError';
+import { ValidationError } from 'UI/ValidationError';
 
-import {TextInputWrapper} from 'UI/textInput/styles';
+import { TextInputWrapper } from 'UI/TextInput/styles';
 
-import {FixTypeLater} from 'types';
+import { FixTypeLater } from 'types';
 
 import showMark from 'assets/show-mark.svg';
 import hideMark from 'assets/hide-mark.svg';

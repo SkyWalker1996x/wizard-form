@@ -1,5 +1,5 @@
-import { Navigation } from './navigation';
-import { Logo } from './logo';
+import { Navigation } from './Navigation';
+import { Logo } from './Logo';
 
 import { HeaderWrapper, HeaderContentWrapper } from './styles';
 

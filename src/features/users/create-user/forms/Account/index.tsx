@@ -1,8 +1,8 @@
 import { useFormik, FormikErrors } from 'formik';
 
-import { TextInput } from 'UI/textInput';
-import { PasswordInput } from 'UI/passwordInput';
-import { Button } from 'UI/button/Button';
+import { TextInput } from 'UI/TextInput';
+import { PasswordInput } from 'UI/PasswordInput';
+import { Button } from 'UI/Button/Button';
 import { ImageUpload } from './ImageUpload';
 
 import { FormWrapper, ButtonWrapper } from 'features/users/create-user/forms/styles';

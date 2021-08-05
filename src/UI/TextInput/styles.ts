@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import { FixTypeLater } from 'types';
 
-interface ITextInputWrapperProps {
+/*interface ITextInputWrapperProps {
   error: boolean;
-}
+}*/
 
 export const TextInputWrapper = styled<FixTypeLater>('div')`
   position: relative;

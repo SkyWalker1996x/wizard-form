@@ -1,4 +1,5 @@
 import { useFormik, FormikErrors } from 'formik';
+import db from 'app/indexedDB';
 
 import { TextInput } from 'UI/TextInput';
 import { PasswordInput } from 'UI/PasswordInput';
@@ -9,24 +10,30 @@ import { FormWrapper, ButtonWrapper } from 'features/users/create-user/forms/sty
 import { AccountWrapper, InputGroupWrapper } from './styles';
 
 interface IAccountForm {
-  userName: string;
+  username: string;
   password: string;
   confirmPassword: string;
   avatar: string;
 }
 
 const initialValues: IAccountForm = {
-  userName: '',
+  username: '',
   password: '',
   confirmPassword: '',
   avatar: '',
 };
 
-const validate = (values: IAccountForm) => {
+const validate = async (values: IAccountForm) => {
   let errors: FormikErrors<IAccountForm> = {};
 
-  if (!values.userName) {
-    errors.userName = 'Required';
+  if (!values.username) {
+    errors.username = 'Required';
+  } else {
+    const users = await db.table('users').toArray();
+    const isExistUser = users.find(item => item?.username === values.username);
+    if (isExistUser) {
+      errors.username = 'User with this name is exist';
+    }
   }
 
   if (!values.password) {
@@ -63,15 +70,15 @@ export const AccountForm = () => {
 
         <InputGroupWrapper>
           <TextInput
-            id="userName"
-            name="userName"
+            id="username"
+            name="username"
             type="text"
             label="User name"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.userName}
-            error={formik.errors.userName}
-            touched={formik.touched.userName}
+            value={formik.values.username}
+            error={formik.errors.username}
+            touched={formik.touched.username}
           />
 
           <PasswordInput

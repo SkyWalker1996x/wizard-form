@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, memo } from 'react';
 
 import { ValidationError } from 'UI/ValidationError';
 
@@ -9,7 +9,7 @@ import { FixTypeLater } from 'types';
 import showMark from 'assets/show-mark.svg';
 import hideMark from 'assets/hide-mark.svg';
 
-export const PasswordInput = (props: FixTypeLater) => {
+export const PasswordInput = memo((props: FixTypeLater) => {
   const {
     onChange = () => {},
     onBlur = () => {},
@@ -50,4 +50,4 @@ export const PasswordInput = (props: FixTypeLater) => {
       />
     </TextInputWrapper>
   );
-};
+});

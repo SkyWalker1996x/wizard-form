@@ -1,34 +1,35 @@
-import React from 'react';
+import { memo, useCallback, ChangeEvent } from 'react';
 
 import { FixTypeLater } from 'types';
 
-import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app-constants';
+import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 
-export const FileUpload = ({
-  onChange,
-  maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,
-  ...otherProps
-}: FixTypeLater) => {
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+export const FileUpload = memo((props: FixTypeLater) => {
+  const { onChange, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES, name } = props;
 
-    e.preventDefault();
+  const handleUpload = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) return;
 
-    const reader = new FileReader();
-    const file = e.target.files[0];
+      e.preventDefault();
 
-    reader.onloadend = () => {
-      onChange(otherProps.name, reader.result);
-    };
+      const reader = new FileReader();
+      const file = e.target.files[0];
 
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
+      reader.onloadend = () => {
+        onChange(name, reader.result);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    },
+    [name, onChange]
+  );
 
   return (
     <>
       <input type="file" onChange={handleUpload} />
     </>
   );
-};
+});

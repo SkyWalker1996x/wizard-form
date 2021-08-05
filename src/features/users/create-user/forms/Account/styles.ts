@@ -30,6 +30,7 @@ export const ImageWrapper = styled.div`
   border: 3px solid ${({ theme }) => theme.colors.main};
   border-radius: 50%;
   overflow: hidden;
+  text-align: center;
   & > img {
     width: auto;
   }

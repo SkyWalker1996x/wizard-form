@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import { ValidationError } from 'UI/ValidationError';
 
 import { TextInputWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
-export const TextInput = (props: FixTypeLater) => {
+export const TextInput = memo((props: FixTypeLater) => {
   const {
     onChange = () => {},
     onBlur = () => {},
@@ -35,4 +37,4 @@ export const TextInput = (props: FixTypeLater) => {
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>
   );
-};
+});

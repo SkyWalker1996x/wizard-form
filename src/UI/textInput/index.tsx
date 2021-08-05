@@ -19,7 +19,7 @@ export const TextInput = (props: FixTypeLater) => {
   } = props;
 
   return (
-    <TextInputWrapper>
+    <TextInputWrapper error={touched && error}>
       <label>
         <span>{label}</span>
         {required && <span>*</span>}

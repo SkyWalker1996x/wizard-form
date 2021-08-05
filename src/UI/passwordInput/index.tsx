@@ -28,7 +28,7 @@ export const PasswordInput = (props: FixTypeLater) => {
   }, []);
 
   return (
-    <TextInputWrapper>
+    <TextInputWrapper error={touched && error}>
       <label>
         <span>{label}</span>
         {required && <span>*</span>}

@@ -32,7 +32,7 @@ const validate = (values: IAccountForm) => {
   if (!values.confirmPassword) {
     errors.confirmPassword = 'Required';
   } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = "password don't match";
+    errors.confirmPassword = "Password don't match";
   }
 
   return errors;

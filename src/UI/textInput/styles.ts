@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export const TextInputWrapper = styled.div`
+import { FixTypeLater } from 'types';
+
+interface ITextInputWrapperProps {
+  error: boolean;
+}
+
+export const TextInputWrapper = styled<FixTypeLater>('div')`
   position: relative;
   max-width: 400px;
   width: 100%;
@@ -23,7 +29,8 @@ export const TextInputWrapper = styled.div`
     text-align: left;
     font-size: 14px;
     color: ${props => props.theme.colors.black};
-    border: 1px solid ${props => props.theme.colors.blue100};
+    border: 1px solid
+      ${props => (props.error ? props.theme.colors.error : props.theme.colors.blue100)};
     &:focus {
       outline: none;
       border-color: ${props => props.theme.colors.main};

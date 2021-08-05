@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import {useCallback, useState} from 'react';
 
-import { ValidationError } from 'UI/validationError';
+import {ValidationError} from 'UI/validationError';
 
-import { TextInputWrapper } from '../textInput/styles';
+import {TextInputWrapper} from 'UI/textInput/styles';
 
-import { FixTypeLater } from 'types';
+import {FixTypeLater} from 'types';
+
+import showMark from 'assets/show-mark.svg';
+import hideMark from 'assets/hide-mark.svg';
 
 export const PasswordInput = (props: FixTypeLater) => {
   const {
@@ -19,12 +22,10 @@ export const PasswordInput = (props: FixTypeLater) => {
     touched,
   } = props;
 
-  console.log('touched', touched);
-
   const [isVisible, setVisible] = useState(false);
-  const handleVisibleChange = () => {
+  const handleVisibleChange = useCallback(() => {
     setVisible(prev => !prev);
-  };
+  }, []);
 
   return (
     <TextInputWrapper>
@@ -41,9 +42,12 @@ export const PasswordInput = (props: FixTypeLater) => {
         onBlur={onBlur}
       />
       {touched && error && <ValidationError error={error} />}
-      <button onClick={handleVisibleChange}>
-        {isVisible ? 'hide password' : 'show password'}
-      </button>
+
+      <img
+        src={isVisible ? hideMark : showMark}
+        alt={isVisible ? 'hide password' : 'show password'}
+        onClick={handleVisibleChange}
+      />
     </TextInputWrapper>
   );
 };

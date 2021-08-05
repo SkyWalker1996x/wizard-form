@@ -5,10 +5,10 @@ export const HeaderWrapper = styled.div`
   display: flex;
   background: radial-gradient(
     50% 28800% at 50% 68.33%,
-    ${props => props.theme.gradients.main[0]} 0%,
-    ${props => props.theme.gradients.main[1]} 100%
+    ${({ theme }) => theme.gradients.main[0]} 0%,
+    ${({ theme }) => theme.gradients.main[1]} 100%
   );
-  box-shadow: 0px 1px 5px ${props => props.theme.colors.shadow};
+  box-shadow: 0 1px 5px ${({ theme }) => theme.colors.shadow};
 `;
 
 export const HeaderContentWrapper = styled.div`

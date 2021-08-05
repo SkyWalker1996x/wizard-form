@@ -19,7 +19,7 @@ export const TextInputWrapper = styled<FixTypeLater>('div')`
     justify-content: space-between;
     text-align: left;
     font-size: 14px;
-    color: ${props => props.theme.colors.gray200};
+    color: ${({ theme }) => theme.colors.gray200};
   }
   & > input {
     width: 100%;
@@ -28,12 +28,12 @@ export const TextInputWrapper = styled<FixTypeLater>('div')`
     box-sizing: border-box;
     text-align: left;
     font-size: 14px;
-    color: ${props => props.theme.colors.black};
+    color: ${({ theme }) => theme.colors.black};
     border: 1px solid
-      ${props => (props.error ? props.theme.colors.error : props.theme.colors.blue100)};
+      ${({ error, theme }) => (error ? theme.colors.error : theme.colors.blue100)};
     &:focus {
       outline: none;
-      border-color: ${props => props.theme.colors.main};
+      border-color: ${({ theme }) => theme.colors.main};
     }
   }
   & > img {

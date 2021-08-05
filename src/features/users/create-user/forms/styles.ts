@@ -10,7 +10,7 @@ export const FormWrapper = styled.form`
   width: 100%;
   margin: 0 auto;
   padding: 65px 100px;
-  background: ${props => props.theme.colors.secondary};
+  background: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const ButtonWrapper = styled.div`

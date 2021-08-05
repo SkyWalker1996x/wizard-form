@@ -27,7 +27,7 @@ export const ImageWrapper = styled.div`
   max-height: 171px;
   width: 100%;
   height: 100%;
-  border: 3px solid ${props => props.theme.colors.main};
+  border: 3px solid ${({ theme }) => theme.colors.main};
   border-radius: 50%;
   overflow: hidden;
   & > img {

@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
   max-width: 970px;
   width: 100%;
   margin: 0 auto;

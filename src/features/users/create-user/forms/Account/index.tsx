@@ -3,6 +3,7 @@ import { useFormik, FormikErrors } from 'formik';
 import { TextInput } from 'UI/textInput';
 import { PasswordInput } from 'UI/passwordInput';
 import { Button } from 'UI/button/Button';
+import { ImageUpload } from './ImageUpload';
 
 import { FormWrapper, ButtonWrapper } from 'features/users/create-user/forms/styles';
 import { AccountWrapper, InputGroupWrapper } from './styles';
@@ -11,12 +12,14 @@ interface IAccountForm {
   userName: string;
   password: string;
   confirmPassword: string;
+  avatar: string;
 }
 
 const initialValues: IAccountForm = {
   userName: '',
   password: '',
   confirmPassword: '',
+  avatar: '',
 };
 
 const validate = (values: IAccountForm) => {
@@ -44,13 +47,20 @@ export const AccountForm = () => {
     initialValues,
     validate,
     onSubmit: values => {
-      console.log('values', values);
+      console.log('values submit', values);
     },
   });
 
   return (
-    <FormWrapper>
-      <AccountWrapper onSubmit={formik.handleSubmit}>
+    <FormWrapper onSubmit={formik.handleSubmit}>
+      <AccountWrapper>
+        <ImageUpload
+          id="avatar"
+          name="avatar"
+          onChange={formik.setFieldValue}
+          avatar={formik.values.avatar}
+        />
+
         <InputGroupWrapper>
           <TextInput
             id="userName"

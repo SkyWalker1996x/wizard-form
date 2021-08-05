@@ -1,27 +1,34 @@
-import { useState, useRef } from 'react';
+import React from 'react';
 
 import { FixTypeLater } from 'types';
 
 import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app-constants';
 
 export const FileUpload = ({
-  label,
-  updateFilesCb,
+  onChange,
   maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,
   ...otherProps
 }: FixTypeLater) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = useState({});
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
 
-  const handleUpload = () => {
-    if (fileInputRef !== null) {
-      fileInputRef?.current?.click();
+    e.preventDefault();
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onloadend = () => {
+      onChange(otherProps.name, reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
   return (
     <>
-      <input type="file" ref={fileInputRef} title="" value="" />
+      <input type="file" onChange={handleUpload} />
     </>
   );
 };

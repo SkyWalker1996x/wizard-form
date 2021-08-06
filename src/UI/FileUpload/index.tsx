@@ -1,9 +1,11 @@
 import { memo, useCallback, ChangeEvent } from 'react';
 
+import { UploadLabel } from './styles';
+
 import { FixTypeLater } from 'types';
 
 export const FileUpload = memo((props: FixTypeLater) => {
-  const { onChange, name } = props;
+  const { onChange, name, id } = props;
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,5 +27,10 @@ export const FileUpload = memo((props: FixTypeLater) => {
     [name, onChange]
   );
 
-  return <input type="file" onChange={handleUpload} />;
+  return (
+    <>
+      <UploadLabel htmlFor={id}>add avatar</UploadLabel>
+      <input id={id} type="file" onChange={handleUpload} style={{ display: 'none' }} />
+    </>
+  );
 });

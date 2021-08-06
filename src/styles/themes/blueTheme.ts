@@ -17,4 +17,7 @@ export const blueTheme = {
   gradients: {
     main: ['#4E86E4', '#2F68C8'],
   },
+  fontSizes: {
+    main: '14px',
+  },
 };

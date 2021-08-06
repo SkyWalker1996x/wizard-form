@@ -11,6 +11,7 @@ import { ButtonWrapper, FormWrapper } from '../styles';
 import { ProfileWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
+import { validate } from './validation';
 
 const initialValues = {
   firstName: '',
@@ -24,6 +25,7 @@ const initialValues = {
 export const ProfileForm = () => {
   const formik = useFormik({
     initialValues,
+    validate,
     onSubmit: (values: FixTypeLater) => {
       console.log('values submit', values);
     },
@@ -90,9 +92,15 @@ export const ProfileForm = () => {
           value={formik.values.birthDate}
           label={'Birth date'}
           required={true}
+          error={formik.errors.birthDate}
+          touched={formik.touched.birthDate}
         />
 
-        <RadioButtonGroup label="Gender">
+        <RadioButtonGroup
+          label="Gender"
+          error={formik.errors.gender}
+          touched={formik.touched.gender}
+        >
           <FlexWrapper columnGap="43px">
             <RadioButton
               id="male"

@@ -6,6 +6,7 @@ import { ReactComponent as ArrowLeft } from 'assets/arrow-left-mark.svg';
 
 import { FixTypeLater } from 'types';
 import { TextInputWrapper } from '../TextInput/styles';
+import { ValidationError } from '../ValidationError';
 
 export const DatePicker = (props: FixTypeLater) => {
   const {
@@ -15,6 +16,8 @@ export const DatePicker = (props: FixTypeLater) => {
     format = 'dd/MM/y',
     label = '',
     required = false,
+    touched,
+    error,
   } = props;
 
   return (
@@ -38,6 +41,8 @@ export const DatePicker = (props: FixTypeLater) => {
         nextLabel={<ArrowRight />}
         prevLabel={<ArrowLeft />}
       />
+
+      {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>
   );
 };

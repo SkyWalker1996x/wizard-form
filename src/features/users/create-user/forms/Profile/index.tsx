@@ -1,10 +1,14 @@
 import { useFormik } from 'formik';
 
-import { ButtonWrapper, FormWrapper } from '../styles';
-import { ProfileWrapper } from './styles';
 import { Button } from 'UI/Button/Button';
 import { TextInput } from 'UI/TextInput';
 import { DatePicker } from 'UI/DatePicker';
+import { RadioButtonGroup } from 'UI/RadioButtonGroup';
+import { RadioButton } from 'UI/RadioButton';
+import { FlexWrapper } from 'UI/FlexWrapper';
+
+import { ButtonWrapper, FormWrapper } from '../styles';
+import { ProfileWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
@@ -87,6 +91,23 @@ export const ProfileForm = () => {
           label={'Birth date'}
           required={true}
         />
+
+        <RadioButtonGroup label="Gender">
+          <FlexWrapper columnGap="43px">
+            <RadioButton
+              id="male"
+              name="gender"
+              value="Male"
+              onChange={formik.handleChange}
+            />
+            <RadioButton
+              id="female"
+              name="gender"
+              value="Female"
+              onChange={formik.handleChange}
+            />
+          </FlexWrapper>
+        </RadioButtonGroup>
       </ProfileWrapper>
 
       <ButtonWrapper>

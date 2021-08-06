@@ -5,4 +5,5 @@ export const RadioButtonGroupStyled = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 12px;
+  color: ${({ theme }) => theme.colors.gray200};
 `;

@@ -2,30 +2,6 @@ import styled from 'styled-components';
 import DatePickerLib from 'react-date-picker';
 import { FixTypeLater } from 'types';
 
-/*.calendar {
-    color: #475666;
-    width: 190px;
-    height: 155px;
-    font-size: 9px;
-    text-decoration: none;
-    border: none;
-    margin-top: 10px;
-}
-
-.calendar > div {
-    height: 20px;
-    margin-bottom: 5px;
-    text-decoration: none;
-}
-.calendar div abbr {
-    text-decoration: none;
-}
-
-.calendar div button span {
-    color: #475666;
-    font-weight: 500;
-}*/
-
 export const DatePickerStyled = styled<FixTypeLater>(DatePickerLib)`
   // input style
   & > div {

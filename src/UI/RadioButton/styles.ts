@@ -5,4 +5,5 @@ export const RadioButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   column-gap: 10px;
+  color: ${({ theme }) => theme.colors.gray200};
 `;

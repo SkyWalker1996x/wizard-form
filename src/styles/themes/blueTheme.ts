@@ -11,6 +11,7 @@ export const blueTheme = {
 
     gray100: '#9BB0CB',
     gray200: '#657C9A',
+    gray300: '#475666',
 
     blue100: '#A1C4FF',
   },

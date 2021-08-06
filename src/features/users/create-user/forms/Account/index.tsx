@@ -29,7 +29,7 @@ export const AccountForm = () => {
   const formik = useFormik({
     initialValues,
     validate,
-    onSubmit: values => {
+    onSubmit: (values: IAccountForm) => {
       console.log('values submit', values);
     },
   });

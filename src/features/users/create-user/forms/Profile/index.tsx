@@ -6,6 +6,7 @@ import { DatePicker } from 'UI/DatePicker';
 import { RadioButtonGroup } from 'UI/RadioButtonGroup';
 import { RadioButton } from 'UI/RadioButton';
 import { FlexWrapper } from 'UI/FlexWrapper';
+import GooglePlaceAutoComplete from 'UI/GoogleAutocomplete';
 
 import { ButtonWrapper, FormWrapper } from '../styles';
 import { ProfileWrapper } from './styles';
@@ -30,6 +31,8 @@ export const ProfileForm = () => {
       console.log('values submit', values);
     },
   });
+
+  console.log('values', formik.values);
 
   return (
     <FormWrapper onSubmit={formik.handleSubmit}>
@@ -73,17 +76,12 @@ export const ProfileForm = () => {
           touched={formik.touched.lastName}
         />
 
-        <TextInput
+        <GooglePlaceAutoComplete
           id="address"
           name="address"
-          type="text"
           label="Address"
           required={true}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.address}
-          error={formik.errors.address}
-          touched={formik.touched.address}
+          onChange={formik.setFieldValue}
         />
 
         <DatePicker

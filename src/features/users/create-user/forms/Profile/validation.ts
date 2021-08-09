@@ -1,7 +1,7 @@
 import { FormikErrors } from 'formik';
 
 import db from 'app/indexedDB';
-import { eighteenYearsInMs } from 'app/app-constants';
+import { EIGHTEEN_YEARS_IN_MS } from 'app/app-constants';
 
 import { IProfileForm } from './index';
 
@@ -9,7 +9,7 @@ const isAdult = (date: Date) => {
   const birthDateInMs = date.getTime();
   const todayInMs = new Date().getTime();
 
-  return todayInMs - birthDateInMs > eighteenYearsInMs;
+  return todayInMs - birthDateInMs > EIGHTEEN_YEARS_IN_MS;
 };
 
 export const validate = async (values: IProfileForm) => {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 interface IFlexWrapperProps {
+  width?: string,
   flexDirection?: string;
   justifyContent?: string;
   alignItems?: string;
@@ -10,6 +11,7 @@ interface IFlexWrapperProps {
 
 export const FlexWrapper = styled('div')<IFlexWrapperProps>`
   display: flex;
+  width: ${props => (props.width ? props.width : '100%')};
   flex-direction: ${props => (props.flexDirection ? props.flexDirection : 'row')};
   justify-content: ${props =>
     props.justifyContent ? props.justifyContent : 'flex-start'};

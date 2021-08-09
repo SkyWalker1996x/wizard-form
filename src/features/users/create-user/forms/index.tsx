@@ -1,5 +1,6 @@
 // import { AccountForm } from './Account';
-import { ProfileForm } from './Profile';
+// import { ProfileForm } from './Profile';
+import { ContactsForm } from './Contacts';
 
 import { PageWrapper } from './styles';
 
@@ -9,7 +10,8 @@ export const CreateUserForm = () => {
       <h2>Adding user</h2>
 
       {/*<AccountForm />*/}
-      <ProfileForm />
+      {/*<ProfileForm />*/}
+      <ContactsForm />
     </PageWrapper>
   );
 };

@@ -1,15 +1,25 @@
 import { memo } from 'react';
+import { FormikErrors } from 'formik';
 
 import { FileUpload } from 'UI/FileUpload';
+import { ValidationError } from 'UI/ValidationError';
 
 import { ImageUploadWrapper, ImageWrapper } from './styles';
 
 import personMark from 'assets/person-mark.svg';
 
-import { FixTypeLater } from 'types';
-import { ValidationError } from 'UI/ValidationError';
+interface IImageUploadProps {
+  id: string;
+  name: string;
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<FormikErrors<any>> | Promise<void>;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+}
 
-export const ImageUpload = memo((props: FixTypeLater) => {
+export const ImageUpload = memo((props: IImageUploadProps) => {
   const { error, ...otherProps } = props;
 
   return (

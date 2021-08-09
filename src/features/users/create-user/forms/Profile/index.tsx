@@ -11,13 +11,21 @@ import GooglePlaceAutoComplete from 'UI/GoogleAutocomplete';
 import { ButtonWrapper, FormWrapper } from '../styles';
 import { ProfileWrapper } from './styles';
 
-import { FixTypeLater } from 'types';
 import { validate } from './validation';
 
-const initialValues = {
+export interface IProfileForm {
+  firstName: string;
+  lastName: string;
+  birthDate: Date | null | undefined;
+  email: string;
+  address: string;
+  gender: string;
+}
+
+const initialValues: IProfileForm = {
   firstName: '',
   lastName: '',
-  birthDate: '',
+  birthDate: undefined,
   email: '',
   address: '',
   gender: '',
@@ -27,12 +35,10 @@ export const ProfileForm = () => {
   const formik = useFormik({
     initialValues,
     validate,
-    onSubmit: (values: FixTypeLater) => {
+    onSubmit: (values: IProfileForm) => {
       console.log('values submit', values);
     },
   });
-
-  console.log('values', formik.values);
 
   return (
     <FormWrapper onSubmit={formik.handleSubmit}>

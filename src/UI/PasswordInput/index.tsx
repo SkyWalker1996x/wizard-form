@@ -1,23 +1,42 @@
-import { useCallback, useState, memo } from 'react';
+import { useCallback, useState, memo, ChangeEvent, FocusEvent } from 'react';
+import { FormikErrors, FormikTouched } from 'formik';
 
 import { ValidationError } from 'UI/ValidationError';
 
 import { TextInputWrapper } from 'UI/TextInput/styles';
 
-import { FixTypeLater } from 'types';
-
 import showMark from 'assets/show-mark.svg';
 import hideMark from 'assets/hide-mark.svg';
 
-export const PasswordInput = memo((props: FixTypeLater) => {
+export interface IPasswordInputProps {
+  onChange: {
+    (e: ChangeEvent<any>): void;
+    <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
+      ? void
+      : (e: string | ChangeEvent<any>) => void;
+  };
+  onBlur: {
+    (e: FocusEvent<any>): void;
+    <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
+  };
+  label: string;
+  value: string;
+  required?: boolean;
+  name: string;
+  id: string;
+  touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+}
+
+export const PasswordInput = memo((props: IPasswordInputProps) => {
   const {
-    onChange = () => {},
-    onBlur = () => {},
+    onChange,
+    onBlur,
     label = '',
     value = '',
     required = false,
-    name = 'name',
-    id = 'id',
+    name,
+    id,
     error,
     touched,
   } = props;
@@ -28,7 +47,7 @@ export const PasswordInput = memo((props: FixTypeLater) => {
   }, []);
 
   return (
-    <TextInputWrapper error={touched && error}>
+    <TextInputWrapper error={!!(touched && error)}>
       <label>
         <span>{label}</span>
         {required && <span>*</span>}

@@ -1,7 +1,14 @@
 import styled from 'styled-components';
-import { FixTypeLater } from 'types';
 
-export const FlexWrapper = styled<FixTypeLater>('div')`
+interface IFlexWrapperProps {
+  flexDirection?: string;
+  justifyContent?: string;
+  alignItems?: string;
+  rowGap?: string;
+  columnGap?: string;
+}
+
+export const FlexWrapper = styled('div')<IFlexWrapperProps>`
   display: flex;
   flex-direction: ${props => (props.flexDirection ? props.flexDirection : 'row')};
   justify-content: ${props =>

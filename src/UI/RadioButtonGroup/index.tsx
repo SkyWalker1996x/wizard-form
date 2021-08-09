@@ -1,9 +1,18 @@
-import { RadioButtonGroupStyled } from './styles';
+import { ReactNode } from 'react';
+import { FormikErrors, FormikTouched } from 'formik';
 
-import { FixTypeLater } from 'types';
 import { ValidationError } from '../ValidationError';
 
-export const RadioButtonGroup = (props: FixTypeLater) => {
+import { RadioButtonGroupStyled } from './styles';
+
+interface IRadioButtonGroupProps {
+  children: ReactNode;
+  label: string;
+  touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+}
+
+export const RadioButtonGroup = (props: IRadioButtonGroupProps) => {
   const { children, label, touched, error } = props;
 
   return (

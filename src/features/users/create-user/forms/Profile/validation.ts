@@ -3,7 +3,7 @@ import { FormikErrors } from 'formik';
 import db from 'app/indexedDB';
 import { eighteenYearsInMs } from 'app/app-constants';
 
-import { FixTypeLater } from 'types';
+import { IProfileForm } from './index';
 
 const isAdult = (date: Date) => {
   const birthDateInMs = date.getTime();
@@ -12,8 +12,8 @@ const isAdult = (date: Date) => {
   return todayInMs - birthDateInMs > eighteenYearsInMs;
 };
 
-export const validate = async (values: FixTypeLater) => {
-  let errors: FormikErrors<FixTypeLater> = {};
+export const validate = async (values: IProfileForm) => {
+  let errors: FormikErrors<IProfileForm> = {};
 
   if (!values.firstName) {
     errors.firstName = 'Required';

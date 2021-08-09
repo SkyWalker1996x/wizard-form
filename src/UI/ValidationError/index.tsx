@@ -1,7 +1,8 @@
 import { ValidationErrorWrapper } from './styles';
+import { FormikErrors } from 'formik';
 
 interface IValidationErrorProps {
-  error: string;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
 }
 
 export const ValidationError = ({ error }: IValidationErrorProps) => {

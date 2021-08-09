@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import { FixTypeLater } from 'types';
+interface ITextInputWrapperProps {
+  error?: boolean;
+}
 
-/*interface ITextInputWrapperProps {
-  error: boolean;
-}*/
-
-export const TextInputWrapper = styled<FixTypeLater>('div')`
+export const TextInputWrapper = styled('div')<ITextInputWrapperProps>`
   position: relative;
   max-width: 400px;
   width: 100%;

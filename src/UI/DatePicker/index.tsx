@@ -1,14 +1,29 @@
-import { DatePickerStyled } from './styles';
+import { FormikErrors, FormikTouched } from 'formik';
+import { ValidationError } from '../ValidationError';
 
 import { ReactComponent as CalendarIcon } from 'assets/calendar-mark.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right-mark.svg';
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left-mark.svg';
 
-import { FixTypeLater } from 'types';
-import { TextInputWrapper } from '../TextInput/styles';
-import { ValidationError } from '../ValidationError';
+import { TextInputWrapper } from 'UI/TextInput/styles';
+import { DatePickerStyled } from './styles';
 
-export const DatePicker = (props: FixTypeLater) => {
+interface IDatePickerProps {
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<FormikErrors<any>> | Promise<void>;
+  value: Date | null | undefined;
+  name: string;
+  format?: string;
+  label: string;
+  required: boolean;
+  touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+}
+
+export const DatePicker = (props: IDatePickerProps) => {
   const {
     onChange,
     value,
@@ -40,6 +55,7 @@ export const DatePicker = (props: FixTypeLater) => {
         calendarIcon={<CalendarIcon />}
         nextLabel={<ArrowRight />}
         prevLabel={<ArrowLeft />}
+        error={error}
       />
 
       {touched && error && <ValidationError error={error} />}

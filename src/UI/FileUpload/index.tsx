@@ -1,10 +1,19 @@
 import { memo, useCallback, ChangeEvent } from 'react';
+import { FormikErrors } from 'formik';
 
 import { UploadLabel } from './styles';
 
-import { FixTypeLater } from 'types';
+interface IFileUploadProps {
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<FormikErrors<any>> | Promise<void>;
+  name: string;
+  id: string;
+}
 
-export const FileUpload = memo((props: FixTypeLater) => {
+export const FileUpload = memo((props: IFileUploadProps) => {
   const { onChange, name, id } = props;
 
   const handleUpload = useCallback(

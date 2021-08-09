@@ -2,10 +2,13 @@ import { memo } from 'react';
 
 import { ButtonStyled } from './styles';
 
-import { FixTypeLater } from 'types';
+interface IButtonProps {
+  type?: 'submit' | 'reset' | 'button';
+  text: string;
+}
 
-export const Button = memo((props: FixTypeLater) => {
-  const { type = 'button', text = '' } = props;
+export const Button = memo((props: IButtonProps) => {
+  const { type, text } = props;
 
-  return <ButtonStyled type={type}>{text}</ButtonStyled>;
+  return <ButtonStyled type={type || 'button'}>{text}</ButtonStyled>;
 });

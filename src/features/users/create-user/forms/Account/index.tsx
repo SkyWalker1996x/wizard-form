@@ -41,9 +41,7 @@ export const AccountForm = () => {
           id="avatar"
           name="avatar"
           onChange={formik.setFieldValue}
-          avatar={formik.values.avatar}
           error={formik.errors.avatar}
-          touched={formik.touched.avatar}
         />
 
         <InputGroupWrapper>

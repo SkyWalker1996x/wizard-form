@@ -4,9 +4,23 @@ import { ValidationError } from 'UI/ValidationError';
 
 import { TextInputWrapper } from './styles';
 
-import { FixTypeLater } from 'types';
+import { IPasswordInputProps } from 'UI/PasswordInput';
 
-export const TextInput = memo((props: FixTypeLater) => {
+interface ITextInputProps extends IPasswordInputProps {
+  type?:
+    | 'email'
+    | 'hidden'
+    | 'month'
+    | 'number'
+    | 'password'
+    | 'search'
+    | 'tel'
+    | 'text'
+    | 'time'
+    | 'url';
+}
+
+export const TextInput = memo((props: ITextInputProps) => {
   const {
     onChange = () => {},
     onBlur = () => {},
@@ -14,14 +28,14 @@ export const TextInput = memo((props: FixTypeLater) => {
     value = '',
     type = 'text',
     required = false,
-    name = 'name',
-    id = 'id',
+    name,
+    id,
     error,
     touched,
   } = props;
 
   return (
-    <TextInputWrapper error={touched && error}>
+    <TextInputWrapper error={!!(touched && error)}>
       <label>
         <span>{label}</span>
         {required && <span>*</span>}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { Header } from 'UI/Header';
+import { Header } from 'UI/header';
 import { CreateUserForm } from 'features/users/create-user/forms';
 
 import { blueTheme } from 'styles/themes/blueTheme';

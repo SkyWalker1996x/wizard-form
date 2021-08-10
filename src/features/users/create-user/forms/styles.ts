@@ -7,10 +7,11 @@ export const PageWrapper = styled.div`
 `;
 
 export const FormWrapper = styled.form`
+  position: relative;
   max-width: 970px;
   width: 100%;
   margin: 0 auto;
-  padding: 65px 100px;
+  padding: 130px 100px;
   background: ${({ theme }) => theme.colors.secondary};
 `;
 

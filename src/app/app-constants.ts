@@ -56,3 +56,10 @@ export const CHECKBOXES = [
   'Guitar, guitar and guitar again. I’m fall in love with it.',
   'WTF is “hobbies”???',
 ];
+
+export const FORM_STAGES = [
+  { id: 1, name: 'Account' },
+  { id: 2, name: 'Profile' },
+  { id: 3, name: 'Contacts' },
+  { id: 4, name: 'Capabilities' },
+];

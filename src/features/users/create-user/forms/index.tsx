@@ -7,6 +7,7 @@ import { AccountForm, IAccountForm } from './Account';
 import { ProfileForm, IProfileForm } from './Profile';
 import { ContactsForm, IContactsForm } from './Contacts';
 import { CapabilitiesForm, ICapabilitiesForm } from './Capabilities';
+import { FormNavigation } from './FormNavigation';
 import { Button } from 'UI/Button/Button';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './styles';
@@ -86,6 +87,8 @@ export const CreateUserForm = () => {
       <h2>Adding user</h2>
 
       <FormWrapper onSubmit={formik.handleSubmit}>
+        <FormNavigation activeStep={activeStep} />
+
         {renderStepContent(activeStep, formik)}
 
         <ButtonWrapper>

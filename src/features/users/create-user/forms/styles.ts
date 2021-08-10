@@ -19,4 +19,6 @@ export const ButtonWrapper = styled.div`
   margin-top: 125px;
   display: flex;
   justify-content: flex-end;
+  column-gap: 100px;
+  flex: 1 1 0;
 `;

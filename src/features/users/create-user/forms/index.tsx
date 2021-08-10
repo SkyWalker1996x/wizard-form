@@ -30,7 +30,7 @@ const initialValues: ICreateUserForm = {
   facebookLink: '',
   fax: '',
   mainLang: undefined,
-  phones: [],
+  phones: [''],
 };
 
 const renderStepContent = (step: number, formik: FixTypeLater) => {
@@ -47,7 +47,7 @@ const renderStepContent = (step: number, formik: FixTypeLater) => {
 };
 
 export const CreateUserForm = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(3);
 
   const handleIncreaseStep = () => {
     setActiveStep(prev => prev + 1);

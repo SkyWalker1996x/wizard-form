@@ -26,6 +26,7 @@ interface ISelectProps {
   id: string;
   touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
   error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  isMulti?: boolean;
 }
 
 export const Select = memo((props: ISelectProps) => {
@@ -40,6 +41,7 @@ export const Select = memo((props: ISelectProps) => {
     error,
     touched,
     options,
+    isMulti = false,
   } = props;
 
   return (
@@ -57,6 +59,7 @@ export const Select = memo((props: ISelectProps) => {
         options={options}
         classNamePrefix={'Select'}
         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+        isMulti={isMulti}
       />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>

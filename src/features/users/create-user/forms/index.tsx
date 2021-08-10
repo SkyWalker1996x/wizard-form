@@ -1,33 +1,18 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
+
 import { validate } from './validation';
 
-import { AccountForm } from './Account';
-import { ProfileForm } from './Profile';
-import { ContactsForm } from './Contacts';
+import { AccountForm, IAccountForm } from './Account';
+import { ProfileForm, IProfileForm } from './Profile';
+import { ContactsForm, IContactsForm } from './Contacts';
 import { Button } from 'UI/Button/Button';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './styles';
+
 import { FixTypeLater } from 'types';
 
-export interface ICreateUserForm {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  avatar: FixTypeLater;
-  firstName: string;
-  lastName: string;
-  birthDate: Date | null | undefined;
-  email: string;
-  address: string;
-  gender: string;
-  company: string;
-  githubLink: string;
-  facebookLink: string;
-  mainLang: { value: string; label: string } | undefined;
-  fax: string;
-  phones: Array<string>;
-}
+export interface ICreateUserForm extends IAccountForm, IProfileForm, IContactsForm {}
 
 const initialValues: ICreateUserForm = {
   username: '',
@@ -86,8 +71,6 @@ export const CreateUserForm = () => {
     },
   });
 
-  console.log('formik', formik.errors);
-
   return (
     <PageWrapper>
       <h2>Adding user</h2>
@@ -96,7 +79,9 @@ export const CreateUserForm = () => {
         {renderStepContent(activeStep, formik)}
 
         <ButtonWrapper>
-          <Button text="Back" background={'blue200'} onClick={handleDecreaseStep} />
+          {activeStep !== 1 && (
+            <Button text="Back" background={'blue200'} onClick={handleDecreaseStep} />
+          )}
           <Button type="submit" text="Forward" />
         </ButtonWrapper>
       </FormWrapper>

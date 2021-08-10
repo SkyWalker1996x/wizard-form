@@ -14,6 +14,7 @@ export const blueTheme = {
     gray300: '#475666',
 
     blue100: '#A1C4FF',
+    blue200: '#C1CFE0',
   },
   gradients: {
     main: ['#4E86E4', '#2F68C8'],

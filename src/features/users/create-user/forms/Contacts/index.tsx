@@ -72,8 +72,9 @@ export const ContactsForm = memo((props: FixTypeLater) => {
             options={langOptions}
             name={'mainLanguage'}
             id={'mainLanguage'}
-            touched={formik.touched.facebookLink}
-            error={formik.errors.facebookLink}
+            touched={formik.touched.mainLang}
+            error={formik.errors.mainLang}
+            required={true}
           />
         </FlexWrapper>
 

@@ -27,3 +27,32 @@ export const LANGUAGES = {
   th: 'Thai',
   ko: 'Korean',
 };
+export const SKILLS = [
+  'HTML',
+  'CSS',
+  'Javascript',
+  'React',
+  'Angular',
+  'jQuery',
+  'NodeJS',
+  'Python',
+  'PHP',
+  'Ruby On Rails',
+  'SQL',
+  'BackboneJS',
+  'Web Design',
+  'Project management',
+  'Git',
+  'Docker',
+  'AWS Lambda',
+  'Firebase',
+];
+
+export const CHECKBOXES = [
+  'Art',
+  'Sport, fitness and staff like that',
+  'I just want to play games, I’m not living in this life',
+  'I’m a female... I’m doing nothing. Every day.',
+  'Guitar, guitar and guitar again. I’m fall in love with it.',
+  'WTF is “hobbies”???',
+];

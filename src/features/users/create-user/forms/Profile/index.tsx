@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { TextInput } from 'UI/TextInput';
 import { DatePicker } from 'UI/DatePicker';
 import { RadioButtonGroup } from 'UI/RadioButtonGroup';
@@ -18,7 +20,7 @@ export interface IProfileForm {
   gender: string;
 }
 
-export const ProfileForm = (props: FixTypeLater) => {
+export const ProfileForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 
   return (
@@ -102,4 +104,4 @@ export const ProfileForm = (props: FixTypeLater) => {
       </RadioButtonGroup>
     </ProfileWrapper>
   );
-};
+});

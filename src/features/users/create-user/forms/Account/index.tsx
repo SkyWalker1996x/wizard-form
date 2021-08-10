@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { TextInput } from 'UI/TextInput';
 import { PasswordInput } from 'UI/PasswordInput';
 
@@ -14,7 +16,7 @@ export interface IAccountForm {
   avatar: FixTypeLater;
 }
 
-export const AccountForm = (props: FixTypeLater) => {
+export const AccountForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 
   return (
@@ -63,4 +65,4 @@ export const AccountForm = (props: FixTypeLater) => {
       </InputGroupWrapper>
     </AccountWrapper>
   );
-};
+});

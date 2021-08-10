@@ -8,11 +8,11 @@ import { InputMask } from 'UI/InputMask';
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { Select } from 'UI/Select';
 
-import { transformToSelectOptions } from 'utils/data';
+import { transformObjToSelectOptions } from 'utils/data';
 import { FixTypeLater } from 'types';
 import { PhonesFieldArray } from './PhonesFieldArray';
 
-const langOptions = transformToSelectOptions(LANGUAGES);
+const langOptions = transformObjToSelectOptions(LANGUAGES);
 
 export interface IContactsForm {
   company: string;

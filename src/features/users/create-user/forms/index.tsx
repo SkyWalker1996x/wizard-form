@@ -6,13 +6,18 @@ import { validate } from './validation';
 import { AccountForm, IAccountForm } from './Account';
 import { ProfileForm, IProfileForm } from './Profile';
 import { ContactsForm, IContactsForm } from './Contacts';
+import { CapabilitiesForm, ICapabilitiesForm } from './Capabilities';
 import { Button } from 'UI/Button/Button';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
-export interface ICreateUserForm extends IAccountForm, IProfileForm, IContactsForm {}
+export interface ICreateUserForm
+  extends IAccountForm,
+    IProfileForm,
+    IContactsForm,
+    ICapabilitiesForm {}
 
 const initialValues: ICreateUserForm = {
   username: '',
@@ -31,6 +36,9 @@ const initialValues: ICreateUserForm = {
   fax: '',
   mainLang: undefined,
   phones: [''],
+  skills: [],
+  addInformation: '',
+  hobbies: [],
 };
 
 const renderStepContent = (step: number, formik: FixTypeLater) => {
@@ -41,6 +49,8 @@ const renderStepContent = (step: number, formik: FixTypeLater) => {
       return <ProfileForm formik={formik} />;
     case 3:
       return <ContactsForm formik={formik} />;
+    case 4:
+      return <CapabilitiesForm formik={formik} />;
     default:
       return <div>Not Found</div>;
   }

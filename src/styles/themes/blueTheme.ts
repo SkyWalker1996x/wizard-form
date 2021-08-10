@@ -5,6 +5,7 @@ export const blueTheme = {
     secondary: '#E7F0FF',
 
     error: '#EB5757',
+    success: '#4EE4A5',
     shadow: '#C1CEDE',
     white: '#FFFFFF',
     black: '#000000',

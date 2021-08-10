@@ -22,8 +22,8 @@ interface ITextInputProps extends IPasswordInputProps {
 
 export const TextInput = memo((props: ITextInputProps) => {
   const {
-    onChange = () => {},
-    onBlur = () => {},
+    onChange,
+    onBlur,
     label = '',
     value = '',
     type = 'text',

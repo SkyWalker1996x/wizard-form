@@ -42,4 +42,19 @@ export const TextInputWrapper = styled('div')<ITextInputWrapperProps>`
     top: 38px;
     z-index: 1;
   }
+  & > textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 14px;
+    color: ${({ theme }) => theme.colors.black};
+    border: 1px solid
+      ${({ error, theme }) => (error ? theme.colors.error : theme.colors.blue100)};
+    resize: none;
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.main};
+    }
+  }
 `;

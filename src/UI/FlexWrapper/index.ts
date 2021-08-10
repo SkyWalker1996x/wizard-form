@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 interface IFlexWrapperProps {
-  width?: string,
+  width?: string;
   flexDirection?: string;
   justifyContent?: string;
   alignItems?: string;
   rowGap?: string;
   columnGap?: string;
+  color?: string;
 }
 
 export const FlexWrapper = styled('div')<IFlexWrapperProps>`
@@ -18,4 +19,5 @@ export const FlexWrapper = styled('div')<IFlexWrapperProps>`
   align-items: ${props => (props.alignItems ? props.alignItems : 'flex-start')};
   row-gap: ${props => (props.rowGap ? props.rowGap : '0')};
   column-gap: ${props => (props.columnGap ? props.columnGap : '0')};
+  color: ${({ theme, color }) => (color ? color : theme.colors.gray200)};
 `;

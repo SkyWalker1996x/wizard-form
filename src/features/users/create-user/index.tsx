@@ -61,7 +61,7 @@ const renderStepContent = (step: number, formik: FixTypeLater) => {
 };
 
 export const CreateUserForm = () => {
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
 
   const handleIncreaseStep = () => {
@@ -74,11 +74,9 @@ export const CreateUserForm = () => {
 
   const formik = useFormik({
     initialValues,
-    // @ts-ignore
     validate: validate[activeStep - 1],
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
-        // @ts-ignore
         dispatch(addItem(values));
         console.log('values submit', values);
       } else {

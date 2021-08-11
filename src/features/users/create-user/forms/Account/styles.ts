@@ -32,6 +32,7 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
   text-align: center;
   & > img {
-    width: auto;
+    width: 170px;
+    height: 170px;
   }
 `;

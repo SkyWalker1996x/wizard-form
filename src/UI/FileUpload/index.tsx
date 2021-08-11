@@ -26,7 +26,9 @@ export const FileUpload = memo((props: IFileUploadProps) => {
       const file = e.target.files[0];
 
       reader.onloadend = () => {
-        onChange(name, file);
+        const image = reader.result;
+        console.log('image', image);
+        onChange(name, image);
       };
 
       if (file) {

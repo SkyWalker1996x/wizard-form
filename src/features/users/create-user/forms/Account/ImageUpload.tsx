@@ -17,15 +17,16 @@ interface IImageUploadProps {
     shouldValidate?: boolean | undefined
   ) => Promise<FormikErrors<any>> | Promise<void>;
   error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  value: string | undefined;
 }
 
 export const ImageUpload = memo((props: IImageUploadProps) => {
-  const { error, ...otherProps } = props;
+  const { error, value, ...otherProps } = props;
 
   return (
     <ImageUploadWrapper>
       <ImageWrapper>
-        <img src={personMark} alt="avatar" />
+        <img src={value || personMark} alt="avatar" />
       </ImageWrapper>
 
       <FileUpload {...otherProps} />

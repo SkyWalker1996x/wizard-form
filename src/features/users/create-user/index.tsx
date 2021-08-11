@@ -27,7 +27,7 @@ const initialValues: ICreateUserForm = {
   username: '',
   password: '',
   confirmPassword: '',
-  avatar: '',
+  avatar: undefined,
   firstName: '',
   lastName: '',
   birthDate: undefined,
@@ -78,7 +78,6 @@ export const CreateUserForm = () => {
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
         dispatch(addItem(values));
-        console.log('values submit', values);
       } else {
         handleIncreaseStep();
       }

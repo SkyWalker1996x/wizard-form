@@ -26,6 +26,7 @@ export const AccountForm = memo((props: FixTypeLater) => {
         name="avatar"
         onChange={formik.setFieldValue}
         error={formik.errors.avatar}
+        value={formik.values.avatar}
       />
 
       <InputGroupWrapper>

@@ -34,6 +34,7 @@ export const CapabilitiesForm = memo((props: FixTypeLater) => {
           isMulti={true}
           touched={formik.touched.skills}
           error={formik.errors.skills}
+          required={true}
         />
 
         <TextArea

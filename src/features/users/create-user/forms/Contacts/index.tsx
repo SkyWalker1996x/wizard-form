@@ -58,8 +58,8 @@ export const ContactsForm = memo((props: FixTypeLater) => {
             onBlur={formik.handleBlur}
             label="Facebook Link"
             value={formik.values.facebookLink}
-            name="githubLink"
-            id="githubLink"
+            name="facebookLink"
+            id="facebookLink"
             touched={formik.touched.facebookLink}
             error={formik.errors.facebookLink}
           />
@@ -70,8 +70,8 @@ export const ContactsForm = memo((props: FixTypeLater) => {
             label="Main Language"
             value={formik.values.mainLang}
             options={langOptions}
-            name={'mainLanguage'}
-            id={'mainLanguage'}
+            name={'mainLang'}
+            id={'mainLang'}
             touched={formik.touched.mainLang}
             error={formik.errors.mainLang}
             required={true}

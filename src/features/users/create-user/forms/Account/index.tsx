@@ -13,7 +13,7 @@ export interface IAccountForm {
   username: string;
   password: string;
   confirmPassword: string;
-  avatar: FixTypeLater;
+  avatar: string | undefined;
 }
 
 export const AccountForm = memo((props: FixTypeLater) => {
@@ -27,6 +27,7 @@ export const AccountForm = memo((props: FixTypeLater) => {
         onChange={formik.setFieldValue}
         error={formik.errors.avatar}
         value={formik.values.avatar}
+        onErrorChange={formik.setFieldError}
       />
 
       <InputGroupWrapper>

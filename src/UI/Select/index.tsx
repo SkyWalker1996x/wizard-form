@@ -19,7 +19,10 @@ interface ISelectProps {
     <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
   };
   label: string;
-  value: { value: string; label: string } | undefined;
+  value:
+    | { value: string; label: string }
+    | Array<{ value: string; label: string }>
+    | undefined;
   options: Array<{ value: string; label: string }>;
   required?: boolean;
   name: string;
@@ -61,6 +64,8 @@ export const Select = memo((props: ISelectProps) => {
         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
         isMulti={isMulti}
         error={!!(touched && error)}
+        defaultInputValue={value}
+        defaultMenuIsOpen={false}
       />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>

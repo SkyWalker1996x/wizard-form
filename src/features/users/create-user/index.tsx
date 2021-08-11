@@ -15,7 +15,7 @@ import { Button } from 'UI/Button/Button';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 
-import { FixTypeLater } from 'types';
+import { IFormikProps } from 'types';
 
 export interface ICreateUserForm
   extends IAccountForm,
@@ -45,7 +45,7 @@ const initialValues: ICreateUserForm = {
   hobbies: [],
 };
 
-const renderStepContent = (step: number, formik: FixTypeLater) => {
+const renderStepContent = (step: number, formik: IFormikProps) => {
   switch (step) {
     case 1:
       return <AccountForm formik={formik} />;

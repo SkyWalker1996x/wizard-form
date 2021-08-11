@@ -9,8 +9,9 @@ import { FlexWrapper } from 'UI/FlexWrapper';
 import { Select } from 'UI/Select';
 
 import { transformObjToSelectOptions } from 'utils/data';
-import { FixTypeLater } from 'types';
 import { PhonesFieldArray } from './PhonesFieldArray';
+
+import { FixTypeLater } from 'types';
 
 const langOptions = transformObjToSelectOptions(LANGUAGES);
 

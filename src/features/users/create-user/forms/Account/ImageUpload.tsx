@@ -18,6 +18,7 @@ interface IImageUploadProps {
   ) => Promise<FormikErrors<any>> | Promise<void>;
   error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
   value: string | undefined;
+  onErrorChange: (field: string, value: string | undefined) => void;
 }
 
 export const ImageUpload = memo((props: IImageUploadProps) => {

@@ -1,6 +1,5 @@
 import { FormikErrors } from 'formik';
 import db from 'app/indexedDB';
-import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 
 import { IAccountForm } from './index';
 
@@ -25,10 +24,6 @@ export const validate = async (values: IAccountForm) => {
     errors.confirmPassword = 'Required';
   } else if (values.confirmPassword !== values.password) {
     errors.confirmPassword = "Password don't match";
-  }
-
-  if (values?.avatar?.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
-    errors.avatar = 'File size should be less 1 MB';
   }
 
   return errors;

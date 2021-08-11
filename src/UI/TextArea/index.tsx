@@ -2,31 +2,16 @@ import { memo } from 'react';
 
 import { ValidationError } from 'UI/ValidationError';
 
-import { TextInputWrapper } from './styles';
+import { TextInputWrapper } from 'UI/TextInput/styles';
 
 import { IPasswordInputProps } from 'UI/PasswordInput';
 
-interface ITextInputProps extends IPasswordInputProps {
-  type?:
-    | 'email'
-    | 'hidden'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url';
-}
-
-export const TextInput = memo((props: ITextInputProps) => {
+export const TextArea = memo((props: IPasswordInputProps) => {
   const {
     onChange,
     onBlur,
     label = '',
     value = '',
-    type = 'text',
     required = false,
     name,
     id,
@@ -40,14 +25,7 @@ export const TextInput = memo((props: ITextInputProps) => {
         <span>{label}</span>
         {required && <span>*</span>}
       </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        name={name}
-        onBlur={onBlur}
-      />
+      <textarea id={id} value={value} onChange={onChange} name={name} onBlur={onBlur} />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>
   );

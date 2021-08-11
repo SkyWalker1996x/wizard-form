@@ -1,11 +1,23 @@
 import { memo, useCallback, ChangeEvent } from 'react';
+import { FormikErrors } from 'formik';
+
+import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 
 import { UploadLabel } from './styles';
 
-import { FixTypeLater } from 'types';
+interface IFileUploadProps {
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<FormikErrors<any>> | Promise<void>;
+  name: string;
+  id: string;
+  onErrorChange: (field: string, value: string | undefined) => void;
+}
 
-export const FileUpload = memo((props: FixTypeLater) => {
-  const { onChange, name, id } = props;
+export const FileUpload = memo((props: IFileUploadProps) => {
+  const { onChange, name, id, onErrorChange } = props;
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +29,12 @@ export const FileUpload = memo((props: FixTypeLater) => {
       const file = e.target.files[0];
 
       reader.onloadend = () => {
-        onChange(name, file);
+        if (file.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
+          onErrorChange(name, 'File size should be less 1 MB');
+        } else {
+          const image = reader.result;
+          onChange(name, image);
+        }
       };
 
       if (file) {

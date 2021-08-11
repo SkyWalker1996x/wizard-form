@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import DatePickerLib from 'react-date-picker';
-import { FixTypeLater } from 'types';
 
-export const DatePickerStyled = styled<FixTypeLater>(DatePickerLib)`
+interface IDatePickerStyledProps {
+  error: boolean
+}
+
+export const DatePickerStyled = styled(DatePickerLib)<IDatePickerStyledProps>`
   // input style
   & > div {
     color: ${({ theme }) => theme.colors.gray100};

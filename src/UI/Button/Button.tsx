@@ -1,11 +1,20 @@
-import { memo } from 'react';
+import { memo, MouseEvent } from 'react';
 
 import { ButtonStyled } from './styles';
 
-import { FixTypeLater } from 'types';
+interface IButtonProps {
+  type?: 'submit' | 'reset' | 'button';
+  text: string;
+  background?: string | undefined;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
+}
 
-export const Button = memo((props: FixTypeLater) => {
-  const { type = 'button', text = '' } = props;
+export const Button = memo((props: IButtonProps) => {
+  const { type = 'button', text, background, onClick = () => {} } = props;
 
-  return <ButtonStyled type={type}>{text}</ButtonStyled>;
+  return (
+    <ButtonStyled type={type} background={background} onClick={onClick}>
+      {text}
+    </ButtonStyled>
+  );
 });

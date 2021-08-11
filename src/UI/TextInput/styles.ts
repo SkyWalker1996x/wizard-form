@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import { FixTypeLater } from 'types';
+interface ITextInputWrapperProps {
+  error?: boolean;
+}
 
-/*interface ITextInputWrapperProps {
-  error: boolean;
-}*/
-
-export const TextInputWrapper = styled<FixTypeLater>('div')`
+export const TextInputWrapper = styled('div')<ITextInputWrapperProps>`
   position: relative;
   max-width: 400px;
   width: 100%;
@@ -43,5 +41,20 @@ export const TextInputWrapper = styled<FixTypeLater>('div')`
     right: 13px;
     top: 38px;
     z-index: 1;
+  }
+  & > textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 14px;
+    color: ${({ theme }) => theme.colors.black};
+    border: 1px solid
+      ${({ error, theme }) => (error ? theme.colors.error : theme.colors.blue100)};
+    resize: none;
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.main};
+    }
   }
 `;

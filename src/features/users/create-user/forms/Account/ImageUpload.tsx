@@ -1,21 +1,33 @@
 import { memo } from 'react';
+import { FormikErrors } from 'formik';
 
 import { FileUpload } from 'UI/FileUpload';
+import { ValidationError } from 'UI/ValidationError';
 
 import { ImageUploadWrapper, ImageWrapper } from './styles';
 
 import personMark from 'assets/person-mark.svg';
 
-import { FixTypeLater } from 'types';
-import { ValidationError } from 'UI/ValidationError';
+interface IImageUploadProps {
+  id: string;
+  name: string;
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<FormikErrors<any>> | Promise<void>;
+  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  value: string | undefined;
+  onErrorChange: (field: string, value: string | undefined) => void;
+}
 
-export const ImageUpload = memo((props: FixTypeLater) => {
-  const { error, ...otherProps } = props;
+export const ImageUpload = memo((props: IImageUploadProps) => {
+  const { error, value, ...otherProps } = props;
 
   return (
     <ImageUploadWrapper>
       <ImageWrapper>
-        <img src={personMark} alt="avatar" />
+        <img src={value || personMark} alt="avatar" />
       </ImageWrapper>
 
       <FileUpload {...otherProps} />

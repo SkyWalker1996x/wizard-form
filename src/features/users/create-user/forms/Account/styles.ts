@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const AccountWrapper = styled.div`
+  padding: 65px 100px;
   display: flex;
   justify-content: space-between;
   column-gap: 15px;
@@ -32,6 +33,7 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
   text-align: center;
   & > img {
-    width: auto;
+    width: 170px;
+    height: 170px;
   }
 `;

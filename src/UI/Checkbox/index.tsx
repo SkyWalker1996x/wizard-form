@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-import { RadioButtonWrapper } from './styles';
+import { FlexWrapper } from 'UI/FlexWrapper';
 
 interface IRadioButtonProps {
   id: string;
@@ -14,13 +14,18 @@ interface IRadioButtonProps {
   };
 }
 
-export const RadioButton = (props: IRadioButtonProps) => {
+export const CheckBox = (props: IRadioButtonProps) => {
   const { id, name, value, onChange } = props;
 
   return (
-    <RadioButtonWrapper>
-      <input id={id} name={name} type="radio" onChange={onChange} value={value} />
+    <FlexWrapper
+      color={'gray200'}
+      flexDirection={'row'}
+      alignItems={'center'}
+      columnGap={'10px'}
+    >
+      <input id={id} name={name} type="checkbox" onChange={onChange} value={value} />
       <label htmlFor={id}>{value}</label>
-    </RadioButtonWrapper>
+    </FlexWrapper>
   );
 };

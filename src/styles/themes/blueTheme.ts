@@ -5,6 +5,7 @@ export const blueTheme = {
     secondary: '#E7F0FF',
 
     error: '#EB5757',
+    success: '#4EE4A5',
     shadow: '#C1CEDE',
     white: '#FFFFFF',
     black: '#000000',
@@ -14,9 +15,14 @@ export const blueTheme = {
     gray300: '#475666',
 
     blue100: '#A1C4FF',
+    blue200: '#C1CFE0',
+    blue300: '#97BAF4'
   },
   gradients: {
     main: ['#4E86E4', '#2F68C8'],
+  },
+  opacityColors: {
+    blue300: 'rgba(151, 186, 244, 0.2)',
   },
   fontSizes: {
     main: '14px',

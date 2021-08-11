@@ -1,50 +1,51 @@
-import { useCallback, useState, memo, ChangeEvent, FocusEvent } from 'react';
+import { FocusEvent, memo } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 
 import { ValidationError } from 'UI/ValidationError';
-
 import { TextInputWrapper } from 'UI/TextInput/styles';
 
-import showMark from 'assets/show-mark.svg';
-import hideMark from 'assets/hide-mark.svg';
+import { IContactsForm } from 'features/users/create-user/forms/Contacts';
 
-export interface IPasswordInputProps {
-  onChange: {
-    (e: ChangeEvent<any>): void;
-    <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
-      ? void
-      : (e: string | ChangeEvent<any>) => void;
-  };
+import { SelectStyled } from './styles';
+
+interface ISelectProps {
+  onChange: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<void> | Promise<FormikErrors<IContactsForm>>;
   onBlur: {
     (e: FocusEvent<any>): void;
     <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
   };
   label: string;
-  value: string;
+  value:
+    | { value: string; label: string }
+    | Array<{ value: string; label: string }>
+    | undefined;
+  options: Array<{ value: string; label: string }>;
   required?: boolean;
   name: string;
   id: string;
   touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
   error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  isMulti?: boolean;
 }
 
-export const PasswordInput = memo((props: IPasswordInputProps) => {
+export const Select = memo((props: ISelectProps) => {
   const {
     onChange,
     onBlur,
     label = '',
-    value = '',
+    value,
     required = false,
     name,
     id,
     error,
     touched,
+    options,
+    isMulti = false,
   } = props;
-
-  const [isVisible, setVisible] = useState(false);
-  const handleVisibleChange = useCallback(() => {
-    setVisible(prev => !prev);
-  }, []);
 
   return (
     <TextInputWrapper error={!!(touched && error)}>
@@ -52,21 +53,19 @@ export const PasswordInput = memo((props: IPasswordInputProps) => {
         <span>{label}</span>
         {required && <span>*</span>}
       </label>
-      <input
+      <SelectStyled
         id={id}
+        defaultValue={value}
+        onChange={(selectedValue: any) => onChange(name, selectedValue)}
         name={name}
-        type={isVisible ? 'text' : 'password'}
-        value={value}
-        onChange={onChange}
         onBlur={onBlur}
+        options={options}
+        classNamePrefix={'Select'}
+        components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+        isMulti={isMulti}
+        error={!!(touched && error)}
       />
       {touched && error && <ValidationError error={error} />}
-
-      <img
-        src={isVisible ? hideMark : showMark}
-        alt={isVisible ? 'hide password' : 'show password'}
-        onClick={handleVisibleChange}
-      />
     </TextInputWrapper>
   );
 });

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 
 import { useAppDispatch } from 'app/hooks';
@@ -83,6 +83,22 @@ export const CreateUserForm = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (formik.values !== initialValues) {
+      localStorage.setItem('userFormData', JSON.stringify(formik.values));
+    }
+  }, [formik.values]);
+
+  useEffect(() => {
+    const persistData = localStorage.getItem('userFormData');
+
+    if (persistData) {
+      formik.setValues(JSON.parse(persistData));
+    }
+  }, []);
+
+  console.log('values', formik.values);
 
   return (
     <PageWrapper>

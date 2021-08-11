@@ -64,8 +64,6 @@ export const Select = memo((props: ISelectProps) => {
         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
         isMulti={isMulti}
         error={!!(touched && error)}
-        defaultInputValue={value}
-        defaultMenuIsOpen={false}
       />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>

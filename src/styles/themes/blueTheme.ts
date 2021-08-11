@@ -21,6 +21,9 @@ export const blueTheme = {
   gradients: {
     main: ['#4E86E4', '#2F68C8'],
   },
+  opacityColors: {
+    blue300: 'rgba(151, 186, 244, 0.2)',
+  },
   fontSizes: {
     main: '14px',
   },

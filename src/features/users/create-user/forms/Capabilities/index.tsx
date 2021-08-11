@@ -9,6 +9,8 @@ import { CheckBox } from 'UI/Checkbox';
 import { transformArrToSelectOptions } from 'utils/data';
 import { FixTypeLater } from 'types';
 
+import { CapabilitiesWrapper } from './styles';
+
 const skillsOptions = transformArrToSelectOptions(SKILLS);
 
 export interface ICapabilitiesForm {
@@ -21,7 +23,7 @@ export const CapabilitiesForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 
   return (
-    <FlexWrapper columnGap="170px">
+    <CapabilitiesWrapper columnGap="170px">
       <FlexWrapper flexDirection="column" rowGap="24px">
         <Select
           onChange={formik.setFieldValue}
@@ -64,6 +66,6 @@ export const CapabilitiesForm = memo((props: FixTypeLater) => {
           );
         })}
       </FlexWrapper>
-    </FlexWrapper>
+    </CapabilitiesWrapper>
   );
 });

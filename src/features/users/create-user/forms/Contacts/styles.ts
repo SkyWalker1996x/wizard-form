@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import {FlexWrapper} from "UI/FlexWrapper";
+
+export const ContactsWrapper = styled(FlexWrapper)`
+  padding: 65px 100px;
+`
+
 
 export const PhoneWrapper = styled.div`
   position: relative;

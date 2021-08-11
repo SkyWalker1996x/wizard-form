@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const AccountWrapper = styled.div`
+  padding: 65px 100px;
   display: flex;
   justify-content: space-between;
   column-gap: 15px;

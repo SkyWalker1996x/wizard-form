@@ -7,10 +7,9 @@ interface IFormNavItemProps {
 
 export const FormNavigationWrapper = styled.div`
   width: 100%;
-  margin-bottom: 50px;
-  position: absolute;
+  /*position: absolute;
   top: 0;
-  left: 0;
+  left: 0;*/
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
@@ -20,9 +19,9 @@ export const FormNavItem = styled.div<IFormNavItemProps>`
   padding: 16px 5px;
   text-align: center;
   background: ${({ theme, active }) =>
-    active ? theme.colors.main : theme.colors.blue300};
+    active ? theme.colors.main : theme.opacityColors.blue300};
   color: ${({ theme, active, completed }) =>
-    active ? theme.colors.white : completed ? theme.colors.black : theme.colors.gray200};
+    active ? theme.colors.white : completed ? theme.colors.black : theme.colors.gray100};
   font-size: 24px;
   font-weight: 700;
 `;

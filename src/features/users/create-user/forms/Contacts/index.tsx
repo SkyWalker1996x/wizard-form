@@ -8,6 +8,8 @@ import { InputMask } from 'UI/InputMask';
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { Select } from 'UI/Select';
 
+import { ContactsWrapper } from './styles';
+
 import { transformObjToSelectOptions } from 'utils/data';
 import { PhonesFieldArray } from './PhonesFieldArray';
 
@@ -29,7 +31,7 @@ export const ContactsForm = memo((props: FixTypeLater) => {
 
   return (
     <FormikProvider value={formik}>
-      <FlexWrapper columnGap="170px">
+      <ContactsWrapper columnGap="170px">
         <FlexWrapper flexDirection="column" rowGap="24px">
           <TextInput
             onChange={formik.handleChange}
@@ -93,7 +95,7 @@ export const ContactsForm = memo((props: FixTypeLater) => {
 
           <PhonesFieldArray formik={formik} />
         </FlexWrapper>
-      </FlexWrapper>
+      </ContactsWrapper>
     </FormikProvider>
   );
 });

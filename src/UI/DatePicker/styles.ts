@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import DatePickerLib from 'react-date-picker';
-import { FormikErrors } from 'formik';
 
 interface IDatePickerStyledProps {
-  error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  error: boolean
 }
 
 export const DatePickerStyled = styled(DatePickerLib)<IDatePickerStyledProps>`

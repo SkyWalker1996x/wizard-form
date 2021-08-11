@@ -55,7 +55,7 @@ export const DatePicker = (props: IDatePickerProps) => {
         calendarIcon={<CalendarIcon />}
         nextLabel={<ArrowRight />}
         prevLabel={<ArrowLeft />}
-        error={error}
+        error={!!(touched && error)}
       />
 
       {touched && error && <ValidationError error={error} />}

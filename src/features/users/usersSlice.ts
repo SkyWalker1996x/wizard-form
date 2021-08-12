@@ -3,39 +3,57 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
 import { ICreateUserForm } from './create-user';
 
+interface IUsersState {
+  items: Array<ICreateUserForm>;
+  status: string;
+}
+
 export const addItem = createAsyncThunk(
   'users/addUser',
-  // @ts-ignore
   async (user: ICreateUserForm) => {
     const res = await db.table('users').add(user);
 
-    return res;
+    return res as number;
   }
 );
 
-const initialState = {
+export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
+  const res = await db.table('users').toArray();
+
+  return res as Array<ICreateUserForm>;
+});
+
+const initialState: IUsersState = {
   items: [],
-  addItemStatus: '',
+  status: '',
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
-    // init reducers for ts-requirements
-    init: (state, { payload }) => {
-      state.items = payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
+    // add user
     builder.addCase(addItem.pending, state => {
-      state.addItemStatus = 'loading';
+      state.status = 'loading';
     });
     builder.addCase(addItem.fulfilled, state => {
-      state.addItemStatus = 'success';
+      state.status = 'success';
     });
     builder.addCase(addItem.rejected, state => {
-      state.addItemStatus = 'error';
+      state.status = 'error';
+    });
+
+    // fetch users
+    builder.addCase(fetchItems.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchItems.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.items = payload;
+    });
+    builder.addCase(fetchItems.rejected, state => {
+      state.status = 'error';
     });
   },
 });

@@ -37,7 +37,7 @@ export const UserRow = (props: IUserRowProps) => {
       </UserCellWrapper>
       <UserCellWrapper>{company}</UserCellWrapper>
       <UserCellWrapper>{email}</UserCellWrapper>
-      <UserCellWrapper>{transformToRelativeTime(lastUpdate)}</UserCellWrapper>
+      <UserCellWrapper>{lastUpdate && transformToRelativeTime(lastUpdate)}</UserCellWrapper>
       <UserCellWrapper>
         <FlexWrapper columnGap="22px">
           <span onClick={() => onEditUser(id)}>

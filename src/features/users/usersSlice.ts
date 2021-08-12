@@ -4,7 +4,7 @@ import db from 'app/indexedDB';
 import { ICreateUserForm } from './create-user';
 
 interface ISendData extends ICreateUserForm {
-  lastUpdate: Date | null | undefined,
+  lastUpdate: Date | null | undefined;
 }
 
 interface IUsersState {
@@ -12,19 +12,23 @@ interface IUsersState {
   status: string;
 }
 
-export const addItem = createAsyncThunk(
-  'users/addUser',
-  async (user: ISendData) => {
-    const res = await db.table('users').add(user);
-
-    return res as number;
-  }
-);
-
 export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
   const res = await db.table('users').toArray();
 
   return res as Array<ICreateUserForm>;
+});
+
+export const addItem = createAsyncThunk('users/addUser', async (user: ISendData) => {
+  const res = await db.table('users').add(user);
+
+  return res as number;
+});
+
+export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
+  await db.table('users').where('id').equals(id).delete();
+  const fetchRes = await db.table('users').toArray();
+
+  return fetchRes as Array<ICreateUserForm>;
 });
 
 const initialState: IUsersState = {
@@ -57,6 +61,18 @@ export const usersSlice = createSlice({
       state.items = payload;
     });
     builder.addCase(fetchItems.rejected, state => {
+      state.status = 'error';
+    });
+
+    // delete user
+    builder.addCase(deleteItem.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(deleteItem.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.items = payload;
+    });
+    builder.addCase(deleteItem.rejected, state => {
       state.status = 'error';
     });
   },

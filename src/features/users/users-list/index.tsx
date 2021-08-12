@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchItems, selectUsers } from '../usersSlice';
+import { fetchItems, deleteItem, selectUsers } from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
 
@@ -12,6 +12,7 @@ export const UserListPage = () => {
 
   const onDeleteUser = useCallback((id: number) => {
     console.log('delete user with id: ', id);
+    dispatch(deleteItem(id));
   }, []);
 
   const onEditUser = useCallback((id: number) => {

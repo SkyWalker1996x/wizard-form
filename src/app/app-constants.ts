@@ -71,3 +71,12 @@ export const HEADER_NAV = [
   { id: 1, text: 'List of users', path: '/', icon: usersListMark },
   { id: 2, text: 'Add new users', path: '/create-user', icon: addUsersMark },
 ];
+
+export const USERS_LIST_HEADERS = [
+  { id: 1, title: '', value: 'avatar' },
+  { id: 2, title: 'name', value: 'name' },
+  { id: 3, title: 'company', value: 'company' },
+  { id: 4, title: 'contacts', value: 'contacts' },
+  { id: 5, title: 'last update', value: 'lastUpdate' },
+  { id: 6, title: '', value: 'actions' },
+];

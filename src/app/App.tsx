@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Header } from 'UI/Header';
 import { CreateUserForm } from 'features/users/create-user';
-import { UserList } from 'features/users/users-list';
+import { UserListPage } from 'features/users/users-list';
 
 import { blueTheme } from 'styles/themes/blueTheme';
 
@@ -13,7 +13,7 @@ const App = () => {
     <ThemeProvider theme={blueTheme}>
       <Header />
       <Switch>
-        <Route exact path="/" component={UserList} />
+        <Route exact path="/" component={UserListPage} />
         <Route exact path="/create-user" component={CreateUserForm} />
 
         <Redirect to="/" />

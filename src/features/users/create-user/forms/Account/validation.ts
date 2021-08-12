@@ -1,7 +1,7 @@
 import { FormikErrors } from 'formik';
 import db from 'app/indexedDB';
 
-import { IAccountForm } from './index';
+import { IAccountForm } from 'features/users/types';
 
 export const validate = async (values: IAccountForm) => {
   let errors: FormikErrors<IAccountForm> = {};

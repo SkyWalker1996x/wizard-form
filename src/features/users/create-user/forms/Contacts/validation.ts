@@ -1,4 +1,4 @@
-import { IContactsForm } from './index';
+import { IContactsForm } from 'features/users/types';
 import { FormikErrors } from 'formik';
 
 export const validate = async (values: IContactsForm) => {

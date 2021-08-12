@@ -1,24 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import db from 'app/indexedDB';
-import { ICreateUserForm } from './create-user';
 
-interface ISendData extends ICreateUserForm {
-  lastUpdate: Date | null | undefined;
-}
-
-interface IUsersState {
-  items: Array<ICreateUserForm>;
-  status: string;
-}
+import { IUser, ISendUserData, IUsersState } from './types';
 
 export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
   const res = await db.table('users').toArray();
 
-  return res as Array<ICreateUserForm>;
+  return res as Array<IUser>;
 });
 
-export const addItem = createAsyncThunk('users/addUser', async (user: ISendData) => {
+export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
   const res = await db.table('users').add(user);
 
   return res as number;
@@ -26,9 +17,9 @@ export const addItem = createAsyncThunk('users/addUser', async (user: ISendData)
 
 export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
   await db.table('users').where('id').equals(id).delete();
-  const fetchRes = await db.table('users').toArray();
+  const res = await db.table('users').toArray();
 
-  return fetchRes as Array<ICreateUserForm>;
+  return res as Array<IUser>;
 });
 
 const initialState: IUsersState = {

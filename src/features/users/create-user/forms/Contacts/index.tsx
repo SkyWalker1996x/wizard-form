@@ -17,14 +17,7 @@ import { FixTypeLater } from 'types';
 
 const langOptions = transformObjToSelectOptions(LANGUAGES);
 
-export interface IContactsForm {
-  company: string;
-  githubLink: string;
-  facebookLink: string;
-  mainLang: { value: string; label: string } | undefined;
-  fax: string;
-  phones: Array<string>;
-}
+
 
 export const ContactsForm = memo((props: FixTypeLater) => {
   const { formik } = props;

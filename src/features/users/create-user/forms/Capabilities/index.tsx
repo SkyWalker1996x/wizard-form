@@ -13,12 +13,6 @@ import { CapabilitiesWrapper } from './styles';
 
 const skillsOptions = transformArrToSelectOptions(SKILLS);
 
-export interface ICapabilitiesForm {
-  skills: Array<{ value: string; label: string }>;
-  addInformation: string;
-  hobbies: string[];
-}
-
 export const CapabilitiesForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 

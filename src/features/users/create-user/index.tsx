@@ -3,25 +3,20 @@ import { useFormik } from 'formik';
 
 import { useAppDispatch } from 'app/hooks';
 import { FORM_STAGES } from 'app/app-constants';
-import { addItem } from '../usersSlice';
+import { addItem } from 'features/users//usersSlice';
 import { validate } from './forms/validation';
 
-import { AccountForm, IAccountForm } from './forms/Account';
-import { ProfileForm, IProfileForm } from './forms/Profile';
-import { ContactsForm, IContactsForm } from './forms/Contacts';
-import { CapabilitiesForm, ICapabilitiesForm } from './forms/Capabilities';
+import { AccountForm } from './forms/Account';
+import { ProfileForm } from './forms/Profile';
+import { ContactsForm } from './forms/Contacts';
+import { CapabilitiesForm } from './forms/Capabilities';
 import { FormNavigation } from './forms/FormNavigation';
 import { Button } from 'UI/Button/Button';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 
 import { IFormikProps } from 'types';
-
-export interface ICreateUserForm
-  extends IAccountForm,
-    IProfileForm,
-    IContactsForm,
-    ICapabilitiesForm {}
+import { ICreateUserForm } from 'features/users/types';
 
 const initialValues: ICreateUserForm = {
   username: '',

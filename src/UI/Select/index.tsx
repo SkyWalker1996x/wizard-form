@@ -4,7 +4,7 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { ValidationError } from 'UI/ValidationError';
 import { TextInputWrapper } from 'UI/TextInput/styles';
 
-import { IContactsForm } from 'features/users/create-user/forms/Contacts';
+import { IContactsForm } from 'features/users/types';
 
 import { SelectStyled } from './styles';
 

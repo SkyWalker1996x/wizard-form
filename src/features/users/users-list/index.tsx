@@ -13,7 +13,7 @@ export const UserListPage = () => {
   const onDeleteUser = useCallback((id: number) => {
     console.log('delete user with id: ', id);
     dispatch(deleteItem(id));
-  }, []);
+  }, [dispatch]);
 
   const onEditUser = useCallback((id: number) => {
     console.log('edit user with id: ', id);
@@ -21,7 +21,7 @@ export const UserListPage = () => {
 
   useEffect(() => {
     dispatch(fetchItems());
-  }, []);
+  }, [dispatch]);
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">

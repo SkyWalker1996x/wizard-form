@@ -11,14 +11,7 @@ import { ProfileWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
-export interface IProfileForm {
-  firstName: string;
-  lastName: string;
-  birthDate: Date | null | undefined;
-  email: string;
-  address: string;
-  gender: string;
-}
+
 
 export const ProfileForm = memo((props: FixTypeLater) => {
   const { formik } = props;

@@ -3,6 +3,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
 import { ICreateUserForm } from './create-user';
 
+interface ISendData extends ICreateUserForm {
+  lastUpdate: Date | null | undefined,
+}
+
 interface IUsersState {
   items: Array<ICreateUserForm>;
   status: string;
@@ -10,7 +14,7 @@ interface IUsersState {
 
 export const addItem = createAsyncThunk(
   'users/addUser',
-  async (user: ICreateUserForm) => {
+  async (user: ISendData) => {
     const res = await db.table('users').add(user);
 
     return res as number;
@@ -57,5 +61,7 @@ export const usersSlice = createSlice({
     });
   },
 });
+
+export const selectUsers = (state: { users: IUsersState }) => state.users.items;
 
 export default usersSlice.reducer;

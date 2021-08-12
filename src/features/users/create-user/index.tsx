@@ -77,7 +77,7 @@ export const CreateUserForm = () => {
     validate: validate[activeStep - 1],
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
-        dispatch(addItem(values));
+        dispatch(addItem({ ...values, lastUpdate: new Date() }));
       } else {
         handleIncreaseStep();
       }

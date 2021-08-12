@@ -1,11 +1,22 @@
-import { useEffect } from 'react';
-import { useAppDispatch } from 'app/hooks';
-import { fetchItems } from '../usersSlice';
+import { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { fetchItems, selectUsers } from '../usersSlice';
+
+import { UsersTable } from './UsersTable';
 
 import { UserListWrapper } from './styles';
 
-export const UserList = () => {
+export const UserListPage = () => {
+  const users = useAppSelector(selectUsers);
   const dispatch = useAppDispatch();
+
+  const onDeleteUser = useCallback((id: number) => {
+    console.log('delete user with id: ', id);
+  }, []);
+
+  const onEditUser = useCallback((id: number) => {
+    console.log('edit user with id: ', id);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -15,7 +26,7 @@ export const UserList = () => {
     <UserListWrapper flexDirection="column" alignItems="center">
       <h1>List of users</h1>
 
-      <div>Table</div>
+      <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
     </UserListWrapper>
   );
 };

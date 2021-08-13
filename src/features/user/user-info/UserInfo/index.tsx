@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 
 import { Text } from 'UI/Text';
 import { FlexWrapper } from 'UI/FlexWrapper';
+
 import arrowLeftMark from 'assets/arrow-left-mark.svg';
+
+import { transformDateToReadable } from 'utils/time';
 
 import {
   HeaderUserPageWrapper,
@@ -117,7 +120,9 @@ export const UserInfo = (props: IUserInfoProps) => {
               {birthDate && (
                 <>
                   <span className="first-column">Birth date:</span>
-                  <span className="second-column">...</span>
+                  <span className="second-column">
+                    {transformDateToReadable(birthDate)}
+                  </span>
                 </>
               )}
 
@@ -207,7 +212,7 @@ export const UserInfo = (props: IUserInfoProps) => {
                   <span className="first-column">Hobbies:</span>
                   <span className="second-column">
                     {hobbies.map((item, index) => {
-                      return <span key={index}>{item};</span>;
+                      return <div key={index}>{item};</div>;
                     })}
                   </span>
                 </>

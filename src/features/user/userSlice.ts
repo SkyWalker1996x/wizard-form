@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
+import { RootState } from 'app/store';
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) => {
   const res = await db.table('users').get(+id);
@@ -8,7 +9,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) =
 });
 
 const initialState = {
-  item: {},
+  item: undefined,
   status: '',
 };
 
@@ -29,5 +30,7 @@ export const userSlice = createSlice({
     });
   },
 });
+
+export const selectUser = (state: RootState) => state.selectedUser.item;
 
 export default userSlice.reducer;

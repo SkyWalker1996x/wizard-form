@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
-import { fetchUser } from '../userSlice';
+import { fetchUser, selectUser } from '../userSlice';
+
+import { UserInfo } from './UserInfo';
 
 interface UserPageMatchParams {
   id: string;
@@ -10,12 +12,13 @@ interface UserPageMatchParams {
 
 export const UserInfoPage = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const match = useRouteMatch<UserPageMatchParams>('/user/:id');
   const id = match?.params.id;
 
   useEffect(() => {
     id && dispatch(fetchUser(id));
-  }, [id]);
+  }, [id, dispatch]);
 
-  return <h1>User Info</h1>;
+  return <div>{user && <UserInfo user={user} />}</div>;
 };

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
+import { RootState } from 'app/store';
 
 import { IUser, ISendUserData, IUsersState } from 'types/users';
 
@@ -69,6 +70,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const selectUsers = (state: { users: IUsersState }) => state.users.items;
+export const selectUsers = (state: RootState) => state.users.items;
 
 export default usersSlice.reducer;

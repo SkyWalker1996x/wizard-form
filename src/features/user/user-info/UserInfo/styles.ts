@@ -21,7 +21,7 @@ export const ContentUserPageWrapper = styled.div`
   font-weight: 500;
 `;
 
-export const ImageWrapper = styled.div`
+export const AvatarWrapper = styled.div`
   width: 100%;
   max-width: 200px;
   max-height: 200px;
@@ -51,4 +51,9 @@ export const UserFieldsWrapper = styled.div`
     color: ${({ theme }) => theme.colors.gray200};
     font-weight: 400;
   }
+`;
+
+export const StageImageWrapper = styled.span`
+  margin-top: 2px;
+  cursor: pointer;
 `;

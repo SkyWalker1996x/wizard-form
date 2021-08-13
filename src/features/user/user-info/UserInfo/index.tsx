@@ -4,15 +4,17 @@ import { Text } from 'UI/Text';
 import { FlexWrapper } from 'UI/FlexWrapper';
 
 import arrowLeftMark from 'assets/arrow-left-mark.svg';
+import editMark from 'assets/edit-mark-black.svg';
 
 import { transformDateToReadable } from 'utils/time';
 
 import {
   HeaderUserPageWrapper,
   ContentUserPageWrapper,
-  ImageWrapper,
+  AvatarWrapper,
   UserStageWrapper,
   UserFieldsWrapper,
+  StageImageWrapper,
 } from './styles';
 
 import { IUser } from 'types/users';
@@ -71,13 +73,18 @@ export const UserInfo = (props: IUserInfoProps) => {
       </HeaderUserPageWrapper>
 
       <ContentUserPageWrapper>
-        <ImageWrapper>
+        <AvatarWrapper>
           <img src={avatar} alt="avatar" />
-        </ImageWrapper>
+        </AvatarWrapper>
 
         <FlexWrapper flexDirection="column" rowGap="40px">
           <UserStageWrapper>
-            <span>Account </span>
+            <FlexWrapper columnGap="8px">
+              <span>Account</span>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </FlexWrapper>
 
             <UserFieldsWrapper>
               {username && (
@@ -93,7 +100,12 @@ export const UserInfo = (props: IUserInfoProps) => {
           </UserStageWrapper>
 
           <UserStageWrapper>
-            <span>Personal </span>
+            <FlexWrapper columnGap="8px">
+              <span>Personal</span>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </FlexWrapper>
 
             <UserFieldsWrapper>
               {gender && (
@@ -143,7 +155,12 @@ export const UserInfo = (props: IUserInfoProps) => {
           </UserStageWrapper>
 
           <UserStageWrapper>
-            <span>Contacts </span>
+            <FlexWrapper columnGap="8px">
+              <span>Contacts</span>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </FlexWrapper>
 
             <UserFieldsWrapper>
               {company && (
@@ -197,13 +214,22 @@ export const UserInfo = (props: IUserInfoProps) => {
           </UserStageWrapper>
 
           <UserStageWrapper>
-            <span>Capabilities </span>
+            <FlexWrapper columnGap="8px">
+              <span>Capabilities</span>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </FlexWrapper>
 
             <UserFieldsWrapper>
               {skills && (
                 <>
                   <span className="first-column">Skills:</span>
-                  <span className="second-column">...</span>
+                  <span className="second-column">
+                    {skills.map((item, index) => {
+                      return <span key={index}>{item.label}; </span>;
+                    })}
+                  </span>
                 </>
               )}
 

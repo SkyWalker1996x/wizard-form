@@ -3,10 +3,12 @@ import { USERS_LIST_HEADERS } from 'app/app-constants';
 import { UsersListHeader } from './Header';
 import { UserRow } from './UserRow';
 
+import { IUser } from 'types/users';
+
 import { FixTypeLater } from 'types';
 
 interface IUserTableProps {
-  users: FixTypeLater;
+  users: Array<IUser>;
   onDeleteUser: (id: number) => void;
   onEditUser: (id: number) => void;
 }

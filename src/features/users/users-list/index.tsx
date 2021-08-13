@@ -21,10 +21,13 @@ export const UserListPage = () => {
     [dispatch]
   );
 
-  const onEditUser = useCallback((id: number) => {
-    console.log('edit user with id: ', id);
-    history.push(`/user/${id}`);
-  }, []);
+  const onEditUser = useCallback(
+    (id: number) => {
+      console.log('edit user with id: ', id);
+      history.push(`/user/${id}`);
+    },
+    [history]
+  );
 
   useEffect(() => {
     dispatch(fetchItems());

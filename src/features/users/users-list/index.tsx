@@ -1,11 +1,12 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+
 import { deleteItem, fetchItems, selectUsers } from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
 
-import { UserListWrapper } from './styles';
+import { UserListWrapper, UserListTitleWrapper } from './styles';
 
 export const UserListPage = () => {
   const users = useAppSelector(selectUsers);
@@ -31,7 +32,13 @@ export const UserListPage = () => {
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">
-      <h1>List of users</h1>
+      <UserListTitleWrapper
+        text={'List of users'}
+        textAlign="center"
+        fontWeight="700"
+        fontSize="35px"
+        color="gray300"
+      />
 
       <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
     </UserListWrapper>

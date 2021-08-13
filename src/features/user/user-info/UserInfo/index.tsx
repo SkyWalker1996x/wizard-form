@@ -1,4 +1,9 @@
+import { Link } from 'react-router-dom';
+
+import { Text } from 'UI/Text';
 import { FlexWrapper } from 'UI/FlexWrapper';
+import arrowLeftMark from 'assets/arrow-left-mark.svg';
+
 import {
   HeaderUserPageWrapper,
   ContentUserPageWrapper,
@@ -6,6 +11,7 @@ import {
   UserStageWrapper,
   UserFieldsWrapper,
 } from './styles';
+
 import { IUser } from 'types/users';
 
 interface IUserInfoProps {
@@ -35,13 +41,30 @@ export const UserInfo = (props: IUserInfoProps) => {
     },
   } = props;
 
-  console.log('props', props.user);
-
   return (
     <FlexWrapper flexDirection="column" alignItems="center">
       <HeaderUserPageWrapper>
-        <span>User list</span>
-        <span>{username}</span>
+        <Link to="/">
+          <FlexWrapper alignItems="center" columnGap="10px">
+            <img src={arrowLeftMark} alt="to user list" />
+
+            <Text
+              text={'User list'}
+              textAlign="center"
+              fontWeight="700"
+              fontSize="24px"
+              color="gray100"
+            />
+          </FlexWrapper>
+        </Link>
+
+        <Text
+          text={username}
+          textAlign="center"
+          fontWeight="700"
+          fontSize="35px"
+          color="gray300"
+        />
       </HeaderUserPageWrapper>
 
       <ContentUserPageWrapper>

@@ -16,7 +16,7 @@ import { Button } from 'UI/Button/Button';
 import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 
 import { IFormikProps } from 'types';
-import { ICreateUserForm } from 'features/users/types';
+import { ICreateUserForm } from 'types/users';
 
 const initialValues: ICreateUserForm = {
   username: '',

@@ -1,5 +1,5 @@
 import { FormikErrors } from 'formik';
-import { IProfileForm } from 'features/users/types';
+import { IProfileForm } from 'types/users';
 
 import db from 'app/indexedDB';
 import { EIGHTEEN_YEARS_IN_MS } from 'app/app-constants';

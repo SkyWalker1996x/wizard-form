@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
 
-import { IUser, ISendUserData, IUsersState } from './types';
+import { IUser, ISendUserData, IUsersState } from 'types/users';
 
 export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
   const res = await db.table('users').toArray();

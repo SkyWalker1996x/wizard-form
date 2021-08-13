@@ -11,8 +11,8 @@ export const UserListPage = () => {
   const dispatch = useAppDispatch();
 
   const onDeleteUser = useCallback((id: number) => {
-    console.log('delete user with id: ', id);
-    dispatch(deleteItem(id));
+    const isConfirm = window.confirm('Do you really want to delete this user?')
+    isConfirm && dispatch(deleteItem(id));
   }, [dispatch]);
 
   const onEditUser = useCallback((id: number) => {

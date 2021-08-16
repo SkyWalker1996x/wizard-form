@@ -23,7 +23,7 @@ export interface IContactsForm {
 export interface IProfileForm {
     firstName: string;
     lastName: string;
-    birthDate: Date | null | undefined;
+    birthDate: number | null | undefined;
     email: string;
     address: string;
     gender: string;

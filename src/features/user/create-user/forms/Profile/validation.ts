@@ -4,8 +4,10 @@ import { IProfileForm } from 'types/users';
 import db from 'app/indexedDB';
 import { EIGHTEEN_YEARS_IN_MS } from 'app/app-constants';
 
-const isAdult = (date: Date) => {
-  const birthDateInMs = date.getTime();
+const isAdult = (date: number) => {
+  const dateFormat = new Date(date);
+
+  const birthDateInMs = dateFormat.getTime();
   const todayInMs = new Date().getTime();
 
   return todayInMs - birthDateInMs > EIGHTEEN_YEARS_IN_MS;

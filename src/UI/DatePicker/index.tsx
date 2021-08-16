@@ -43,8 +43,8 @@ export const DatePicker = (props: IDatePickerProps) => {
       </label>
       <DatePickerStyled
         name={name}
-        onChange={(val: Date) => onChange(name, val)}
-        value={value}
+        onChange={(val: Date) => onChange(name, val.getTime())}
+        value={value && new Date(value)}
         format={format}
         dayPlaceholder="DD"
         monthPlaceholder="MM"

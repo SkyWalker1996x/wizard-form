@@ -59,6 +59,7 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
 };
 
 export const CreateUserForm = () => {
+  // const [hasPersistedData, setPersistedData] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -99,7 +100,7 @@ export const CreateUserForm = () => {
       window.removeEventListener('popstate', saveToLocalStorage);
       historyListener();
     };
-  }, [formik.values]);
+  }, [formik.values, history, saveToLocalStorage]);
 
   useEffect(() => {
     const persistData = localStorage.getItem('userFormData');

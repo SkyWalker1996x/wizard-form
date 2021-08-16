@@ -9,13 +9,6 @@ import { AccountWrapper, InputGroupWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
-/*export interface IAccountForm {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  avatar: string | undefined;
-}*/
-
 export const AccountForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 

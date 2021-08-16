@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 
 import { useAppDispatch } from 'app/hooks';
@@ -61,14 +61,6 @@ export const CreateUserForm = () => {
   const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
 
-  const handleIncreaseStep = () => {
-    setActiveStep(prev => prev + 1);
-  };
-
-  const handleDecreaseStep = () => {
-    setActiveStep(prev => prev - 1);
-  };
-
   const formik = useFormik({
     initialValues,
     validate: validate[activeStep - 1],
@@ -80,6 +72,36 @@ export const CreateUserForm = () => {
       }
     },
   });
+
+  const handleIncreaseStep = () => {
+    setActiveStep(prev => prev + 1);
+    formik.setTouched({});
+    formik.setSubmitting(false);
+  };
+
+  const handleDecreaseStep = () => {
+    setActiveStep(prev => prev - 1);
+  };
+
+  const saveToLocalStorage = useCallback(() => {
+    localStorage.setItem('userFormData', JSON.stringify(formik.values));
+  }, [formik.values]);
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', saveToLocalStorage);
+
+    return () => {
+      window.removeEventListener('beforeunload', saveToLocalStorage);
+    };
+  }, [formik.values]);
+
+  useEffect(() => {
+    const persistData = localStorage.getItem('userFormData');
+
+    if (persistData) {
+      formik.setValues(JSON.parse(persistData));
+    }
+  }, []);
 
   return (
     <PageWrapper>
@@ -102,7 +124,12 @@ export const CreateUserForm = () => {
 
         <ButtonWrapper>
           {activeStep !== 1 && (
-            <Button text="Back" background={'blue200'} onClick={handleDecreaseStep} />
+            <Button
+              type="button"
+              text="Back"
+              background={'blue200'}
+              onClick={handleDecreaseStep}
+            />
           )}
           <Button
             type="submit"

@@ -11,6 +11,7 @@ export interface IGPACProps {
   name: string;
   label?: string;
   required: boolean;
+  defaultValue: string,
   onChange?: (
     field: string,
     value: any,

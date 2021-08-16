@@ -11,8 +11,6 @@ import { ProfileWrapper } from './styles';
 
 import { FixTypeLater } from 'types';
 
-
-
 export const ProfileForm = memo((props: FixTypeLater) => {
   const { formik } = props;
 
@@ -62,6 +60,7 @@ export const ProfileForm = memo((props: FixTypeLater) => {
         name="address"
         label="Address"
         required={true}
+        defaultValue={formik.values.address}
         onChange={formik.setFieldValue}
       />
 
@@ -86,12 +85,14 @@ export const ProfileForm = memo((props: FixTypeLater) => {
             name="gender"
             value="Male"
             onChange={formik.handleChange}
+            checked={formik.values.gender === 'Male'}
           />
           <RadioButton
             id="female"
             name="gender"
             value="Female"
             onChange={formik.handleChange}
+            checked={formik.values.gender === 'Female'}
           />
         </FlexWrapper>
       </RadioButtonGroup>

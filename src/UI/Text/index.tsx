@@ -7,6 +7,7 @@ interface ITextProps {
   color?: string;
   fontSize?: string;
   fontWeight?: string;
+  cursor?: string;
 }
 
 export const Text = (props: ITextProps) => {

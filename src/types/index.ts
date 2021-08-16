@@ -1,6 +1,6 @@
 import { FocusEvent, ChangeEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik/dist/types';
-import { ICreateUserForm } from 'features/users/create-user';
+import { ICreateUserForm } from 'types/users';
 
 export type FixTypeLater = any;
 

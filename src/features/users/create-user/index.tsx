@@ -3,25 +3,22 @@ import { useFormik } from 'formik';
 
 import { useAppDispatch } from 'app/hooks';
 import { FORM_STAGES } from 'app/app-constants';
-import { addItem } from '../usersSlice';
+import { addItem } from 'features/users//usersSlice';
 import { validate } from './forms/validation';
 
-import { AccountForm, IAccountForm } from './forms/Account';
-import { ProfileForm, IProfileForm } from './forms/Profile';
-import { ContactsForm, IContactsForm } from './forms/Contacts';
-import { CapabilitiesForm, ICapabilitiesForm } from './forms/Capabilities';
+import { AccountForm } from './forms/Account';
+import { ProfileForm } from './forms/Profile';
+import { ContactsForm } from './forms/Contacts';
+import { CapabilitiesForm } from './forms/Capabilities';
 import { FormNavigation } from './forms/FormNavigation';
 import { Button } from 'UI/Button/Button';
+import { Text } from 'UI/Text';
 
 import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
+import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
 import { IFormikProps } from 'types';
-
-export interface ICreateUserForm
-  extends IAccountForm,
-    IProfileForm,
-    IContactsForm,
-    ICapabilitiesForm {}
+import { ICreateUserForm } from 'types/users';
 
 const initialValues: ICreateUserForm = {
   username: '',
@@ -77,7 +74,7 @@ export const CreateUserForm = () => {
     validate: validate[activeStep - 1],
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
-        dispatch(addItem(values));
+        dispatch(addItem({ ...values, lastUpdate: new Date() }));
       } else {
         handleIncreaseStep();
       }
@@ -86,7 +83,17 @@ export const CreateUserForm = () => {
 
   return (
     <PageWrapper>
-      <h2>Adding user</h2>
+      <HeaderUserPageWrapper>
+        <div />
+
+        <Text
+          text={'Adding user'}
+          textAlign="center"
+          fontWeight="700"
+          fontSize="35px"
+          color="gray300"
+        />
+      </HeaderUserPageWrapper>
 
       <FormWrapper onSubmit={formik.handleSubmit}>
         <FormNavigation activeStep={activeStep} />

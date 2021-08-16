@@ -1,9 +1,8 @@
 import { FormikErrors } from 'formik';
+import { IProfileForm } from 'types/users';
 
 import db from 'app/indexedDB';
 import { EIGHTEEN_YEARS_IN_MS } from 'app/app-constants';
-
-import { IProfileForm } from './index';
 
 const isAdult = (date: Date) => {
   const birthDateInMs = date.getTime();

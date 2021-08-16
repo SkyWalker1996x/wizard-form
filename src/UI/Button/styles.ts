@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 interface IButtonStyledProps {
-  background: string | undefined;
+  background?: string | undefined;
+  width?: string;
 }
 
 export const ButtonStyled = styled('button')<IButtonStyledProps>`
-  width: 110px;
+  width: ${({ width }) => (width ? width : '110px')};
   padding: 12px 30px;
   background: ${({ theme, background }) =>
     background ? theme.colors[background] : theme.colors.main};

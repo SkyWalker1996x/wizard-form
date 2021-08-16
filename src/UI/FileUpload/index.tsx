@@ -41,7 +41,7 @@ export const FileUpload = memo((props: IFileUploadProps) => {
         reader.readAsDataURL(file);
       }
     },
-    [name, onChange]
+    [name, onChange, onErrorChange]
   );
 
   return (

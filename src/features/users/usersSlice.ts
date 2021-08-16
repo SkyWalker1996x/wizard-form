@@ -1,43 +1,76 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import db from 'app/indexedDB';
-import { ICreateUserForm } from './create-user';
+import { RootState } from 'app/store';
 
-export const addItem = createAsyncThunk(
-  'users/addUser',
-  // @ts-ignore
-  async (user: ICreateUserForm) => {
-    const res = await db.table('users').add(user);
+import { IUser, ISendUserData, IUsersState } from 'types/users';
 
-    return res;
-  }
-);
+export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
+  const res = await db.table('users').toArray();
 
-const initialState = {
+  return res as Array<IUser>;
+});
+
+export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
+  const res = await db.table('users').add(user);
+
+  return res as number;
+});
+
+export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
+  await db.table('users').where('id').equals(id).delete();
+  const res = await db.table('users').toArray();
+
+  return res as Array<IUser>;
+});
+
+const initialState: IUsersState = {
   items: [],
-  addItemStatus: '',
+  status: '',
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
-    // init reducers for ts-requirements
-    init: (state, { payload }) => {
-      state.items = payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
+    // add user
     builder.addCase(addItem.pending, state => {
-      state.addItemStatus = 'loading';
+      state.status = 'loading';
     });
     builder.addCase(addItem.fulfilled, state => {
-      state.addItemStatus = 'success';
+      state.status = 'success';
     });
     builder.addCase(addItem.rejected, state => {
-      state.addItemStatus = 'error';
+      state.status = 'error';
+    });
+
+    // fetch users
+    builder.addCase(fetchItems.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchItems.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.items = payload;
+    });
+    builder.addCase(fetchItems.rejected, state => {
+      state.status = 'error';
+    });
+
+    // delete user
+    builder.addCase(deleteItem.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(deleteItem.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.items = payload;
+    });
+    builder.addCase(deleteItem.rejected, state => {
+      state.status = 'error';
     });
   },
 });
+
+export const selectUsers = (state: RootState) => state.users.items;
+export const selectUsersStatus = (state: RootState) => state.users.status;
 
 export default usersSlice.reducer;

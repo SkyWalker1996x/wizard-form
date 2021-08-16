@@ -19,5 +19,4 @@ export const FlexWrapper = styled('div')<IFlexWrapperProps>`
   align-items: ${props => (props.alignItems ? props.alignItems : 'flex-start')};
   row-gap: ${props => (props.rowGap ? props.rowGap : '0')};
   column-gap: ${props => (props.columnGap ? props.columnGap : '0')};
-  color: ${({ theme, color }) => (color ? color : theme.colors.gray200)};
 `;

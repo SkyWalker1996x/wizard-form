@@ -1,4 +1,4 @@
-import { ICapabilitiesForm } from './index';
+import {ICapabilitiesForm} from "types/users";
 import { FormikErrors } from 'formik';
 
 export const validate = async (values: ICapabilitiesForm) => {

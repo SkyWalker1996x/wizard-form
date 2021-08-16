@@ -7,14 +7,11 @@ interface IButtonProps {
   text: string;
   background?: string | undefined;
   onClick?: (e: MouseEvent<HTMLElement>) => void;
+  width?: string;
 }
 
 export const Button = memo((props: IButtonProps) => {
-  const { type = 'button', text, background, onClick = () => {} } = props;
+  const { text } = props;
 
-  return (
-    <ButtonStyled type={type} background={background} onClick={onClick}>
-      {text}
-    </ButtonStyled>
-  );
+  return <ButtonStyled {...props}>{text}</ButtonStyled>;
 });

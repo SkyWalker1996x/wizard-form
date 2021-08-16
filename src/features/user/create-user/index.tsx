@@ -22,6 +22,12 @@ import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 import { IFormikProps } from 'types';
 import { ICreateUserForm, IUser } from 'types/users';
 
+interface IPersistedDataState {
+  data: IUser | undefined;
+  status: boolean;
+  stage: number | undefined;
+}
+
 const initialValues: ICreateUserForm = {
   username: '',
   password: '',
@@ -60,12 +66,10 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
 };
 
 export const CreateUserForm = () => {
-  const [persistedData, setPersistedData] = useState<{
-    data: IUser | undefined;
-    status: boolean;
-  }>({
+  const [persistedData, setPersistedData] = useState<IPersistedDataState>({
     data: undefined,
     status: false,
+    stage: undefined,
   });
   const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
@@ -95,13 +99,18 @@ export const CreateUserForm = () => {
 
   const saveFormDataToLocalStorage = useCallback(() => {
     if (formik.values !== initialValues) {
-      localStorage.setItem('userFormData', JSON.stringify(formik.values));
+      localStorage.setItem(
+        'userFormData',
+        JSON.stringify({ data: formik.values, stage: activeStep })
+      );
     }
-  }, [formik.values]);
+  }, [formik.values, activeStep]);
 
   const handleLoadFormData = useCallback(() => {
-    if (persistedData.data !== undefined) {
+    if (persistedData.data !== undefined && persistedData.stage !== undefined) {
+      setActiveStep(persistedData.stage);
       formik.setValues(persistedData.data);
+
       setPersistedData(prev => {
         return {
           ...prev,
@@ -112,10 +121,13 @@ export const CreateUserForm = () => {
   }, [persistedData]);
 
   useEffect(() => {
-    const persistData = localStorage.getItem('userFormData');
+    const persistedData = localStorage.getItem('userFormData');
 
-    if (persistData) {
-      setPersistedData({ data: JSON.parse(persistData), status: true });
+    if (persistedData) {
+      const parsedPersistedData: { data: IUser; stage: number } =
+        JSON.parse(persistedData);
+
+      setPersistedData({ ...parsedPersistedData, status: true });
     }
   }, []);
 

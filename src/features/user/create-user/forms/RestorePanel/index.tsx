@@ -6,10 +6,11 @@ import closeMark from 'assets/close-mark.svg';
 
 interface IRestorePanelProps {
   handleLoadFormData: () => void;
+  handleRemoveFormData: () => void;
 }
 
 export const RestorePanel = (props: IRestorePanelProps) => {
-  const { handleLoadFormData } = props;
+  const { handleLoadFormData, handleRemoveFormData } = props;
 
   return (
     <RestorePanelWrapper>
@@ -31,7 +32,7 @@ export const RestorePanel = (props: IRestorePanelProps) => {
         />
       </FlexWrapper>
 
-      <CloseWrapper>
+      <CloseWrapper onClick={handleRemoveFormData}>
         <img src={closeMark} alt="close" />
       </CloseWrapper>
     </RestorePanelWrapper>

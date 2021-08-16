@@ -12,6 +12,7 @@ export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
 
 export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
   const res = await db.table('users').add(user);
+  await localStorage.removeItem('userFormData');
 
   return res as number;
 });

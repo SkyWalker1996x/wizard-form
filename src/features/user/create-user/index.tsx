@@ -81,6 +81,7 @@ export const CreateUserForm = () => {
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
         dispatch(addItem({ ...values, lastUpdate: new Date() }));
+        history.push('/');
       } else {
         handleIncreaseStep();
       }
@@ -106,6 +107,10 @@ export const CreateUserForm = () => {
     }
   }, [formik.values, activeStep]);
 
+  const removeFormDataFromLocalStorage = useCallback(() => {
+    localStorage.removeItem('userFormData');
+  }, []);
+
   const handleLoadFormData = useCallback(() => {
     if (persistedData.data !== undefined && persistedData.stage !== undefined) {
       setActiveStep(persistedData.stage);
@@ -119,6 +124,16 @@ export const CreateUserForm = () => {
       });
     }
   }, [persistedData]);
+
+  const handleRemoveFormData = useCallback(() => {
+    removeFormDataFromLocalStorage();
+    setPersistedData(prev => {
+      return {
+        ...prev,
+        status: false,
+      };
+    });
+  }, []);
 
   useEffect(() => {
     const persistedData = localStorage.getItem('userFormData');
@@ -162,7 +177,12 @@ export const CreateUserForm = () => {
 
       <FormWrapper onSubmit={formik.handleSubmit}>
         <FormNavigation activeStep={activeStep} />
-        {persistedData.status && <RestorePanel handleLoadFormData={handleLoadFormData} />}
+        {persistedData.status && (
+          <RestorePanel
+            handleLoadFormData={handleLoadFormData}
+            handleRemoveFormData={handleRemoveFormData}
+          />
+        )}
 
         {renderStepContent(activeStep, formik)}
 

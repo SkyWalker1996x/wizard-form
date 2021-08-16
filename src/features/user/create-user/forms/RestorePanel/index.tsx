@@ -4,7 +4,13 @@ import { RestorePanelWrapper, CloseWrapper } from './styles';
 
 import closeMark from 'assets/close-mark.svg';
 
-export const RestorePanel = () => {
+interface IRestorePanelProps {
+  handleLoadFormData: () => void;
+}
+
+export const RestorePanel = (props: IRestorePanelProps) => {
+  const { handleLoadFormData } = props;
+
   return (
     <RestorePanelWrapper>
       <FlexWrapper columnGap="11px">
@@ -20,7 +26,7 @@ export const RestorePanel = () => {
           fontSize="14px"
           fontWeight="900"
           color="white"
-          onClick={() => console.log('Continue')}
+          onClick={handleLoadFormData}
           cursor="pointer"
         />
       </FlexWrapper>

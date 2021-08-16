@@ -12,6 +12,7 @@ import { ProfileForm } from './forms/Profile';
 import { ContactsForm } from './forms/Contacts';
 import { CapabilitiesForm } from './forms/Capabilities';
 import { FormNavigation } from './forms/FormNavigation';
+import { RestorePanel } from './forms/RestorePanel';
 import { Button } from 'UI/Button/Button';
 import { Text } from 'UI/Text';
 
@@ -19,7 +20,7 @@ import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
 import { IFormikProps } from 'types';
-import { ICreateUserForm } from 'types/users';
+import { ICreateUserForm, IUser } from 'types/users';
 
 const initialValues: ICreateUserForm = {
   username: '',
@@ -59,7 +60,13 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
 };
 
 export const CreateUserForm = () => {
-  // const [hasPersistedData, setPersistedData] = useState(false);
+  const [persistedData, setPersistedData] = useState<{
+    data: IUser | undefined;
+    status: boolean;
+  }>({
+    data: undefined,
+    status: false,
+  });
   const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -86,29 +93,43 @@ export const CreateUserForm = () => {
     setActiveStep(prev => prev - 1);
   }, []);
 
-  const saveToLocalStorage = useCallback(() => {
-    localStorage.setItem('userFormData', JSON.stringify(formik.values));
+  const saveFormDataToLocalStorage = useCallback(() => {
+    if (formik.values !== initialValues) {
+      localStorage.setItem('userFormData', JSON.stringify(formik.values));
+    }
   }, [formik.values]);
 
-  useEffect(() => {
-    const historyListener = history.listen(() => {
-      saveToLocalStorage();
-    });
-    window.addEventListener('beforeunload', saveToLocalStorage);
-
-    return () => {
-      window.removeEventListener('popstate', saveToLocalStorage);
-      historyListener();
-    };
-  }, [formik.values, history, saveToLocalStorage]);
+  const handleLoadFormData = useCallback(() => {
+    if (persistedData.data !== undefined) {
+      formik.setValues(persistedData.data);
+      setPersistedData(prev => {
+        return {
+          ...prev,
+          status: false,
+        };
+      });
+    }
+  }, [persistedData]);
 
   useEffect(() => {
     const persistData = localStorage.getItem('userFormData');
 
     if (persistData) {
-      formik.setValues(JSON.parse(persistData));
+      setPersistedData({ data: JSON.parse(persistData), status: true });
     }
   }, []);
+
+  useEffect(() => {
+    const historyListener = history.listen(() => {
+      saveFormDataToLocalStorage();
+    });
+    window.addEventListener('beforeunload', saveFormDataToLocalStorage);
+
+    return () => {
+      window.removeEventListener('popstate', saveFormDataToLocalStorage);
+      historyListener();
+    };
+  }, [formik.values, history, saveFormDataToLocalStorage]);
 
   return (
     <PageWrapper>
@@ -126,6 +147,7 @@ export const CreateUserForm = () => {
 
       <FormWrapper onSubmit={formik.handleSubmit}>
         <FormNavigation activeStep={activeStep} />
+        {persistedData.status && <RestorePanel handleLoadFormData={handleLoadFormData} />}
 
         {renderStepContent(activeStep, formik)}
 

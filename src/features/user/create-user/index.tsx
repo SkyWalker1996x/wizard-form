@@ -66,6 +66,7 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
 };
 
 export const CreateUserForm = () => {
+  const [isFormSubmit, setFormSubmit] = useState(false);
   const [persistedData, setPersistedData] = useState<IPersistedDataState>({
     data: undefined,
     status: false,
@@ -80,6 +81,7 @@ export const CreateUserForm = () => {
     validate: validate[activeStep - 1],
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
+        setFormSubmit(true);
         dispatch(addItem({ ...values, lastUpdate: new Date() }));
         history.push('/');
       } else {
@@ -148,7 +150,9 @@ export const CreateUserForm = () => {
 
   useEffect(() => {
     const historyListener = history.listen(() => {
-      saveFormDataToLocalStorage();
+      if (!isFormSubmit) {
+        saveFormDataToLocalStorage();
+      }
     });
 
     if (formik.values !== initialValues) {
@@ -159,7 +163,7 @@ export const CreateUserForm = () => {
       window.removeEventListener('popstate', saveFormDataToLocalStorage);
       historyListener();
     };
-  }, [formik.values, history, saveFormDataToLocalStorage]);
+  }, [formik.values, history, saveFormDataToLocalStorage, isFormSubmit]);
 
   return (
     <PageWrapper>

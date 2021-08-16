@@ -6,6 +6,7 @@ interface IRadioButtonProps {
   id: string;
   name: string;
   value: string;
+  checked: boolean;
   onChange: {
     (e: ChangeEvent<any>): void;
     <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
@@ -15,7 +16,7 @@ interface IRadioButtonProps {
 }
 
 export const CheckBox = (props: IRadioButtonProps) => {
-  const { id, name, value, onChange } = props;
+  const { id, name, value, onChange, checked } = props;
 
   return (
     <FlexWrapper
@@ -24,7 +25,7 @@ export const CheckBox = (props: IRadioButtonProps) => {
       alignItems={'center'}
       columnGap={'10px'}
     >
-      <input id={id} name={name} type="checkbox" onChange={onChange} value={value} />
+      <input id={id} name={name} type="checkbox" onChange={onChange} value={value} checked={checked}/>
       <label htmlFor={id}>{value}</label>
     </FlexWrapper>
   );

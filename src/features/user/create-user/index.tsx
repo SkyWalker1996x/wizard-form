@@ -98,7 +98,7 @@ export const CreateUserForm = () => {
   }, []);
 
   const saveFormDataToLocalStorage = useCallback(() => {
-    if (formik.values !== initialValues) {
+    if (JSON.stringify(formik.values) !== JSON.stringify(initialValues)) {
       localStorage.setItem(
         'userFormData',
         JSON.stringify({ data: formik.values, stage: activeStep })
@@ -135,7 +135,10 @@ export const CreateUserForm = () => {
     const historyListener = history.listen(() => {
       saveFormDataToLocalStorage();
     });
-    window.addEventListener('beforeunload', saveFormDataToLocalStorage);
+
+    if (formik.values !== initialValues) {
+      window.addEventListener('beforeunload', saveFormDataToLocalStorage);
+    }
 
     return () => {
       window.removeEventListener('popstate', saveFormDataToLocalStorage);

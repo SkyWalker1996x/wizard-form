@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { useAppDispatch } from 'app/hooks';
 import { FORM_STAGES } from 'app/app-constants';
@@ -60,6 +61,7 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
 export const CreateUserForm = () => {
   const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues,
@@ -73,25 +75,29 @@ export const CreateUserForm = () => {
     },
   });
 
-  const handleIncreaseStep = () => {
+  const handleIncreaseStep = useCallback(() => {
     setActiveStep(prev => prev + 1);
     formik.setTouched({});
     formik.setSubmitting(false);
-  };
+  }, []);
 
-  const handleDecreaseStep = () => {
+  const handleDecreaseStep = useCallback(() => {
     setActiveStep(prev => prev - 1);
-  };
+  }, []);
 
   const saveToLocalStorage = useCallback(() => {
     localStorage.setItem('userFormData', JSON.stringify(formik.values));
   }, [formik.values]);
 
   useEffect(() => {
+    const historyListener = history.listen(() => {
+      saveToLocalStorage();
+    });
     window.addEventListener('beforeunload', saveToLocalStorage);
 
     return () => {
-      window.removeEventListener('beforeunload', saveToLocalStorage);
+      window.removeEventListener('popstate', saveToLocalStorage);
+      historyListener();
     };
   }, [formik.values]);
 

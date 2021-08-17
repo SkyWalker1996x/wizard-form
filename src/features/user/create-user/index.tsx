@@ -57,7 +57,7 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
     case 2:
       return <ProfileForm />;
     case 3:
-      return <ContactsForm formik={formik} />;
+      return <ContactsForm />;
     case 4:
       return <CapabilitiesForm formik={formik} />;
     default:

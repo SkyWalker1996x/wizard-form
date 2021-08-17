@@ -1,4 +1,4 @@
-import {FieldArray, useFormikContext} from 'formik';
+import { FieldArray, useFormikContext } from 'formik';
 
 import { InputMask } from 'UI/InputMask';
 
@@ -7,12 +7,10 @@ import { PhoneWrapper } from './styles';
 import minusMark from 'assets/minus-mark.svg';
 import addMark from 'assets/add-mark.svg';
 
-import { FixTypeLater } from 'types';
+import { ICreateUserForm } from 'types/users';
 
-export const PhonesFieldArray = (props: FixTypeLater) => {
-  const { formik } = props;
-    const testFormik = useFormikContext();
-    console.log('testFormik', testFormik);
+export const PhonesFieldArray = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
     <FieldArray

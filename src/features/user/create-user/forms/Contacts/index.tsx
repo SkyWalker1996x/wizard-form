@@ -1,5 +1,4 @@
-import { memo } from 'react';
-import { FormikProvider } from 'formik';
+import { useFormikContext } from 'formik';
 
 import { LANGUAGES } from 'app/app-constants';
 
@@ -13,82 +12,78 @@ import { ContactsWrapper } from './styles';
 import { transformObjToSelectOptions } from 'utils/data';
 import { PhonesFieldArray } from './PhonesFieldArray';
 
-import { FixTypeLater } from 'types';
+import { ICreateUserForm } from 'types/users';
 
 const langOptions = transformObjToSelectOptions(LANGUAGES);
 
-
-
-export const ContactsForm = memo((props: FixTypeLater) => {
-  const { formik } = props;
+export const ContactsForm = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
-    <FormikProvider value={formik}>
-      <ContactsWrapper columnGap="170px">
-        <FlexWrapper flexDirection="column" rowGap="24px">
-          <TextInput
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            label="Company"
-            value={formik.values.company}
-            name="company"
-            id="company"
-            touched={formik.touched.company}
-            error={formik.errors.company}
-            required={true}
-          />
+    <ContactsWrapper columnGap="170px">
+      <FlexWrapper flexDirection="column" rowGap="24px">
+        <TextInput
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Company"
+          value={formik.values.company}
+          name="company"
+          id="company"
+          touched={formik.touched.company}
+          error={formik.errors.company}
+          required={true}
+        />
 
-          <TextInput
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            label="Github Link"
-            value={formik.values.githubLink}
-            name="githubLink"
-            id="githubLink"
-            touched={formik.touched.githubLink}
-            error={formik.errors.githubLink}
-          />
+        <TextInput
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Github Link"
+          value={formik.values.githubLink}
+          name="githubLink"
+          id="githubLink"
+          touched={formik.touched.githubLink}
+          error={formik.errors.githubLink}
+        />
 
-          <TextInput
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            label="Facebook Link"
-            value={formik.values.facebookLink}
-            name="facebookLink"
-            id="facebookLink"
-            touched={formik.touched.facebookLink}
-            error={formik.errors.facebookLink}
-          />
+        <TextInput
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Facebook Link"
+          value={formik.values.facebookLink}
+          name="facebookLink"
+          id="facebookLink"
+          touched={formik.touched.facebookLink}
+          error={formik.errors.facebookLink}
+        />
 
-          <Select
-            onChange={formik.setFieldValue}
-            onBlur={formik.handleBlur}
-            label="Main Language"
-            value={formik.values.mainLang}
-            options={langOptions}
-            name={'mainLang'}
-            id={'mainLang'}
-            touched={formik.touched.mainLang}
-            error={formik.errors.mainLang}
-            required={true}
-          />
-        </FlexWrapper>
+        <Select
+          onChange={formik.setFieldValue}
+          onBlur={formik.handleBlur}
+          label="Main Language"
+          value={formik.values.mainLang}
+          options={langOptions}
+          name={'mainLang'}
+          id={'mainLang'}
+          touched={formik.touched.mainLang}
+          error={formik.errors.mainLang}
+          required={true}
+        />
+      </FlexWrapper>
 
-        <FlexWrapper flexDirection="column" rowGap="24px">
-          <InputMask
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            label="Fax"
-            value={formik.values.fax}
-            name="fax"
-            id="fax"
-            touched={formik.touched.fax}
-            error={formik.errors.fax}
-          />
+      <FlexWrapper flexDirection="column" rowGap="24px">
+        <InputMask
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Fax"
+          value={formik.values.fax}
+          name="fax"
+          id="fax"
+          touched={formik.touched.fax}
+          error={formik.errors.fax}
+        />
 
-          <PhonesFieldArray formik={formik} />
-        </FlexWrapper>
-      </ContactsWrapper>
-    </FormikProvider>
+        <PhonesFieldArray />
+      </FlexWrapper>
+    </ContactsWrapper>
   );
-});
+};

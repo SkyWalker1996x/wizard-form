@@ -8,14 +8,11 @@ import { ContactsForm } from 'features/user/create-user/forms/Contacts';
 import { CapabilitiesForm } from 'features/user/create-user/forms/Capabilities';
 import { FormNavigation } from 'features/user/create-user/forms/FormNavigation';
 import { Button } from 'UI/Button/Button';
-import { Text } from 'UI/Text';
 
 import {
   ButtonWrapper,
   FormWrapper,
-  PageWrapper,
 } from 'features/user/create-user/forms/styles';
-import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
 import { IUser } from 'types/users';
 
@@ -37,6 +34,7 @@ const renderStepContent = (step: number) => {
 interface IEditUserForm {
   initialValues: IUser;
   activeStep: number;
+  handleChangeActiveStep: (value: null | number) => void;
 }
 
 export const EditUserForm = (props: IEditUserForm) => {
@@ -51,30 +49,16 @@ export const EditUserForm = (props: IEditUserForm) => {
   });
 
   return (
-    <PageWrapper>
-      <HeaderUserPageWrapper>
-        <div />
+    <FormikProvider value={formik}>
+      <FormWrapper onSubmit={formik.handleSubmit}>
+        <FormNavigation activeStep={activeStep} />
 
-        <Text
-          text={'Adding user'}
-          textAlign="center"
-          fontWeight="700"
-          fontSize="35px"
-          color="gray300"
-        />
-      </HeaderUserPageWrapper>
+        {renderStepContent(activeStep)}
 
-      <FormikProvider value={formik}>
-        <FormWrapper onSubmit={formik.handleSubmit}>
-          <FormNavigation activeStep={activeStep} />
-
-          {renderStepContent(activeStep)}
-
-          <ButtonWrapper>
-            <Button type="submit" text={'Save'} background={'success'} />
-          </ButtonWrapper>
-        </FormWrapper>
-      </FormikProvider>
-    </PageWrapper>
+        <ButtonWrapper>
+          <Button type="submit" text={'Save'} background={'success'} />
+        </ButtonWrapper>
+      </FormWrapper>
+    </FormikProvider>
   );
 };

@@ -1,15 +1,10 @@
-import { Link } from 'react-router-dom';
-
-import { Text } from 'UI/Text';
 import { FlexWrapper } from 'UI/FlexWrapper';
 
-import arrowLeftMark from 'assets/arrow-left-mark.svg';
 import editMark from 'assets/edit-mark-black.svg';
 
 import { transformDateToReadable } from 'utils/time';
 
 import {
-  HeaderUserPageWrapper,
   ContentUserPageWrapper,
   AvatarWrapper,
   UserStageWrapper,
@@ -21,6 +16,7 @@ import { IUser } from 'types/users';
 
 interface IUserInfoProps {
   user: IUser;
+  handleChangeActiveStep: (value: null | number) => void;
 }
 
 export const UserInfo = (props: IUserInfoProps) => {
@@ -44,216 +40,191 @@ export const UserInfo = (props: IUserInfoProps) => {
       phones,
       username,
     },
+    handleChangeActiveStep,
   } = props;
 
   return (
-    <FlexWrapper flexDirection="column" alignItems="center">
-      <HeaderUserPageWrapper>
-        <Link to="/">
-          <FlexWrapper alignItems="center" columnGap="10px">
-            <img src={arrowLeftMark} alt="to user list" />
+    <ContentUserPageWrapper>
+      <AvatarWrapper>
+        <img src={avatar} alt="avatar" />
+      </AvatarWrapper>
 
-            <Text
-              text={'User list'}
-              textAlign="center"
-              fontWeight="700"
-              fontSize="24px"
-              color="gray100"
-            />
+      <FlexWrapper flexDirection="column" rowGap="40px">
+        <UserStageWrapper>
+          <FlexWrapper columnGap="8px">
+            <span>Account</span>
+            <StageImageWrapper onClick={() => handleChangeActiveStep(1)}>
+              <img src={editMark} alt="edit" />
+            </StageImageWrapper>
           </FlexWrapper>
-        </Link>
 
-        <Text
-          text={username}
-          textAlign="center"
-          fontWeight="700"
-          fontSize="35px"
-          color="gray300"
-        />
-      </HeaderUserPageWrapper>
+          <UserFieldsWrapper>
+            {username && (
+              <>
+                <span className="first-column">User Name:</span>
+                <span className="second-column">{username}</span>
+              </>
+            )}
 
-      <ContentUserPageWrapper>
-        <AvatarWrapper>
-          <img src={avatar} alt="avatar" />
-        </AvatarWrapper>
+            <span className="first-column">Password:</span>
+            <span className="second-column">********</span>
+          </UserFieldsWrapper>
+        </UserStageWrapper>
 
-        <FlexWrapper flexDirection="column" rowGap="40px">
-          <UserStageWrapper>
-            <FlexWrapper columnGap="8px">
-              <span>Account</span>
-              <StageImageWrapper>
-                <img src={editMark} alt="edit" />
-              </StageImageWrapper>
-            </FlexWrapper>
+        <UserStageWrapper>
+          <FlexWrapper columnGap="8px">
+            <span>Personal</span>
+            <StageImageWrapper onClick={() => handleChangeActiveStep(2)}>
+              <img src={editMark} alt="edit" />
+            </StageImageWrapper>
+          </FlexWrapper>
 
-            <UserFieldsWrapper>
-              {username && (
-                <>
-                  <span className="first-column">User Name:</span>
-                  <span className="second-column">{username}</span>
-                </>
-              )}
+          <UserFieldsWrapper>
+            {gender && (
+              <>
+                <span className="first-column">Gender:</span>
+                <span className="second-column">{gender}</span>
+              </>
+            )}
 
-              <span className="first-column">Password:</span>
-              <span className="second-column">********</span>
-            </UserFieldsWrapper>
-          </UserStageWrapper>
+            {firstName && (
+              <>
+                <span className="first-column">First name:</span>
+                <span className="second-column">{firstName}</span>
+              </>
+            )}
 
-          <UserStageWrapper>
-            <FlexWrapper columnGap="8px">
-              <span>Personal</span>
-              <StageImageWrapper>
-                <img src={editMark} alt="edit" />
-              </StageImageWrapper>
-            </FlexWrapper>
+            {lastName && (
+              <>
+                <span className="first-column">Last name:</span>
+                <span className="second-column">{lastName}</span>
+              </>
+            )}
 
-            <UserFieldsWrapper>
-              {gender && (
-                <>
-                  <span className="first-column">Gender:</span>
-                  <span className="second-column">{gender}</span>
-                </>
-              )}
+            {birthDate && (
+              <>
+                <span className="first-column">Birth date:</span>
+                <span className="second-column">
+                  {transformDateToReadable(birthDate)}
+                </span>
+              </>
+            )}
 
-              {firstName && (
-                <>
-                  <span className="first-column">First name:</span>
-                  <span className="second-column">{firstName}</span>
-                </>
-              )}
+            {email && (
+              <>
+                <span className="first-column">Email:</span>
+                <span className="second-column">{email}</span>
+              </>
+            )}
 
-              {lastName && (
-                <>
-                  <span className="first-column">Last name:</span>
-                  <span className="second-column">{lastName}</span>
-                </>
-              )}
+            {address && (
+              <>
+                <span className="first-column">Address:</span>
+                <span className="second-column">{address}</span>
+              </>
+            )}
+          </UserFieldsWrapper>
+        </UserStageWrapper>
 
-              {birthDate && (
-                <>
-                  <span className="first-column">Birth date:</span>
-                  <span className="second-column">
-                    {transformDateToReadable(birthDate)}
-                  </span>
-                </>
-              )}
+        <UserStageWrapper onClick={() => handleChangeActiveStep(3)}>
+          <FlexWrapper columnGap="8px">
+            <span>Contacts</span>
+            <StageImageWrapper>
+              <img src={editMark} alt="edit" />
+            </StageImageWrapper>
+          </FlexWrapper>
 
-              {email && (
-                <>
-                  <span className="first-column">Email:</span>
-                  <span className="second-column">{email}</span>
-                </>
-              )}
+          <UserFieldsWrapper>
+            {company && (
+              <>
+                <span className="first-column">Company:</span>
+                <span className="second-column">{company}</span>
+              </>
+            )}
 
-              {address && (
-                <>
-                  <span className="first-column">Address:</span>
-                  <span className="second-column">{address}</span>
-                </>
-              )}
-            </UserFieldsWrapper>
-          </UserStageWrapper>
+            {mainLang && (
+              <>
+                <span className="first-column">Main language:</span>
+                <span className="second-column">{mainLang.label}</span>
+              </>
+            )}
 
-          <UserStageWrapper>
-            <FlexWrapper columnGap="8px">
-              <span>Contacts</span>
-              <StageImageWrapper>
-                <img src={editMark} alt="edit" />
-              </StageImageWrapper>
-            </FlexWrapper>
+            {fax && (
+              <>
+                <span className="first-column">Fax:</span>
+                <span className="second-column">{fax}</span>
+              </>
+            )}
 
-            <UserFieldsWrapper>
-              {company && (
-                <>
-                  <span className="first-column">Company:</span>
-                  <span className="second-column">{company}</span>
-                </>
-              )}
+            {phones && !!phones.length && (
+              <>
+                {phones.map((phone, index) => {
+                  return (
+                    <>
+                      <span className="first-column">Phone #{index + 1}:</span>
+                      <span className="second-column">{phone}</span>
+                    </>
+                  );
+                })}
+              </>
+            )}
 
-              {mainLang && (
-                <>
-                  <span className="first-column">Main language:</span>
-                  <span className="second-column">{mainLang.label}</span>
-                </>
-              )}
+            {facebookLink && (
+              <>
+                <span className="first-column">Facebook link:</span>
+                <span className="second-column">{facebookLink}</span>
+              </>
+            )}
 
-              {fax && (
-                <>
-                  <span className="first-column">Fax:</span>
-                  <span className="second-column">{fax}</span>
-                </>
-              )}
+            {githubLink && (
+              <>
+                <span className="first-column">Github link:</span>
+                <span className="second-column">{githubLink}</span>
+              </>
+            )}
+          </UserFieldsWrapper>
+        </UserStageWrapper>
 
-              {phones && !!phones.length && (
-                <>
-                  {phones.map((phone, index) => {
-                    return (
-                      <>
-                        <span className="first-column">Phone #{index + 1}:</span>
-                        <span className="second-column">{phone}</span>
-                      </>
-                    );
+        <UserStageWrapper onClick={() => handleChangeActiveStep(4)}>
+          <FlexWrapper columnGap="8px">
+            <span>Capabilities</span>
+            <StageImageWrapper>
+              <img src={editMark} alt="edit" />
+            </StageImageWrapper>
+          </FlexWrapper>
+
+          <UserFieldsWrapper>
+            {skills && (
+              <>
+                <span className="first-column">Skills:</span>
+                <span className="second-column">
+                  {skills.map((item, index) => {
+                    return <span key={index}>{item.label}; </span>;
                   })}
-                </>
-              )}
+                </span>
+              </>
+            )}
 
-              {facebookLink && (
-                <>
-                  <span className="first-column">Facebook link:</span>
-                  <span className="second-column">{facebookLink}</span>
-                </>
-              )}
+            {hobbies && !!hobbies.length && (
+              <>
+                <span className="first-column">Hobbies:</span>
+                <span className="second-column">
+                  {hobbies.map((item, index) => {
+                    return <div key={index}>{item};</div>;
+                  })}
+                </span>
+              </>
+            )}
 
-              {githubLink && (
-                <>
-                  <span className="first-column">Github link:</span>
-                  <span className="second-column">{githubLink}</span>
-                </>
-              )}
-            </UserFieldsWrapper>
-          </UserStageWrapper>
-
-          <UserStageWrapper>
-            <FlexWrapper columnGap="8px">
-              <span>Capabilities</span>
-              <StageImageWrapper>
-                <img src={editMark} alt="edit" />
-              </StageImageWrapper>
-            </FlexWrapper>
-
-            <UserFieldsWrapper>
-              {skills && (
-                <>
-                  <span className="first-column">Skills:</span>
-                  <span className="second-column">
-                    {skills.map((item, index) => {
-                      return <span key={index}>{item.label}; </span>;
-                    })}
-                  </span>
-                </>
-              )}
-
-              {hobbies && !!hobbies.length && (
-                <>
-                  <span className="first-column">Hobbies:</span>
-                  <span className="second-column">
-                    {hobbies.map((item, index) => {
-                      return <div key={index}>{item};</div>;
-                    })}
-                  </span>
-                </>
-              )}
-
-              {addInformation && (
-                <>
-                  <span className="first-column">Additional information:</span>
-                  <span className="second-column">{addInformation}</span>
-                </>
-              )}
-            </UserFieldsWrapper>
-          </UserStageWrapper>
-        </FlexWrapper>
-      </ContentUserPageWrapper>
-    </FlexWrapper>
+            {addInformation && (
+              <>
+                <span className="first-column">Additional information:</span>
+                <span className="second-column">{addInformation}</span>
+              </>
+            )}
+          </UserFieldsWrapper>
+        </UserStageWrapper>
+      </FlexWrapper>
+    </ContentUserPageWrapper>
   );
 };

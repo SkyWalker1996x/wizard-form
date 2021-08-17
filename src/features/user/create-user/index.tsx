@@ -71,7 +71,7 @@ export const CreateUserForm = () => {
     status: false,
     stage: undefined,
   });
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -93,7 +93,7 @@ export const CreateUserForm = () => {
     setActiveStep(prev => prev + 1);
     formik.setTouched({});
     formik.setSubmitting(false);
-  }, []);
+  }, [formik]);
 
   const handleDecreaseStep = useCallback(() => {
     setActiveStep(prev => prev - 1);
@@ -124,7 +124,7 @@ export const CreateUserForm = () => {
         };
       });
     }
-  }, [persistedData]);
+  }, [persistedData, formik]);
 
   const handleRemoveFormData = useCallback(() => {
     removeFormDataFromLocalStorage();
@@ -134,7 +134,7 @@ export const CreateUserForm = () => {
         status: false,
       };
     });
-  }, []);
+  }, [removeFormDataFromLocalStorage]);
 
   useEffect(() => {
     const persistedData = localStorage.getItem('userFormData');

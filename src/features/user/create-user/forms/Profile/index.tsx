@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useFormikContext } from 'formik';
 
 import { TextInput } from 'UI/TextInput';
 import { DatePicker } from 'UI/DatePicker';
@@ -9,10 +9,10 @@ import GooglePlaceAutoComplete from 'UI/GoogleAutocomplete';
 
 import { ProfileWrapper } from './styles';
 
-import { FixTypeLater } from 'types';
+import { ICreateUserForm } from 'types/users';
 
-export const ProfileForm = memo((props: FixTypeLater) => {
-  const { formik } = props;
+export const ProfileForm = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
     <ProfileWrapper>
@@ -98,4 +98,4 @@ export const ProfileForm = memo((props: FixTypeLater) => {
       </RadioButtonGroup>
     </ProfileWrapper>
   );
-});
+};

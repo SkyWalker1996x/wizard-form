@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useFormikContext } from 'formik';
 
 import { TextInput } from 'UI/TextInput';

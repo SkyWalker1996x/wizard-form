@@ -9,12 +9,8 @@ import { TextInputWrapper } from 'UI/TextInput/styles';
 import { DatePickerStyled } from './styles';
 
 interface IDatePickerProps {
-  onChange: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<FormikErrors<any>> | Promise<void>;
-  value: Date | null | undefined;
+  onChange: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  value: number | null | undefined;
   name: string;
   format?: string;
   label: string;
@@ -44,7 +40,7 @@ export const DatePicker = (props: IDatePickerProps) => {
       <DatePickerStyled
         name={name}
         onChange={(val: Date) => onChange(name, val.getTime())}
-        value={value && new Date(value)}
+        value={(value && new Date(value)) || undefined}
         format={format}
         dayPlaceholder="DD"
         monthPlaceholder="MM"

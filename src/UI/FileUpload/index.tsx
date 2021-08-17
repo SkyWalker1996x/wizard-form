@@ -1,5 +1,4 @@
 import { memo, useCallback, ChangeEvent } from 'react';
-import { FormikErrors } from 'formik';
 
 import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 

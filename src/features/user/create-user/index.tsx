@@ -19,7 +19,6 @@ import { Text } from 'UI/Text';
 import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
-import { IFormikProps } from 'types';
 import { ICreateUserForm, IUser } from 'types/users';
 
 interface IPersistedDataState {
@@ -50,7 +49,7 @@ const initialValues: ICreateUserForm = {
   hobbies: [],
 };
 
-const renderStepContent = (step: number, formik: IFormikProps) => {
+const renderStepContent = (step: number) => {
   switch (step) {
     case 1:
       return <AccountForm />;
@@ -59,7 +58,7 @@ const renderStepContent = (step: number, formik: IFormikProps) => {
     case 3:
       return <ContactsForm />;
     case 4:
-      return <CapabilitiesForm formik={formik} />;
+      return <CapabilitiesForm />;
     default:
       return <div>Not Found</div>;
   }
@@ -72,7 +71,7 @@ export const CreateUserForm = () => {
     status: false,
     stage: undefined,
   });
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(4);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -189,7 +188,7 @@ export const CreateUserForm = () => {
             />
           )}
 
-          {renderStepContent(activeStep, formik)}
+          {renderStepContent(activeStep)}
 
           <ButtonWrapper>
             {activeStep !== 1 && (

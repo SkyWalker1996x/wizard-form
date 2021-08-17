@@ -1,20 +1,22 @@
-import { memo } from 'react';
+import { useFormikContext } from 'formik';
+
 import { SKILLS, CHECKBOXES } from 'app/app-constants';
+
+import { transformArrToSelectOptions } from 'utils/data';
+
+import { ICreateUserForm } from 'types/users';
 
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { Select } from 'UI/Select';
 import { TextArea } from 'UI/TextArea';
 import { CheckBox } from 'UI/Checkbox';
 
-import { transformArrToSelectOptions } from 'utils/data';
-import { FixTypeLater } from 'types';
-
 import { CapabilitiesWrapper } from './styles';
 
 const skillsOptions = transformArrToSelectOptions(SKILLS);
 
-export const CapabilitiesForm = memo((props: FixTypeLater) => {
-  const { formik } = props;
+export const CapabilitiesForm = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
     <CapabilitiesWrapper columnGap="170px">
@@ -63,4 +65,4 @@ export const CapabilitiesForm = memo((props: FixTypeLater) => {
       </FlexWrapper>
     </CapabilitiesWrapper>
   );
-});
+};

@@ -1,4 +1,4 @@
-import { FieldArray } from 'formik';
+import {FieldArray, useFormikContext} from 'formik';
 
 import { InputMask } from 'UI/InputMask';
 
@@ -11,6 +11,8 @@ import { FixTypeLater } from 'types';
 
 export const PhonesFieldArray = (props: FixTypeLater) => {
   const { formik } = props;
+    const testFormik = useFormikContext();
+    console.log('testFormik', testFormik);
 
   return (
     <FieldArray

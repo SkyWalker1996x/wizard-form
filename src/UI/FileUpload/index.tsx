@@ -6,11 +6,7 @@ import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 import { UploadLabel } from './styles';
 
 interface IFileUploadProps {
-  onChange: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<FormikErrors<any>> | Promise<void>;
+  onChange: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
   name: string;
   id: string;
   onErrorChange: (field: string, value: string | undefined) => void;

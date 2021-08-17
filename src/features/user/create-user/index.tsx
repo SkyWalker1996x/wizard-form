@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import { useFormik, FormikProvider } from 'formik';
 import { useHistory } from 'react-router-dom';
 
 import { useAppDispatch } from 'app/hooks';
@@ -53,7 +53,7 @@ const initialValues: ICreateUserForm = {
 const renderStepContent = (step: number, formik: IFormikProps) => {
   switch (step) {
     case 1:
-      return <AccountForm formik={formik} />;
+      return <AccountForm />;
     case 2:
       return <ProfileForm formik={formik} />;
     case 3:
@@ -179,33 +179,35 @@ export const CreateUserForm = () => {
         />
       </HeaderUserPageWrapper>
 
-      <FormWrapper onSubmit={formik.handleSubmit}>
-        <FormNavigation activeStep={activeStep} />
-        {persistedData.status && (
-          <RestorePanel
-            handleLoadFormData={handleLoadFormData}
-            handleRemoveFormData={handleRemoveFormData}
-          />
-        )}
-
-        {renderStepContent(activeStep, formik)}
-
-        <ButtonWrapper>
-          {activeStep !== 1 && (
-            <Button
-              type="button"
-              text="Back"
-              background={'blue200'}
-              onClick={handleDecreaseStep}
+      <FormikProvider value={formik}>
+        <FormWrapper onSubmit={formik.handleSubmit}>
+          <FormNavigation activeStep={activeStep} />
+          {persistedData.status && (
+            <RestorePanel
+              handleLoadFormData={handleLoadFormData}
+              handleRemoveFormData={handleRemoveFormData}
             />
           )}
-          <Button
-            type="submit"
-            text={activeStep === FORM_STAGES.length ? 'Finish' : 'Forward'}
-            background={activeStep === FORM_STAGES.length ? 'success' : 'main'}
-          />
-        </ButtonWrapper>
-      </FormWrapper>
+
+          {renderStepContent(activeStep, formik)}
+
+          <ButtonWrapper>
+            {activeStep !== 1 && (
+              <Button
+                type="button"
+                text="Back"
+                background={'blue200'}
+                onClick={handleDecreaseStep}
+              />
+            )}
+            <Button
+              type="submit"
+              text={activeStep === FORM_STAGES.length ? 'Finish' : 'Forward'}
+              background={activeStep === FORM_STAGES.length ? 'success' : 'main'}
+            />
+          </ButtonWrapper>
+        </FormWrapper>
+      </FormikProvider>
     </PageWrapper>
   );
 };

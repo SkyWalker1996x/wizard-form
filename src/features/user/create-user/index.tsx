@@ -160,7 +160,7 @@ export const CreateUserForm = () => {
     }
 
     return () => {
-      window.removeEventListener('popstate', saveFormDataToLocalStorage);
+      window.removeEventListener('beforeunload', saveFormDataToLocalStorage);
       historyListener();
     };
   }, [formik.values, history, saveFormDataToLocalStorage, isFormSubmit]);

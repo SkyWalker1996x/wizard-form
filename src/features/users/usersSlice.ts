@@ -1,24 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from 'app/indexedDB';
-import { RootState } from 'app/store';
 
+import { getUsers, postAddUser, postDeleteUser } from './api';
+
+import { RootState } from 'app/store';
 import { IUser, ISendUserData, IUsersState } from 'types/users';
 
 export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
-  const res = await db.table('users').toArray();
-
-  return res as Array<IUser>;
+  return getUsers();
 });
 
 export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
-  const res = await db.table('users').add(user);
+  await postAddUser(user);
   await localStorage.removeItem('userFormData');
-
-  return res as number;
 });
 
 export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
-  await db.table('users').where('id').equals(id).delete();
+  postDeleteUser(id);
   const res = await db.table('users').toArray();
 
   return res as Array<IUser>;

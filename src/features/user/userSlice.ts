@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import db from 'app/indexedDB';
+
+import { getUser, postModifyUser } from './api';
 
 import { RootState } from 'app/store';
 import { IUser } from 'types/users';
@@ -7,15 +8,15 @@ import { IUser } from 'types/users';
 export const fetchUser = createAsyncThunk(
   'user/fetchUser',
   async (id: string | number) => {
-    return db.table('users').get(Number(id));
+    return getUser(id);
   }
 );
 
 export const modifyUser = createAsyncThunk(
   'user/modifyUser',
   async ({ id, payload }: { id: number | string; payload: Partial<IUser> }) => {
-    await db.table('users').where('id').equals(Number(id)).modify(payload);
-    return db.table('users').get(+id);
+    await postModifyUser(id, payload);
+    return getUser(id);
   }
 );
 

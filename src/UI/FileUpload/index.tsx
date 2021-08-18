@@ -9,10 +9,11 @@ interface IFileUploadProps {
   name: string;
   id: string;
   onErrorChange: (field: string, value: string | undefined) => void;
+  isEdit: boolean;
 }
 
 export const FileUpload = memo((props: IFileUploadProps) => {
-  const { onChange, name, id, onErrorChange } = props;
+  const { onChange, name, id, onErrorChange, isEdit } = props;
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +42,7 @@ export const FileUpload = memo((props: IFileUploadProps) => {
 
   return (
     <>
-      <UploadLabel htmlFor={id}>add avatar</UploadLabel>
+      <UploadLabel htmlFor={id}>{isEdit ? 'edit avatar' : 'add avatar'}</UploadLabel>
       <input id={id} type="file" onChange={handleUpload} style={{ display: 'none' }} />
     </>
   );

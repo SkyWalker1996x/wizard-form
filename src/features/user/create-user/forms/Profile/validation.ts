@@ -40,10 +40,6 @@ export const validate = async (values: IProfileForm) => {
     }
   }
 
-  if (!values.address) {
-    errors.address = 'Required';
-  }
-
   if (!values.gender) {
     errors.gender = 'Required';
   }

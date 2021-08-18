@@ -43,7 +43,7 @@ const initialValues: ICreateUserForm = {
   facebookLink: '',
   fax: '',
   mainLang: undefined,
-  phones: [''],
+  phones: [],
   skills: [],
   addInformation: '',
   hobbies: [],
@@ -71,7 +71,7 @@ export const CreateUserForm = () => {
     status: false,
     stage: undefined,
   });
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(3);
   const dispatch = useAppDispatch();
   const history = useHistory();
 

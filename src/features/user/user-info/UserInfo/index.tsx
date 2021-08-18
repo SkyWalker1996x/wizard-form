@@ -126,10 +126,10 @@ export const UserInfo = (props: IUserInfoProps) => {
           </UserFieldsWrapper>
         </UserStageWrapper>
 
-        <UserStageWrapper onClick={() => handleChangeActiveStep(3)}>
+        <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Contacts</span>
-            <StageImageWrapper>
+            <StageImageWrapper onClick={() => handleChangeActiveStep(3)}>
               <img src={editMark} alt="edit" />
             </StageImageWrapper>
           </FlexWrapper>
@@ -185,10 +185,10 @@ export const UserInfo = (props: IUserInfoProps) => {
           </UserFieldsWrapper>
         </UserStageWrapper>
 
-        <UserStageWrapper onClick={() => handleChangeActiveStep(4)}>
+        <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Capabilities</span>
-            <StageImageWrapper>
+            <StageImageWrapper onClick={() => handleChangeActiveStep(4)}>
               <img src={editMark} alt="edit" />
             </StageImageWrapper>
           </FlexWrapper>

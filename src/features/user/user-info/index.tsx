@@ -45,19 +45,37 @@ export const UserInfoPage = () => {
   return (
     <FlexWrapper flexDirection="column" alignItems="center">
       <HeaderUserPageWrapper>
-        <Link to="/">
-          <FlexWrapper alignItems="center" columnGap="10px">
+        {activeStep ? (
+          <FlexWrapper
+            alignItems="center"
+            columnGap="10px"
+            onClick={() => handleChangeActiveStep(null)}
+          >
             <img src={arrowLeftMark} alt="to user list" />
 
             <Text
-              text={'User list'}
+              text={'User Profile'}
               textAlign="center"
               fontWeight="700"
               fontSize="24px"
               color="gray100"
             />
           </FlexWrapper>
-        </Link>
+        ) : (
+          <Link to="/">
+            <FlexWrapper alignItems="center" columnGap="10px">
+              <img src={arrowLeftMark} alt="to user list" />
+
+              <Text
+                text={'User list'}
+                textAlign="center"
+                fontWeight="700"
+                fontSize="24px"
+                color="gray100"
+              />
+            </FlexWrapper>
+          </Link>
+        )}
 
         <Text
           // @ts-ignore

@@ -11,7 +11,7 @@ export const validate = async (values: IAccountForm) => {
   } else {
     const users = await db.table('users').toArray();
     const isExistUser = users.find(item => item?.username === values.username);
-    if (isExistUser) {
+    if (isExistUser && values?.id !== isExistUser?.id) {
       errors.username = 'User with this name is exist';
     }
   }

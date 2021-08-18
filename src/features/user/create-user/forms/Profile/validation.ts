@@ -34,8 +34,8 @@ export const validate = async (values: IProfileForm) => {
     errors.email = 'Required';
   } else {
     const users = await db.table('users').toArray();
-    const isExistEmail = users.find(item => item?.email === values.email);
-    if (isExistEmail) {
+    const isExistUser = users.find(item => item?.email === values.email);
+    if (isExistUser && values?.id !== isExistUser?.id) {
       errors.email = 'User with this email is exist';
     }
   }

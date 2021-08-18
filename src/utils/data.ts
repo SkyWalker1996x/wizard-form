@@ -33,5 +33,5 @@ export const extractModifiedProperties = (obj1: FixTypeLater, obj2: FixTypeLater
     }
   });
 
-  return modifiedProperties;
+  return Object.keys(modifiedProperties).length === 0 ? null : modifiedProperties;
 };

@@ -1,6 +1,9 @@
 import { useFormik, FormikProvider } from 'formik';
+import { useAppDispatch } from 'app/hooks';
 
+import { modifyUser } from '../userSlice';
 import { validate } from 'features/user/create-user/forms/validation';
+import { extractModifiedProperties } from 'utils/data';
 
 import { AccountForm } from 'features/user/create-user/forms/Account';
 import { ProfileForm } from 'features/user/create-user/forms/Profile';
@@ -9,10 +12,7 @@ import { CapabilitiesForm } from 'features/user/create-user/forms/Capabilities';
 import { FormNavigation } from 'features/user/create-user/forms/FormNavigation';
 import { Button } from 'UI/Button/Button';
 
-import {
-  ButtonWrapper,
-  FormWrapper,
-} from 'features/user/create-user/forms/styles';
+import { ButtonWrapper, FormWrapper } from 'features/user/create-user/forms/styles';
 
 import { IUser } from 'types/users';
 
@@ -38,13 +38,21 @@ interface IEditUserForm {
 }
 
 export const EditUserForm = (props: IEditUserForm) => {
-  const { activeStep, initialValues } = props;
+  const { activeStep, initialValues, handleChangeActiveStep } = props;
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues,
     validate: validate[activeStep - 1],
     onSubmit: (values: IUser) => {
-      console.log('values', values);
+      const modifiedProperties = extractModifiedProperties(initialValues, values);
+
+      if (modifiedProperties) {
+        dispatch(modifyUser({ id: values.id, payload: modifiedProperties }));
+        handleChangeActiveStep(null);
+      } else {
+        alert("You've changed nothing");
+      }
     },
   });
 

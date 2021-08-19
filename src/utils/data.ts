@@ -1,6 +1,4 @@
 import * as faker from 'faker/locale/en_AU';
-// faker.locale = "de";
-// const faker = require('faker/locale/de');
 
 import { FixTypeLater } from 'types';
 

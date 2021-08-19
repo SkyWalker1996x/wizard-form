@@ -8,6 +8,7 @@ interface IButtonProps {
   background?: string | undefined;
   onClick?: (e: MouseEvent<HTMLElement>) => void;
   width?: string;
+  disabled?: boolean;
 }
 
 export const Button = memo((props: IButtonProps) => {

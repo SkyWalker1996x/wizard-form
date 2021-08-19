@@ -22,16 +22,6 @@ export const UserRow = (props: IUserRowProps) => {
     onEditUser,
   } = props;
 
-  console.log('id', props.user.id);
-  console.log(
-    'last update',
-    typeof props.user.birthDate === 'number'
-      ? props.user.birthDate
-      : props.user.birthDate.getTime()
-  );
-  console.log('type', typeof props.user.birthDate);
-  console.log('_______');
-
   return (
     <UserRowWrapper>
       <UserCellWrapper>

@@ -55,7 +55,7 @@ export const generateUsers = () => {
       email: faker.internet.email(),
       address: faker.address.streetAddress(),
       gender: index % 2 === 1 ? 'Male' : 'Female',
-      phone: faker.phone.phoneNumber('+38 (0##) ###-##-##'),
+      phones: [faker.phone.phoneNumber('+38 (0##) ###-##-##')],
       fax: faker.phone.phoneNumber('+38 (0##) ###-##-##'),
       company: faker.company.companyName(),
       githubLink: faker.internet.url(),

@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import db from 'app/indexedDB';
 
-import { getUsers, postAddUser, postDeleteUser } from './api';
+import {
+  clearUsers,
+  getUsers,
+  postAddUser,
+  postDeleteUser,
+  postInsertUsers,
+} from './api';
+import { generateUsers } from 'utils/data';
 
 import { RootState } from 'app/store';
-import { IUser, ISendUserData, IUsersState } from 'types/users';
+import { ISendUserData, IUsersState } from 'types/users';
 
 export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
   return getUsers();
@@ -16,15 +22,21 @@ export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserD
 });
 
 export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
-  postDeleteUser(id);
-  const res = await db.table('users').toArray();
+  await postDeleteUser(id);
+  return getUsers();
+});
 
-  return res as Array<IUser>;
+export const generateItems = createAsyncThunk('users/generateUser', async () => {
+  const generatedUsers = generateUsers();
+  await clearUsers();
+  await postInsertUsers(generatedUsers);
+
+  return getUsers();
 });
 
 const initialState: IUsersState = {
   items: [],
-  status: '',
+  status: 'loading',
 };
 
 export const usersSlice = createSlice({
@@ -64,6 +76,18 @@ export const usersSlice = createSlice({
       state.items = payload;
     });
     builder.addCase(deleteItem.rejected, state => {
+      state.status = 'error';
+    });
+
+    // generate users
+    builder.addCase(generateItems.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(generateItems.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.items = payload;
+    });
+    builder.addCase(generateItems.rejected, state => {
       state.status = 'error';
     });
   },

@@ -50,4 +50,5 @@ export interface IUser extends ISendUserData {
 export interface IUsersState {
   items: Array<IUser>;
   status: string;
+  page: number;
 }

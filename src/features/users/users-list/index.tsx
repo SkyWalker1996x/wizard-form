@@ -3,11 +3,14 @@ import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 import {
-  deleteItem,
-  fetchItems,
   selectUsers,
   selectUsersStatus,
+  selectPage,
+  deleteItem,
+  fetchItems,
   generateItems,
+  increasePageNumber,
+  decreasePageNumber,
 } from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
@@ -16,10 +19,12 @@ import { FlexWrapper } from 'UI/FlexWrapper';
 
 import { UserListWrapper, UserListTitleWrapper } from './styles';
 import { GenerateUsersButton } from './GenerateUsersButton';
+import { Pagination } from './Pagination';
 
 export const UserListPage = () => {
   const users = useAppSelector(selectUsers);
   const status = useAppSelector(selectUsersStatus);
+  const page = useAppSelector(selectPage);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -40,6 +45,16 @@ export const UserListPage = () => {
 
   const onGenerateUsers = useCallback(() => {
     dispatch(generateItems());
+  }, [dispatch]);
+
+  const onNextPage = useCallback(() => {
+    dispatch(increasePageNumber());
+    console.log('page +1');
+  }, [dispatch]);
+
+  const onPrevPage = useCallback(() => {
+    dispatch(decreasePageNumber());
+    console.log('page -1');
   }, [dispatch]);
 
   useEffect(() => {
@@ -67,6 +82,8 @@ export const UserListPage = () => {
       <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
 
       <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
+
+      <Pagination onNextPage={onNextPage} onPrevPage={onPrevPage} />
     </UserListWrapper>
   );
 };

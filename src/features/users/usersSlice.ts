@@ -37,12 +37,20 @@ export const generateItems = createAsyncThunk('users/generateUser', async () => 
 const initialState: IUsersState = {
   items: [],
   status: 'loading',
+  page: 1,
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    increasePageNumber(state) {
+      state.page = state.page + 1;
+    },
+    decreasePageNumber(state) {
+      state.page = state.page - 1;
+    },
+  },
   extraReducers: builder => {
     // add user
     builder.addCase(addItem.pending, state => {
@@ -93,7 +101,10 @@ export const usersSlice = createSlice({
   },
 });
 
+export const { increasePageNumber, decreasePageNumber } = usersSlice.actions;
+
 export const selectUsers = (state: RootState) => state.users.items;
 export const selectUsersStatus = (state: RootState) => state.users.status;
+export const selectPage = (state: RootState) => state.users.page;
 
 export default usersSlice.reducer;

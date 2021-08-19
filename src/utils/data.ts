@@ -1,3 +1,7 @@
+import * as faker from 'faker/locale/en_AU';
+// faker.locale = "de";
+// const faker = require('faker/locale/de');
+
 import { FixTypeLater } from 'types';
 
 export const transformObjToSelectOptions = (obj: { [key: string]: string }) => {
@@ -34,4 +38,35 @@ export const extractModifiedProperties = (obj1: FixTypeLater, obj2: FixTypeLater
   });
 
   return Object.keys(modifiedProperties).length === 0 ? null : modifiedProperties;
+};
+
+export const generateUsers = () => {
+  return Array.from({ length: 50 }, (_, index) => {
+    const password = faker.internet.password();
+
+    return {
+      avatar: `https://picsum.photos/200?random=${index + 1}`,
+      username: faker.name.lastName(),
+      password,
+      confirmPassword: password,
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      birthDate: faker.date.past(18).getTime(),
+      email: faker.internet.email(),
+      address: faker.address.streetAddress(),
+      gender: index % 2 === 1 ? 'Male' : 'Female',
+      phone: faker.phone.phoneNumber('+38 (0##) ###-##-##'),
+      fax: faker.phone.phoneNumber('+38 (0##) ###-##-##'),
+      company: faker.company.companyName(),
+      githubLink: faker.internet.url(),
+      facebookLink: faker.internet.url(),
+      mainLang: { value: 'es', label: 'Spanish' },
+      skills: [
+        { value: 'Javascript', label: 'Javascript' },
+        { value: 'React', label: 'React' },
+        { value: 'Git', label: 'Git' },
+      ],
+      lastUpdate: faker.date.recent(99).getTime(),
+    };
+  });
 };

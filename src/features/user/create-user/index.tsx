@@ -71,7 +71,7 @@ export const CreateUserForm = () => {
     status: false,
     stage: undefined,
   });
-  const [activeStep, setActiveStep] = useState(3);
+  const [activeStep, setActiveStep] = useState(1);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -81,7 +81,7 @@ export const CreateUserForm = () => {
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
         setFormSubmit(true);
-        dispatch(addItem({ ...values, lastUpdate: new Date() }));
+        dispatch(addItem({ ...values, lastUpdate: new Date().getTime() }));
         history.push('/');
       } else {
         handleIncreaseStep();

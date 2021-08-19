@@ -40,7 +40,7 @@ export interface ICreateUserForm
     ICapabilitiesForm {}
 
 export interface ISendUserData extends ICreateUserForm {
-  lastUpdate: Date | null | undefined;
+  lastUpdate: number | null | undefined;
 }
 
 export interface IUser extends ISendUserData {

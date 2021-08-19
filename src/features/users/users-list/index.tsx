@@ -2,13 +2,20 @@ import { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
-import { deleteItem, fetchItems, selectUsers, selectUsersStatus } from '../usersSlice';
+import {
+  deleteItem,
+  fetchItems,
+  selectUsers,
+  selectUsersStatus,
+  generateItems,
+} from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
 import { Loader } from 'UI/Loader';
 import { FlexWrapper } from 'UI/FlexWrapper';
 
 import { UserListWrapper, UserListTitleWrapper } from './styles';
+import { GenerateUsersButton } from './GenerateUsersButton';
 
 export const UserListPage = () => {
   const users = useAppSelector(selectUsers);
@@ -31,6 +38,10 @@ export const UserListPage = () => {
     },
     [history]
   );
+
+  const onGenerateUsers = useCallback(() => {
+    dispatch(generateItems());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -55,6 +66,8 @@ export const UserListPage = () => {
       />
 
       <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
+
+      <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
     </UserListWrapper>
   );
 };

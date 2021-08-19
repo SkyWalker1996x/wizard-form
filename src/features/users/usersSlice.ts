@@ -12,8 +12,8 @@ import { generateUsers } from 'utils/data';
 import { RootState } from 'app/store';
 import { ISendUserData, IUsersState } from 'types/users';
 
-export const fetchItems = createAsyncThunk('users/fetchUsers', async () => {
-  return getUsers();
+export const fetchItems = createAsyncThunk('users/fetchUsers', async (page: number) => {
+  return getUsers(page);
 });
 
 export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
@@ -21,10 +21,13 @@ export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserD
   await localStorage.removeItem('userFormData');
 });
 
-export const deleteItem = createAsyncThunk('users/deleteUser', async (id: number) => {
-  await postDeleteUser(id);
-  return getUsers();
-});
+export const deleteItem = createAsyncThunk(
+  'users/deleteUser',
+  async ({ id, page }: { id: number; page: number }) => {
+    await postDeleteUser(id);
+    return getUsers(page);
+  }
+);
 
 export const generateItems = createAsyncThunk('users/generateUser', async () => {
   const generatedUsers = generateUsers();

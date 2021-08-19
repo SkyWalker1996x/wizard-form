@@ -31,9 +31,9 @@ export const UserListPage = () => {
   const onDeleteUser = useCallback(
     (id: number) => {
       const isConfirm = window.confirm('Do you really want to delete this user?');
-      isConfirm && dispatch(deleteItem(id));
+      isConfirm && dispatch(deleteItem({ id, page }));
     },
-    [dispatch]
+    [dispatch, page]
   );
 
   const onEditUser = useCallback(
@@ -49,17 +49,15 @@ export const UserListPage = () => {
 
   const onNextPage = useCallback(() => {
     dispatch(increasePageNumber());
-    console.log('page +1');
   }, [dispatch]);
 
   const onPrevPage = useCallback(() => {
     dispatch(decreasePageNumber());
-    console.log('page -1');
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
+    dispatch(fetchItems(page));
+  }, [dispatch, page]);
 
   if (status === 'loading') {
     return (

@@ -2,8 +2,10 @@ import db from 'app/indexedDB';
 
 import { ISendUserData, IUser } from 'types/users';
 
-export const getUsers = async () => {
-  return db.table('users').toArray();
+export const getUsers = async (page?: number) => {
+  const pageValue = page ? page : 1;
+
+  return db.table('users').offset(pageValue * 10 - 1).limit(5).toArray();
 };
 
 export const postAddUser = async (payload: ISendUserData) => {

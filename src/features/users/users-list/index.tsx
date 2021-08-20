@@ -6,6 +6,7 @@ import {
   selectUsers,
   selectUsersStatus,
   selectPage,
+  selectPerPage,
   deleteItem,
   fetchItems,
   generateItems,
@@ -25,6 +26,7 @@ export const UserListPage = () => {
   const users = useAppSelector(selectUsers);
   const status = useAppSelector(selectUsersStatus);
   const page = useAppSelector(selectPage);
+  const perPage = useAppSelector(selectPerPage);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -33,7 +35,7 @@ export const UserListPage = () => {
       const isConfirm = window.confirm('Do you really want to delete this user?');
       isConfirm && dispatch(deleteItem({ id, page }));
     },
-    [dispatch, page]
+    [dispatch, page, perPage]
   );
 
   const onEditUser = useCallback(

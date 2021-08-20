@@ -6,6 +6,7 @@ import {
   postAddUser,
   postDeleteUser,
   postInsertUsers,
+  getUsersTotal,
 } from './api';
 import { generateUsers } from 'utils/data';
 
@@ -13,7 +14,10 @@ import { RootState } from 'app/store';
 import { ISendUserData, IUsersState } from 'types/users';
 
 export const fetchItems = createAsyncThunk('users/fetchUsers', async (page: number) => {
-  return getUsers(page);
+  const total = await getUsersTotal();
+  const users = await getUsers(page);
+
+  return { total, users };
 });
 
 export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
@@ -33,14 +37,18 @@ export const generateItems = createAsyncThunk('users/generateUser', async () => 
   const generatedUsers = generateUsers();
   await clearUsers();
   await postInsertUsers(generatedUsers);
+  const items = await getUsers();
+  const total = await getUsersTotal();
 
-  return getUsers();
+  return { items, total };
 });
 
 const initialState: IUsersState = {
   items: [],
   status: 'loading',
   page: 1,
+  total: 0,
+  perPage: 10,
 };
 
 export const usersSlice = createSlice({
@@ -72,7 +80,8 @@ export const usersSlice = createSlice({
     });
     builder.addCase(fetchItems.fulfilled, (state, { payload }) => {
       state.status = 'success';
-      state.items = payload;
+      state.items = payload.users;
+      state.total = payload.total;
     });
     builder.addCase(fetchItems.rejected, state => {
       state.status = 'error';
@@ -96,7 +105,8 @@ export const usersSlice = createSlice({
     });
     builder.addCase(generateItems.fulfilled, (state, { payload }) => {
       state.status = 'success';
-      state.items = payload;
+      state.items = payload.items;
+      state.total = payload.total;
     });
     builder.addCase(generateItems.rejected, state => {
       state.status = 'error';
@@ -109,5 +119,6 @@ export const { increasePageNumber, decreasePageNumber } = usersSlice.actions;
 export const selectUsers = (state: RootState) => state.users.items;
 export const selectUsersStatus = (state: RootState) => state.users.status;
 export const selectPage = (state: RootState) => state.users.page;
+export const selectPerPage = (state: RootState) => state.users.perPage;
 
 export default usersSlice.reducer;

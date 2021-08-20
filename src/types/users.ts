@@ -51,4 +51,6 @@ export interface IUsersState {
   items: Array<IUser>;
   status: string;
   page: number;
+  total: number;
+  perPage: number;
 }

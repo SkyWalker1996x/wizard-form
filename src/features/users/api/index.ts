@@ -5,7 +5,15 @@ import { ISendUserData, IUser } from 'types/users';
 export const getUsers = async (page?: number) => {
   const pageValue = page ? page : 1;
 
-  return db.table('users').offset(pageValue * 10 - 1).limit(5).toArray();
+  return db
+    .table('users')
+    .offset(pageValue * 10 - 1)
+    .limit(5)
+    .toArray();
+};
+
+export const getUsersTotal = async () => {
+  return db.table('users').count();
 };
 
 export const postAddUser = async (payload: ISendUserData) => {

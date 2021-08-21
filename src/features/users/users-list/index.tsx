@@ -60,9 +60,12 @@ export const UserListPage = () => {
     dispatch(decreasePageNumber());
   }, [dispatch]);
 
-  const onDefinitePage = (page: number) => {
-    dispatch(definePageNumber(page));
-  };
+  const onDefinitePage = useCallback(
+    (page: number) => {
+      dispatch(definePageNumber(page));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(fetchItems({ page, perPage }));

@@ -51,7 +51,7 @@ const initialState: IUsersState = {
   status: 'loading',
   page: 1,
   total: 0,
-  perPage: 3,
+  perPage: 10,
 };
 
 export const usersSlice = createSlice({
@@ -120,7 +120,8 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { increasePageNumber, decreasePageNumber, definePageNumber } = usersSlice.actions;
+export const { increasePageNumber, decreasePageNumber, definePageNumber } =
+  usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.items;
 export const selectUsersStatus = (state: RootState) => state.users.status;

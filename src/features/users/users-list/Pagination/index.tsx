@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { Button } from 'UI/Button/Button';
 import { Text } from 'UI/Text';
@@ -13,27 +15,34 @@ interface IPaginationProps {
 
 export const Pagination = (props: IPaginationProps) => {
   const { onNextPage, onPrevPage, onDefinitePage, total, perPage, page } = props;
-  const totalPages = Math.ceil(total / perPage);
-  const hasNextPage = page < totalPages;
-  const hasPrevPage = page > 1;
-  const numberPages = Array.from({ length: totalPages }, (v, k) => k + 1);
+  const totalPages = useMemo(() => Math.ceil(total / perPage), [total, perPage]);
+  const hasNextPage = useMemo(() => page < totalPages, [page, totalPages]);
+  const hasPrevPage = useMemo(() => page > 1, [page]);
+  const numberPages = useMemo(
+    () => Array.from({ length: totalPages }, (v, k) => k + 1),
+    [totalPages]
+  );
 
-  const renderNumberPages = numberPages.map(number => {
-    if (number < page + 3 && number > page - 3) {
-      return (
-        <Button
-          key={number}
-          disabled={number === page}
-          text={number.toString()}
-          onClick={() => onDefinitePage(number)}
-          background={number === page ? 'main' : 'blue300'}
-          width={'75px'}
-        />
-      );
-    } else {
-      return null;
-    }
-  });
+  const renderNumberPages = useMemo(
+    () =>
+      numberPages.map(number => {
+        if (number < page + 3 && number > page - 3) {
+          return (
+            <Button
+              key={number}
+              disabled={number === page}
+              text={number.toString()}
+              onClick={() => onDefinitePage(number)}
+              background={number === page ? 'main' : 'blue300'}
+              width={'75px'}
+            />
+          );
+        } else {
+          return null;
+        }
+      }),
+    [numberPages, onDefinitePage, page]
+  );
 
   return (
     <FlexWrapper columnGap={'15px'} justifyContent={'space-between'} width={'75%'}>

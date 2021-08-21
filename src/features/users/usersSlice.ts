@@ -15,9 +15,17 @@ import { ISendUserData, IUsersState } from 'types/users';
 
 export const fetchItems = createAsyncThunk(
   'users/fetchUsers',
-  async ({ page, perPage }: { page: number; perPage: number }) => {
+  async ({
+    page,
+    perPage,
+    search,
+  }: {
+    page: number;
+    perPage: number;
+    search: string;
+  }) => {
     const total = await getUsersTotal();
-    const users = await getUsers({ page, perPage });
+    const users = await getUsers({ page, perPage, search });
 
     return { total, users };
   }

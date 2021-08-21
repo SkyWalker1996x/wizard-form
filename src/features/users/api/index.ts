@@ -5,16 +5,23 @@ import { ISendUserData, IUser } from 'types/users';
 export const getUsers = async ({
   page,
   perPage,
+  search,
 }: {
   page?: number;
   perPage?: number;
+  search?: string;
 }) => {
   const pageValue = page ? page : 1;
   const perPageValue = perPage ? perPage : 10;
+  const searchValue = search ? search : '';
   const offset = (pageValue - 1) * perPageValue - 1;
 
   return db
     .table('users')
+    .where('lastName')
+    .startsWithIgnoreCase(searchValue)
+    .or('firstName')
+    .startsWithIgnoreCase(searchValue)
     .offset(offset)
     .limit(perPageValue)
     .toArray();

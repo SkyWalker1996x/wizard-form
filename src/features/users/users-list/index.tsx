@@ -79,8 +79,8 @@ export const UserListPage = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchItems({ page, perPage }));
-  }, [dispatch, page, perPage]);
+    dispatch(fetchItems({ page, perPage, search }));
+  }, [dispatch, page, perPage, search]);
 
   if (status === 'loading') {
     return (

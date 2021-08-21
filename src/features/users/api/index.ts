@@ -16,7 +16,15 @@ export const getUsers = async ({
   const searchValue = search ? search : '';
   const offset = (pageValue - 1) * perPageValue - 1;
 
-  return db
+  const total = await db
+    .table('users')
+    .where('lastName')
+    .startsWithIgnoreCase(searchValue)
+    .or('firstName')
+    .startsWithIgnoreCase(searchValue)
+    .count();
+
+  const users = await db
     .table('users')
     .where('lastName')
     .startsWithIgnoreCase(searchValue)
@@ -25,10 +33,8 @@ export const getUsers = async ({
     .offset(offset)
     .limit(perPageValue)
     .toArray();
-};
 
-export const getUsersTotal = async () => {
-  return db.table('users').count();
+  return { users, total };
 };
 
 export const postAddUser = async (payload: ISendUserData) => {

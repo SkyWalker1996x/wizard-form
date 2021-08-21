@@ -6,7 +6,6 @@ import {
   postAddUser,
   postDeleteUser,
   postInsertUsers,
-  getUsersTotal,
 } from './api';
 import { generateUsers } from 'utils/data';
 
@@ -24,10 +23,7 @@ export const fetchItems = createAsyncThunk(
     perPage: number;
     search: string;
   }) => {
-    const total = await getUsersTotal();
-    const users = await getUsers({ page, perPage, search });
-
-    return { total, users };
+    return getUsers({ page, perPage, search });
   }
 );
 
@@ -48,10 +44,8 @@ export const generateItems = createAsyncThunk('users/generateUser', async () => 
   const generatedUsers = generateUsers();
   await clearUsers();
   await postInsertUsers(generatedUsers);
-  const items = await getUsers({});
-  const total = await getUsersTotal();
 
-  return { items, total };
+  return getUsers({ page: 1, search: '' });
 });
 
 const initialState: IUsersState = {
@@ -111,7 +105,8 @@ export const usersSlice = createSlice({
     });
     builder.addCase(deleteItem.fulfilled, (state, { payload }) => {
       state.status = 'success';
-      state.items = payload;
+      state.items = payload.users;
+      state.total = payload.total;
     });
     builder.addCase(deleteItem.rejected, state => {
       state.status = 'error';
@@ -123,7 +118,8 @@ export const usersSlice = createSlice({
     });
     builder.addCase(generateItems.fulfilled, (state, { payload }) => {
       state.status = 'success';
-      state.items = payload.items;
+      state.search = '';
+      state.items = payload.users;
       state.total = payload.total;
     });
     builder.addCase(generateItems.rejected, state => {

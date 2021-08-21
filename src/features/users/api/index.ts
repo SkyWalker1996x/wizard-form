@@ -2,13 +2,21 @@ import db from 'app/indexedDB';
 
 import { ISendUserData, IUser } from 'types/users';
 
-export const getUsers = async (page?: number) => {
+export const getUsers = async ({
+  page,
+  perPage,
+}: {
+  page?: number;
+  perPage?: number;
+}) => {
   const pageValue = page ? page : 1;
+  const perPageValue = perPage ? perPage : 10;
+  const offset = (pageValue - 1) * perPageValue - 1;
 
   return db
     .table('users')
-    .offset(pageValue * 10 - 1)
-    .limit(5)
+    .offset(offset)
+    .limit(perPageValue)
     .toArray();
 };
 

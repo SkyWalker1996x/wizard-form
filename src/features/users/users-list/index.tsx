@@ -33,7 +33,7 @@ export const UserListPage = () => {
   const onDeleteUser = useCallback(
     (id: number) => {
       const isConfirm = window.confirm('Do you really want to delete this user?');
-      isConfirm && dispatch(deleteItem({ id, page }));
+      isConfirm && dispatch(deleteItem({ id, page, perPage }));
     },
     [dispatch, page, perPage]
   );
@@ -58,8 +58,8 @@ export const UserListPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchItems(page));
-  }, [dispatch, page]);
+    dispatch(fetchItems({ page, perPage }));
+  }, [dispatch, page, perPage]);
 
   if (status === 'loading') {
     return (

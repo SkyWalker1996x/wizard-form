@@ -13,12 +13,15 @@ import { generateUsers } from 'utils/data';
 import { RootState } from 'app/store';
 import { ISendUserData, IUsersState } from 'types/users';
 
-export const fetchItems = createAsyncThunk('users/fetchUsers', async (page: number) => {
-  const total = await getUsersTotal();
-  const users = await getUsers(page);
+export const fetchItems = createAsyncThunk(
+  'users/fetchUsers',
+  async ({ page, perPage }: { page: number; perPage: number }) => {
+    const total = await getUsersTotal();
+    const users = await getUsers({ page, perPage });
 
-  return { total, users };
-});
+    return { total, users };
+  }
+);
 
 export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserData) => {
   await postAddUser(user);
@@ -27,9 +30,9 @@ export const addItem = createAsyncThunk('users/addUser', async (user: ISendUserD
 
 export const deleteItem = createAsyncThunk(
   'users/deleteUser',
-  async ({ id, page }: { id: number; page: number }) => {
+  async ({ id, page, perPage }: { id: number; page: number; perPage: number }) => {
     await postDeleteUser(id);
-    return getUsers(page);
+    return getUsers({ page, perPage });
   }
 );
 
@@ -37,7 +40,7 @@ export const generateItems = createAsyncThunk('users/generateUser', async () => 
   const generatedUsers = generateUsers();
   await clearUsers();
   await postInsertUsers(generatedUsers);
-  const items = await getUsers();
+  const items = await getUsers({});
   const total = await getUsersTotal();
 
   return { items, total };

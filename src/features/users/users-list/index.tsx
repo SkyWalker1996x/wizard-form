@@ -7,11 +7,13 @@ import {
   selectUsersStatus,
   selectPage,
   selectPerPage,
+  selectTotal,
   deleteItem,
   fetchItems,
   generateItems,
   increasePageNumber,
   decreasePageNumber,
+  definePageNumber,
 } from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
@@ -27,6 +29,7 @@ export const UserListPage = () => {
   const status = useAppSelector(selectUsersStatus);
   const page = useAppSelector(selectPage);
   const perPage = useAppSelector(selectPerPage);
+  const total = useAppSelector(selectTotal);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -57,6 +60,10 @@ export const UserListPage = () => {
     dispatch(decreasePageNumber());
   }, [dispatch]);
 
+  const onDefinitePage = (page: number) => {
+    dispatch(definePageNumber(page));
+  };
+
   useEffect(() => {
     dispatch(fetchItems({ page, perPage }));
   }, [dispatch, page, perPage]);
@@ -83,7 +90,14 @@ export const UserListPage = () => {
 
       <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
 
-      <Pagination onNextPage={onNextPage} onPrevPage={onPrevPage} />
+      <Pagination
+        onNextPage={onNextPage}
+        onPrevPage={onPrevPage}
+        onDefinitePage={onDefinitePage}
+        page={page}
+        perPage={perPage}
+        total={total}
+      />
     </UserListWrapper>
   );
 };

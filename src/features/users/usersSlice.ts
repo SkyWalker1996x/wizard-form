@@ -52,6 +52,7 @@ const initialState: IUsersState = {
   page: 1,
   total: 0,
   perPage: 10,
+  search: '',
 };
 
 export const usersSlice = createSlice({
@@ -66,6 +67,9 @@ export const usersSlice = createSlice({
     },
     definePageNumber(state, { payload }) {
       state.page = payload;
+    },
+    editSearch(state, { payload }) {
+      state.search = payload;
     },
   },
   extraReducers: builder => {
@@ -120,7 +124,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { increasePageNumber, decreasePageNumber, definePageNumber } =
+export const { increasePageNumber, decreasePageNumber, definePageNumber, editSearch } =
   usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.items;
@@ -128,5 +132,6 @@ export const selectUsersStatus = (state: RootState) => state.users.status;
 export const selectPage = (state: RootState) => state.users.page;
 export const selectPerPage = (state: RootState) => state.users.perPage;
 export const selectTotal = (state: RootState) => state.users.total;
+export const selectSearch = (state: RootState) => state.users.search;
 
 export default usersSlice.reducer;

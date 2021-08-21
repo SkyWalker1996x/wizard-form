@@ -6,7 +6,7 @@ import { TextInputWrapper } from './styles';
 
 import { IPasswordInputProps } from 'UI/PasswordInput';
 
-interface ITextInputProps extends IPasswordInputProps {
+interface ITextInputProps extends Partial<IPasswordInputProps> {
   type?:
     | 'email'
     | 'hidden'

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
@@ -8,19 +8,22 @@ import {
   selectPage,
   selectPerPage,
   selectTotal,
+  selectSearch,
   deleteItem,
   fetchItems,
   generateItems,
   increasePageNumber,
   decreasePageNumber,
   definePageNumber,
+  editSearch,
 } from '../usersSlice';
 
 import { UsersTable } from './UsersTable';
 import { Loader } from 'UI/Loader';
 import { FlexWrapper } from 'UI/FlexWrapper';
+import { TextInput } from 'UI/TextInput';
 
-import { UserListWrapper, UserListTitleWrapper } from './styles';
+import { UserListWrapper, UserListTitleWrapper, UserSearchWrapper } from './styles';
 import { GenerateUsersButton } from './GenerateUsersButton';
 import { Pagination } from './Pagination';
 
@@ -30,6 +33,7 @@ export const UserListPage = () => {
   const page = useAppSelector(selectPage);
   const perPage = useAppSelector(selectPerPage);
   const total = useAppSelector(selectTotal);
+  const search = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -67,6 +71,13 @@ export const UserListPage = () => {
     [dispatch]
   );
 
+  const onEditSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch(editSearch(e.target.value));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     dispatch(fetchItems({ page, perPage }));
   }, [dispatch, page, perPage]);
@@ -89,9 +100,13 @@ export const UserListPage = () => {
         color="gray300"
       />
 
-      <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
+      <UserSearchWrapper justifyContent={'space-between'} alignItems={"center"}>
+        <TextInput label="Search" value={search} onChange={onEditSearch} />
 
-      <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
+        <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
+      </UserSearchWrapper>
+
+      <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
 
       <Pagination
         onNextPage={onNextPage}

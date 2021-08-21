@@ -9,3 +9,7 @@ export const UserListWrapper = styled(FlexWrapper)`
 export const UserListTitleWrapper = styled(Text)`
   margin-bottom: 25px;
 `;
+
+export const UserSearchWrapper = styled(FlexWrapper)`
+  margin-bottom: 10px;
+`

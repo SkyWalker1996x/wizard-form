@@ -53,4 +53,5 @@ export interface IUsersState {
   page: number;
   total: number;
   perPage: number;
+  search: string;
 }

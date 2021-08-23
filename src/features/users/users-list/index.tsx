@@ -79,6 +79,11 @@ export const UserListPage = () => {
   );
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     dispatch(fetchItems({ page, perPage, search }));
   }, [dispatch, page, perPage, search]);
 

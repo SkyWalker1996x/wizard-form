@@ -4,6 +4,8 @@ import { FlexWrapper } from 'UI/FlexWrapper';
 import { Button } from 'UI/Button/Button';
 import { Text } from 'UI/Text';
 
+import { PaginationWrapper } from './styles';
+
 interface IPaginationProps {
   onNextPage: () => void;
   onPrevPage: () => void;
@@ -45,7 +47,7 @@ export const Pagination = (props: IPaginationProps) => {
   );
 
   return (
-    <FlexWrapper columnGap={'15px'} justifyContent={'space-between'} width={'75%'}>
+    <PaginationWrapper columnGap={'15px'} justifyContent={'space-between'} width={'75%'}>
       <Button
         onClick={() => onPrevPage()}
         text="prev"
@@ -63,6 +65,6 @@ export const Pagination = (props: IPaginationProps) => {
         disabled={!hasNextPage}
         background={!hasNextPage ? 'gray100' : 'main'}
       />
-    </FlexWrapper>
+    </PaginationWrapper>
   );
 };

@@ -1,4 +1,5 @@
-import { useFormik, FormikProvider } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { FormikProvider, useFormik } from 'formik';
 import { useAppDispatch } from 'app/hooks';
 
 import { modifyUser } from '../userSlice';
@@ -34,12 +35,13 @@ const renderStepContent = (step: number) => {
 interface IEditUserForm {
   initialValues: IUser;
   activeStep: number;
-  handleChangeActiveStep: (value: null | number) => void;
 }
 
 export const EditUserForm = (props: IEditUserForm) => {
-  const { activeStep, initialValues, handleChangeActiveStep } = props;
+  console.log('props', props);
+  const { activeStep, initialValues } = props;
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues,
@@ -49,7 +51,7 @@ export const EditUserForm = (props: IEditUserForm) => {
 
       if (modifiedProperties) {
         dispatch(modifyUser({ id: values.id, payload: modifiedProperties }));
-        handleChangeActiveStep(null);
+        history.push(`/user/${values.id}`);
       } else {
         alert("You've changed nothing");
       }

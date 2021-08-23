@@ -82,14 +82,6 @@ export const UserListPage = () => {
     dispatch(fetchItems({ page, perPage, search }));
   }, [dispatch, page, perPage, search]);
 
-  if (status === 'loading') {
-    return (
-      <FlexWrapper justifyContent="center" alignItems="center">
-        <Loader />
-      </FlexWrapper>
-    );
-  }
-
   return (
     <UserListWrapper flexDirection="column" alignItems="center">
       <UserListTitleWrapper
@@ -100,22 +92,38 @@ export const UserListPage = () => {
         color="gray300"
       />
 
-      <UserSearchWrapper justifyContent={'space-between'} alignItems={"center"}>
-        <TextInput label="Search" value={search} onChange={onEditSearch} />
+      <UserSearchWrapper justifyContent={'space-between'} alignItems={'center'}>
+        <TextInput
+          label="Search"
+          value={search}
+          onChange={onEditSearch}
+          disabled={status === 'loading'}
+        />
 
-        <GenerateUsersButton onGenerateUsers={onGenerateUsers} />
+        <GenerateUsersButton
+          onGenerateUsers={onGenerateUsers}
+          disabled={status === 'loading'}
+        />
       </UserSearchWrapper>
 
-      <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
+      {status === 'loading' ? (
+        <FlexWrapper justifyContent="center" alignItems="center">
+          <Loader />
+        </FlexWrapper>
+      ) : (
+        <>
+          <UsersTable users={users} onEditUser={onEditUser} onDeleteUser={onDeleteUser} />
 
-      <Pagination
-        onNextPage={onNextPage}
-        onPrevPage={onPrevPage}
-        onDefinitePage={onDefinitePage}
-        page={page}
-        perPage={perPage}
-        total={total}
-      />
+          <Pagination
+            onNextPage={onNextPage}
+            onPrevPage={onPrevPage}
+            onDefinitePage={onDefinitePage}
+            page={page}
+            perPage={perPage}
+            total={total}
+          />
+        </>
+      )}
     </UserListWrapper>
   );
 };

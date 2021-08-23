@@ -32,6 +32,7 @@ export const TextInput = memo((props: ITextInputProps) => {
     id,
     error,
     touched,
+
   } = props;
 
   return (

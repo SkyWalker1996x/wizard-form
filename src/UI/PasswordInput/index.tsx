@@ -26,6 +26,7 @@ export interface IPasswordInputProps {
   id: string;
   touched: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
   error: string | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
+  disabled?: boolean;
 }
 
 export const PasswordInput = memo((props: IPasswordInputProps) => {

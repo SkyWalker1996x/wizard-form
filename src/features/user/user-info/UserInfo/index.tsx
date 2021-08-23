@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FlexWrapper } from 'UI/FlexWrapper';
 
 import editMark from 'assets/edit-mark-black.svg';
@@ -15,12 +16,13 @@ import {
 import { IUser } from 'types/users';
 
 interface IUserInfoProps {
-  user: IUser;
-  handleChangeActiveStep: (value: null | number) => void;
+  user: Partial<IUser>;
+  url: string;
 }
 
 export const UserInfo = (props: IUserInfoProps) => {
   const {
+    url,
     user: {
       avatar,
       skills,
@@ -40,7 +42,6 @@ export const UserInfo = (props: IUserInfoProps) => {
       phones,
       username,
     },
-    handleChangeActiveStep,
   } = props;
 
   return (
@@ -53,9 +54,11 @@ export const UserInfo = (props: IUserInfoProps) => {
         <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Account</span>
-            <StageImageWrapper onClick={() => handleChangeActiveStep(1)}>
-              <img src={editMark} alt="edit" />
-            </StageImageWrapper>
+            <Link to={`${url}/edit-account`}>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </Link>
           </FlexWrapper>
 
           <UserFieldsWrapper>
@@ -74,9 +77,11 @@ export const UserInfo = (props: IUserInfoProps) => {
         <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Personal</span>
-            <StageImageWrapper onClick={() => handleChangeActiveStep(2)}>
-              <img src={editMark} alt="edit" />
-            </StageImageWrapper>
+            <Link to={`${url}/edit-profile`}>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </Link>
           </FlexWrapper>
 
           <UserFieldsWrapper>
@@ -129,9 +134,11 @@ export const UserInfo = (props: IUserInfoProps) => {
         <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Contacts</span>
-            <StageImageWrapper onClick={() => handleChangeActiveStep(3)}>
-              <img src={editMark} alt="edit" />
-            </StageImageWrapper>
+            <Link to={`${url}/edit-contacts`}>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </Link>
           </FlexWrapper>
 
           <UserFieldsWrapper>
@@ -188,9 +195,11 @@ export const UserInfo = (props: IUserInfoProps) => {
         <UserStageWrapper>
           <FlexWrapper columnGap="8px">
             <span>Capabilities</span>
-            <StageImageWrapper onClick={() => handleChangeActiveStep(4)}>
-              <img src={editMark} alt="edit" />
-            </StageImageWrapper>
+            <Link to={`${url}/edit-capabilities`}>
+              <StageImageWrapper>
+                <img src={editMark} alt="edit" />
+              </StageImageWrapper>
+            </Link>
           </FlexWrapper>
 
           <UserFieldsWrapper>

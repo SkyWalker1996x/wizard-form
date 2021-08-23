@@ -9,7 +9,7 @@ export interface IAccountForm {
 export interface ICapabilitiesForm {
   id?: number | string;
   skills: Array<{ value: string; label: string }>;
-  addInformation: string;
+  additionalInformation: string;
   hobbies: string[];
 }
 

@@ -27,7 +27,7 @@ export const UserInfo = (props: IUserInfoProps) => {
       company,
       mainLang,
       hobbies,
-      addInformation,
+      additionalInformation,
       githubLink,
       address,
       birthDate,
@@ -216,10 +216,10 @@ export const UserInfo = (props: IUserInfoProps) => {
               </>
             )}
 
-            {addInformation && (
+            {additionalInformation && (
               <>
                 <span className="first-column">Additional information:</span>
-                <span className="second-column">{addInformation}</span>
+                <span className="second-column">{additionalInformation}</span>
               </>
             )}
           </UserFieldsWrapper>

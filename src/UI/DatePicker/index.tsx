@@ -1,5 +1,5 @@
 import { FormikErrors, FormikTouched } from 'formik';
-import { ValidationError } from '../ValidationError';
+import { ValidationError } from 'UI/ValidationError';
 
 import { ReactComponent as CalendarIcon } from 'assets/calendar-mark.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right-mark.svg';

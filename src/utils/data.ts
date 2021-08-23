@@ -64,6 +64,7 @@ export const generateUsers = () => {
         { value: 'React', label: 'React' },
         { value: 'Git', label: 'Git' },
       ],
+      additionalInformation: 'Additional information',
       lastUpdate: faker.date.recent(99).getTime(),
     };
   });

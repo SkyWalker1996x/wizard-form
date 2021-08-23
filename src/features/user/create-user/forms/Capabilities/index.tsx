@@ -39,11 +39,11 @@ export const CapabilitiesForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           label="Additional information"
-          value={formik.values.addInformation}
-          name={'addInformation'}
-          id={'addInformation'}
-          touched={formik.touched.addInformation}
-          error={formik.errors.addInformation}
+          value={formik.values.additionalInformation}
+          name={'additionalInformation'}
+          id={'additionalInformation'}
+          touched={formik.touched.additionalInformation}
+          error={formik.errors.additionalInformation}
         />
       </FlexWrapper>
 

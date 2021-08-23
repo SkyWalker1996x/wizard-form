@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useAppDispatch } from 'app/hooks';
 import { FORM_STAGES } from 'app/app-constants';
-import { addItem } from 'features/users//usersSlice';
+import { addItem } from 'features/users/usersSlice';
 import { validate } from './forms/validation';
 
 import { AccountForm } from './forms/Account';
@@ -45,7 +45,7 @@ const initialValues: ICreateUserForm = {
   mainLang: undefined,
   phones: [],
   skills: [],
-  addInformation: '',
+  additionalInformation: '',
   hobbies: [],
 };
 

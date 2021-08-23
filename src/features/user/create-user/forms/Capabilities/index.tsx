@@ -58,7 +58,7 @@ export const CapabilitiesForm = () => {
               name="hobbies"
               value={item}
               onChange={formik.handleChange}
-              checked={formik.values.hobbies.includes(item)}
+              checked={formik.values.hobbies?.includes(item)}
             />
           );
         })}

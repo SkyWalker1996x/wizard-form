@@ -2,7 +2,8 @@ import { memo } from 'react';
 import InputMaskLib from 'react-input-mask';
 
 import { TextInputWrapper } from 'UI/TextInput/styles';
-import { IPasswordInputProps } from '../PasswordInput';
+import { IPasswordInputProps } from 'UI/PasswordInput';
+import { ValidationError } from 'UI/ValidationError';
 
 import { DEFAULT_INPUT_MASK } from 'app/app-constants';
 
@@ -38,6 +39,7 @@ export const InputMask = memo((props: IInputMask) => {
         value={value}
         mask={mask}
       />
+      {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>
   );
 });

@@ -1,6 +1,8 @@
-export const debounce = (func: any, wait: number, immediate = false) => {
-  let timeout: any;
-  return (...args: any) => {
+import { FixTypeLater } from 'types';
+
+export const debounce = (func: FixTypeLater, wait: number, immediate = false) => {
+  let timeout: FixTypeLater;
+  return (...args: FixTypeLater) => {
     const later = () => {
       timeout = null;
       if (!immediate) func(...args);

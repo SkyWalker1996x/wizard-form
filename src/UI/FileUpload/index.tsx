@@ -69,7 +69,7 @@ export const FileUpload = memo((props: IFileUploadProps) => {
         reader.readAsDataURL(file);
       }
     },
-    [name, onErrorChange, setImage]
+    [name, onErrorChange, handleOpenModal, setImage]
   );
 
   const handleInputClick = useCallback((event: MouseEvent) => {

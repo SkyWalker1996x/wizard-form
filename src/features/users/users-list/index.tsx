@@ -17,15 +17,16 @@ import {
   definePageNumber,
   editSearch,
 } from '../usersSlice';
+import { debounce } from 'utils/debounce';
 
 import { UsersTable } from './UsersTable';
 import { Loader } from 'UI/Loader';
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { TextInput } from 'UI/TextInput';
-
-import { UserListWrapper, UserListTitleWrapper, UserSearchWrapper } from './styles';
 import { GenerateUsersButton } from './GenerateUsersButton';
 import { Pagination } from './Pagination';
+
+import { UserListWrapper, UserListTitleWrapper, UserSearchWrapper } from './styles';
 
 export const UserListPage = () => {
   const users = useAppSelector(selectUsers);
@@ -100,9 +101,9 @@ export const UserListPage = () => {
       <UserSearchWrapper justifyContent={'space-between'} alignItems={'center'}>
         <TextInput
           label="Search"
-          value={search}
-          onChange={onEditSearch}
+          onChange={debounce(onEditSearch, 500)}
           disabled={status === 'loading'}
+          defaultValue={search}
         />
 
         <GenerateUsersButton

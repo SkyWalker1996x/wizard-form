@@ -25,14 +25,14 @@ export const TextInput = memo((props: ITextInputProps) => {
     onChange,
     onBlur,
     label = '',
-    value = '',
+    value = undefined,
     type = 'text',
     required = false,
     name,
     id,
     error,
     touched,
-
+    defaultValue = undefined,
   } = props;
 
   return (
@@ -48,6 +48,7 @@ export const TextInput = memo((props: ITextInputProps) => {
         onChange={onChange}
         name={name}
         onBlur={onBlur}
+        defaultValue={defaultValue}
       />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>

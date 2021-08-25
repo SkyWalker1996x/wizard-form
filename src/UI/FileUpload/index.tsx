@@ -1,4 +1,4 @@
-import { memo, useCallback, ChangeEvent, useState, useRef } from 'react';
+import { memo, useCallback, ChangeEvent, useState, useRef, MouseEvent } from 'react';
 
 import { DEFAULT_MAX_FILE_SIZE_IN_BYTES } from 'app/app-constants';
 import { debounce } from 'utils/debounce';
@@ -49,7 +49,6 @@ export const FileUpload = memo((props: IFileUploadProps) => {
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      console.log('e.target', e.target.files);
       if (!e.target.files) return;
 
       e.preventDefault();
@@ -75,6 +74,11 @@ export const FileUpload = memo((props: IFileUploadProps) => {
     [name, onErrorChange, setImage]
   );
 
+  const handleInputClick = (event: MouseEvent) => {
+    const element = event.target as HTMLInputElement;
+    element.value = '';
+  };
+
   return (
     <>
       <Modal
@@ -92,7 +96,13 @@ export const FileUpload = memo((props: IFileUploadProps) => {
         />
       </Modal>
       <UploadLabel htmlFor={id}>{isEdit ? 'edit avatar' : 'add avatar'}</UploadLabel>
-      <input id={id} type="file" onChange={handleUpload} style={{ display: 'none' }} />
+      <input
+        id={id}
+        type="file"
+        onChange={handleUpload}
+        style={{ display: 'none' }}
+        onClick={handleInputClick}
+      />
     </>
   );
 });

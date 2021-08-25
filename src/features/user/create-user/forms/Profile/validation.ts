@@ -4,6 +4,8 @@ import { IProfileForm } from 'types/users';
 import db from 'app/indexedDB';
 import { EIGHTEEN_YEARS_IN_MS } from 'app/app-constants';
 
+const emailRegExp = /\S+@\S+\.\S+/;
+
 const isAdult = (date: number) => {
   const dateFormat = new Date(date);
 
@@ -32,6 +34,8 @@ export const validate = async (values: IProfileForm) => {
 
   if (!values.email) {
     errors.email = 'Required';
+  } else if (!emailRegExp.test(values.email)) {
+    errors.email = 'Incorrect Email';
   } else {
     const users = await db.table('users').toArray();
     const isExistUser = users.find(item => item?.email === values.email);

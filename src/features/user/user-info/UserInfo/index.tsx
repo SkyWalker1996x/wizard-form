@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { FlexWrapper } from 'UI/FlexWrapper';
 
@@ -167,10 +168,10 @@ export const UserInfo = (props: IUserInfoProps) => {
               <>
                 {phones.map((phone, index) => {
                   return (
-                    <>
+                    <Fragment key={index}>
                       <span className="first-column">Phone #{index + 1}:</span>
                       <span className="second-column">{phone}</span>
-                    </>
+                    </Fragment>
                   );
                 })}
               </>

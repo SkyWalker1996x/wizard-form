@@ -12,43 +12,6 @@ import { ICreateUserForm } from 'types/users';
 export const PhonesFieldArray = () => {
   const formik = useFormikContext<ICreateUserForm>();
 
-  return formik?.values?.phones?.length > 0 ? <MultipleElements /> : <SingleElement />;
-};
-
-const SingleElement = () => {
-  const formik = useFormikContext<ICreateUserForm>();
-
-  return (
-    <FieldArray
-      name="phones"
-      render={arrayHelpers => (
-        <>
-          <PhoneWrapper key={0}>
-            <InputMask
-              id={`phones[${0}]`}
-              name={`phones[${0}]`}
-              label={`Phone #${1}`}
-              value={formik.values.phones[0]}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              touched={formik?.touched?.phones}
-              error={formik?.errors?.phones}
-            />
-
-            <button className="add-button" onClick={() => arrayHelpers.push('')}>
-              <img src={addMark} alt="add phone" />
-              <span>add phone number</span>
-            </button>
-          </PhoneWrapper>
-        </>
-      )}
-    />
-  );
-};
-
-const MultipleElements = () => {
-  const formik = useFormikContext<ICreateUserForm>();
-
   return (
     <FieldArray
       name="phones"

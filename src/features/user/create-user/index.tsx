@@ -44,7 +44,7 @@ const initialValues: ICreateUserForm = {
   facebookLink: '',
   fax: '',
   mainLang: undefined,
-  phones: [],
+  phones: [''],
   skills: [],
   additionalInformation: '',
   hobbies: [],

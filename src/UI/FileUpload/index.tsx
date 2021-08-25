@@ -87,7 +87,7 @@ export const FileUpload = memo((props: IFileUploadProps) => {
       >
         <Cropper
           src={image}
-          style={{ height: 'auto', width: '100%' }}
+          style={{ height: '400px', width: '100%' }}
           initialAspectRatio={16 / 16}
           guides={false}
           crop={debounce(onCrop, 300)}

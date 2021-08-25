@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormik, FormikProvider } from 'formik';
 import { useHistory } from 'react-router-dom';
-
 import { useAppDispatch } from 'app/hooks';
+
 import { FORM_STAGES } from 'app/app-constants';
 import { addItem } from 'features/users/usersSlice';
 import { validate } from './forms/validation';
@@ -20,6 +20,7 @@ import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
 import { ICreateUserForm, IUser } from 'types/users';
+import { removeEmptyArrayItems } from '../../../utils/data';
 
 interface IPersistedDataState {
   data: IUser | undefined;
@@ -81,10 +82,12 @@ export const CreateUserForm = () => {
     onSubmit: (values: ICreateUserForm) => {
       if (activeStep === FORM_STAGES.length) {
         setFormSubmit(true);
-        dispatch(addItem({ ...values, lastUpdate: new Date().getTime() }));
+        const sendData = removeEmptyArrayItems(values);
+        dispatch(addItem({ ...sendData, lastUpdate: new Date().getTime() }));
         history.push('/');
       } else {
         handleIncreaseStep();
+        saveFormDataToLocalStorage();
       }
     },
   });

@@ -4,7 +4,7 @@ import { useAppDispatch } from 'app/hooks';
 
 import { modifyUser } from '../userSlice';
 import { validate } from 'features/user/create-user/forms/validation';
-import { extractModifiedProperties } from 'utils/data';
+import { extractModifiedProperties, removeEmptyArrayItems } from 'utils/data';
 
 import { AccountForm } from 'features/user/create-user/forms/Account';
 import { ProfileForm } from 'features/user/create-user/forms/Profile';
@@ -38,7 +38,6 @@ interface IEditUserForm {
 }
 
 export const EditUserForm = (props: IEditUserForm) => {
-  console.log('props', props);
   const { activeStep, initialValues } = props;
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -50,7 +49,8 @@ export const EditUserForm = (props: IEditUserForm) => {
       const modifiedProperties = extractModifiedProperties(initialValues, values);
 
       if (modifiedProperties) {
-        dispatch(modifyUser({ id: values.id, payload: modifiedProperties }));
+        const sendData = removeEmptyArrayItems(modifiedProperties);
+        dispatch(modifyUser({ id: values.id, payload: sendData }));
         history.push(`/user/${values.id}`);
       } else {
         alert("You've changed nothing");

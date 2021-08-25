@@ -26,7 +26,7 @@ export const ImageUpload = memo((props: IImageUploadProps) => {
         <img src={value || personMark} alt="avatar" />
       </ImageWrapper>
 
-      <FileUpload {...otherProps} isEdit={!!value}/>
+      <FileUpload {...otherProps} isEdit={!!value} />
 
       {error && <ValidationError error={error} />}
     </ImageUploadWrapper>

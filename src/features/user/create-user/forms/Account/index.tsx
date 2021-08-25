@@ -2,7 +2,6 @@ import { useFormikContext } from 'formik';
 
 import { TextInput } from 'UI/TextInput';
 import { PasswordInput } from 'UI/PasswordInput';
-
 import { ImageUpload } from './ImageUpload';
 
 import { AccountWrapper, InputGroupWrapper } from './styles';

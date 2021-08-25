@@ -69,3 +69,32 @@ export const generateUsers = () => {
     };
   });
 };
+
+export const removeEmptyItems = (arr: Array<any>) => {
+  let newArr: Array<string> = [];
+
+  arr.forEach(item => {
+    if (typeof item === 'string' && item.trim() !== '') {
+      newArr = [...newArr, item];
+    }
+  });
+
+  return newArr;
+};
+
+export const removeEmptyArrayItems = (obj: FixTypeLater) => {
+  const newObj = {};
+
+  Object.keys(obj).forEach(key => {
+    // @ts-ignore
+    if (Array.isArray(obj[key])) {
+      // @ts-ignore
+      newObj[key] = removeEmptyItems(obj[key]);
+    } else {
+      // @ts-ignore
+      newObj[key] = obj[key];
+    }
+  });
+
+  return newObj as FixTypeLater;
+};

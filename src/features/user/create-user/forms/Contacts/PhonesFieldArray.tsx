@@ -17,36 +17,40 @@ export const PhonesFieldArray = () => {
       name="phones"
       render={arrayHelpers => (
         <>
-          {formik.values.phones.map((phone: string, index: number) => (
-            <PhoneWrapper key={index}>
-              <InputMask
-                id={`phones[${index}]`}
-                name={`phones[${index}]`}
-                label={`Phone #${index + 1}`}
-                value={formik.values.phones[index]}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                touched={formik?.touched?.phones}
-                error={formik?.errors?.phones}
-              />
+          {formik.values.phones.map((phone: string, index: number) => {
+            const error = formik?.errors?.phones && formik?.errors?.phones[index];
 
-              <button
-                className="remove-btn"
-                type="button"
-                onClick={() => arrayHelpers.remove(index)}
-                disabled={formik.values.phones.length === 1}
-              >
-                <img src={minusMark} alt="remove phone" />
-              </button>
+            return (
+              <PhoneWrapper key={index}>
+                <InputMask
+                  id={`phones[${index}]`}
+                  name={`phones[${index}]`}
+                  label={`Phone #${index + 1}`}
+                  value={formik.values.phones[index]}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  touched={formik?.touched?.phones}
+                  error={error}
+                />
 
-              {index === formik.values.phones.length - 1 && index < 2 && (
-                <button className="add-button" onClick={() => arrayHelpers.push('')}>
-                  <img src={addMark} alt="add phone" />
-                  <span>add phone number</span>
+                <button
+                  className="remove-btn"
+                  type="button"
+                  onClick={() => arrayHelpers.remove(index)}
+                  disabled={formik.values.phones.length === 1}
+                >
+                  <img src={minusMark} alt="remove phone" />
                 </button>
-              )}
-            </PhoneWrapper>
-          ))}
+
+                {index === formik.values.phones.length - 1 && index < 2 && (
+                  <button className="add-button" onClick={() => arrayHelpers.push('')}>
+                    <img src={addMark} alt="add phone" />
+                    <span>add phone number</span>
+                  </button>
+                )}
+              </PhoneWrapper>
+            );
+          })}
         </>
       )}
     />

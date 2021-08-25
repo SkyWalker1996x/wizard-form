@@ -7,7 +7,7 @@ export const ModalBG = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 10;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;

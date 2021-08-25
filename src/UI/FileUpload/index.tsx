@@ -24,28 +24,26 @@ export const FileUpload = memo((props: IFileUploadProps) => {
   const [cropperImage, setCropperImage] = useState<string | undefined>(undefined);
   const cropperRef = useRef<HTMLImageElement>(null);
 
-  const onCrop = () => {
+  const onCrop = useCallback(() => {
     const imageElement: any = cropperRef?.current;
     const cropper: any = imageElement?.cropper;
     const cropperImage = cropper.getCroppedCanvas().toDataURL();
 
     setCropperImage(cropperImage);
-  };
+  }, [cropperRef, setCropperImage]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = useCallback(() => {
     setShowModal(true);
-  };
+  }, [setShowModal]);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
-  };
+  }, [setShowModal]);
 
-  const handleConfirm = () => {
-    if (cropperImage) {
-      onChange(name, cropperImage);
-      handleCloseModal();
-    }
-  };
+  const handleConfirm = useCallback(() => {
+    onChange(name, cropperImage);
+    handleCloseModal();
+  }, [onChange, handleCloseModal, cropperImage, name]);
 
   const handleUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,10 +72,10 @@ export const FileUpload = memo((props: IFileUploadProps) => {
     [name, onErrorChange, setImage]
   );
 
-  const handleInputClick = (event: MouseEvent) => {
+  const handleInputClick = useCallback((event: MouseEvent) => {
     const element = event.target as HTMLInputElement;
     element.value = '';
-  };
+  }, []);
 
   return (
     <>
@@ -85,11 +83,12 @@ export const FileUpload = memo((props: IFileUploadProps) => {
         show={showModal}
         handleClose={handleCloseModal}
         handleConfirm={handleConfirm}
+        label={'Image Cropping'}
       >
         <Cropper
           src={image}
-          style={{ height: 400, width: '100%' }}
-          initialAspectRatio={16 / 9}
+          style={{ height: 'auto', width: '100%' }}
+          initialAspectRatio={16 / 16}
           guides={false}
           crop={debounce(onCrop, 300)}
           ref={cropperRef}

@@ -72,6 +72,7 @@ export const usersSlice = createSlice({
     },
     editSearch(state, { payload }) {
       state.search = payload;
+      state.page = 1;
     },
   },
   extraReducers: builder => {

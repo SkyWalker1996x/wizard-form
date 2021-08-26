@@ -2,7 +2,7 @@ import { FlexWrapper } from 'UI/FlexWrapper';
 
 import { transformToRelativeTime } from 'utils/time';
 
-import { FixTypeLater } from 'types';
+import { IUser } from 'types/users';
 
 import personMark from 'assets/person-mark.svg';
 import deleteMark from 'assets/delete-mark.svg';
@@ -10,7 +10,7 @@ import editMark from 'assets/edit-mark.svg';
 import { UserRowWrapper, UserCellWrapper } from '../styles';
 
 interface IUserRowProps {
-  user: FixTypeLater;
+  user: IUser;
   onDeleteUser: (id: number) => void;
   onEditUser: (id: number) => void;
 }

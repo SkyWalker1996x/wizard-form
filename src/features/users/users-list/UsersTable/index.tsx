@@ -6,8 +6,6 @@ import { EmptyList } from './EmptyList';
 
 import { IUser } from 'types/users';
 
-import { FixTypeLater } from 'types';
-
 interface IUserTableProps {
   users: Array<IUser>;
   onDeleteUser: (id: number) => void;
@@ -21,7 +19,7 @@ export const UsersTable = (props: IUserTableProps) => {
       <UsersListHeader items={USERS_LIST_HEADERS} />
 
       {users.length > 0 ? (
-        users.map((user: FixTypeLater) => {
+        users.map((user) => {
           return (
             <UserRow
               key={user.id}

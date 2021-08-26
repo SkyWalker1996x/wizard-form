@@ -119,6 +119,7 @@ export const usersSlice = createSlice({
     builder.addCase(generateItems.fulfilled, (state, { payload }) => {
       state.status = 'success';
       state.search = '';
+      state.page = 1;
       state.items = payload.users;
       state.total = payload.total;
     });

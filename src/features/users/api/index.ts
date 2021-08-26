@@ -2,6 +2,19 @@ import db from 'app/indexedDB';
 
 import { ISendUserData, IUser } from 'types/users';
 
+const calculateLimit = ({
+  total,
+  offset,
+  perPage,
+}: {
+  total: number;
+  offset: number;
+  perPage: number;
+}) => {
+  const difference = total - offset;
+  return difference > perPage ? perPage : difference;
+};
+
 export const getUsers = async ({
   page,
   perPage,
@@ -14,25 +27,35 @@ export const getUsers = async ({
   const pageValue = page ? page : 1;
   const perPageValue = perPage ? perPage : 10;
   const searchValue = search ? search : '';
-  const offset = (pageValue - 1) * perPageValue - 1;
+  const offset = (pageValue - 1) * perPageValue;
+  let users;
+  let total;
 
-  const total = await db
-    .table('users')
-    .where('lastName')
-    .startsWithIgnoreCase(searchValue)
-    .or('firstName')
-    .startsWithIgnoreCase(searchValue)
-    .count();
+  total =
+    searchValue === ''
+      ? await db.table('users').count()
+      : await db
+          .table('users')
+          .where('lastName')
+          .startsWithIgnoreCase(searchValue)
+          .or('firstName')
+          .startsWithIgnoreCase(searchValue)
+          .count();
 
-  const users = await db
-    .table('users')
-    .where('lastName')
-    .startsWithIgnoreCase(searchValue)
-    .or('firstName')
-    .startsWithIgnoreCase(searchValue)
-    .offset(offset)
-    .limit(perPageValue)
-    .toArray();
+  const limit = calculateLimit({ total, offset, perPage: perPageValue });
+
+  users =
+    searchValue === ''
+      ? await db.table('users').offset(offset).limit(limit).toArray()
+      : await db
+          .table('users')
+          .where('lastName')
+          .startsWithIgnoreCase(searchValue)
+          .or('firstName')
+          .startsWithIgnoreCase(searchValue)
+          .offset(offset)
+          .limit(limit)
+          .toArray();
 
   return { users, total };
 };

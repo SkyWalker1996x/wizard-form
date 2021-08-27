@@ -51,7 +51,7 @@ export const generateItems = createAsyncThunk('users/generateUser', async () => 
 const initialState: IUsersState = {
   items: [],
   status: 'loading',
-  page: 1,
+  page: 0,
   total: 0,
   perPage: 10,
   search: '',

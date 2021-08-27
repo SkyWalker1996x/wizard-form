@@ -1,4 +1,10 @@
-import { useCallback, useEffect, ChangeEvent } from 'react';
+import {
+  useCallback,
+  useEffect,
+  ChangeEvent,
+  useMemo,
+  useRef,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
@@ -38,6 +44,9 @@ export const UserListPage = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const queryParams = useQueryParams();
+  const firstUpdate = useRef(true);
+  const pageQueryParam = useMemo(() => queryParams.get('page'), [queryParams]);
+  const searchQueryParam = useMemo(() => queryParams.get('search'), [queryParams]);
 
   const onDeleteUser = useCallback(
     (id: number) => {
@@ -81,24 +90,12 @@ export const UserListPage = () => {
   );
 
   useEffect(() => {
-    const page = queryParams.get('page');
-    const search = queryParams.get('search');
-    dispatch(editSearch(search));
-    dispatch(definePageNumber(Number(page)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-
-    if (search) {
-      queryParams.set('search', search);
-    } else {
-      queryParams.delete('search');
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
     }
+
+    console.log('store', pageQueryParam);
 
     if (page) {
       queryParams.set('page', page.toString());
@@ -106,12 +103,43 @@ export const UserListPage = () => {
       queryParams.delete('page');
     }
 
+    if (search) {
+      queryParams.set('search', search);
+    } else {
+      queryParams.delete('search');
+    }
+
     history.push({
       search: queryParams.toString(),
     });
-    dispatch(fetchItems({ page, perPage, search }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, history, page, perPage, search]);
+  }, [dispatch, history, page, perPage, search, firstUpdate]);
+
+  useEffect(() => {
+    dispatch(editSearch(searchQueryParam || ''));
+    dispatch(definePageNumber(pageQueryParam ? Number(pageQueryParam) : 1));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
+    console.log('url', pageQueryParam);
+
+    if (pageQueryParam) {
+      // dispatch(definePageNumber(Number(pageQueryParam)));
+      dispatch(
+        fetchItems({
+          page: Number(pageQueryParam),
+          perPage,
+          search: searchQueryParam || '',
+        })
+      );
+    }
+  }, [dispatch, pageQueryParam, searchQueryParam, perPage]);
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">

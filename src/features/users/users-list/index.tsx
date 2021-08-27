@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  ChangeEvent,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, ChangeEvent, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
@@ -95,8 +89,6 @@ export const UserListPage = () => {
       return;
     }
 
-    console.log('store', pageQueryParam);
-
     if (page) {
       queryParams.set('page', page.toString());
     } else {
@@ -126,8 +118,6 @@ export const UserListPage = () => {
       top: 0,
       behavior: 'smooth',
     });
-
-    console.log('url', pageQueryParam);
 
     if (pageQueryParam) {
       // dispatch(definePageNumber(Number(pageQueryParam)));

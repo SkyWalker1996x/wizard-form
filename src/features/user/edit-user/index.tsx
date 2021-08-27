@@ -50,7 +50,12 @@ export const EditUserForm = (props: IEditUserForm) => {
 
       if (modifiedProperties) {
         const sendData = removeEmptyArrayItems(modifiedProperties);
-        dispatch(modifyUser({ id: values.id, payload: sendData }));
+        dispatch(
+          modifyUser({
+            id: values.id,
+            payload: { ...sendData, lastUpdate: new Date().getTime() },
+          })
+        );
         history.push(`/user/${values.id}`);
       } else {
         alert("You've changed nothing");

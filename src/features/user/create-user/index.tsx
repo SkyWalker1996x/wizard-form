@@ -20,7 +20,7 @@ import { ButtonWrapper, FormWrapper, PageWrapper } from './forms/styles';
 import { HeaderUserPageWrapper } from 'features/user/user-info/UserInfo/styles';
 
 import { ICreateUserForm, IUser } from 'types/users';
-import { removeEmptyArrayItems } from '../../../utils/data';
+import { removeEmptyArrayItems } from 'utils/data';
 
 interface IPersistedDataState {
   data: IUser | undefined;

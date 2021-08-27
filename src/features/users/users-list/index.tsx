@@ -1,6 +1,6 @@
 import { useCallback, useEffect, ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
 import {
   selectUsers,
@@ -37,6 +37,7 @@ export const UserListPage = () => {
   const search = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const queryParams = useQueryParams();
 
   const onDeleteUser = useCallback(
     (id: number) => {
@@ -80,13 +81,37 @@ export const UserListPage = () => {
   );
 
   useEffect(() => {
+    const page = queryParams.get('page');
+    const search = queryParams.get('search');
+    dispatch(editSearch(search));
+    dispatch(definePageNumber(Number(page)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
 
+    if (search) {
+      queryParams.set('search', search);
+    } else {
+      queryParams.delete('search');
+    }
+
+    if (page) {
+      queryParams.set('page', page.toString());
+    } else {
+      queryParams.delete('page');
+    }
+
+    history.push({
+      search: queryParams.toString(),
+    });
     dispatch(fetchItems({ page, perPage, search }));
-  }, [dispatch, page, perPage, search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, history, page, perPage, search]);
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">
@@ -103,7 +128,7 @@ export const UserListPage = () => {
           label="Search"
           onChange={debounce(onEditSearch, 500)}
           disabled={status === 'loading'}
-          defaultValue={search}
+          defaultValue={queryParams.get('search') || search}
         />
 
         <GenerateUsersButton

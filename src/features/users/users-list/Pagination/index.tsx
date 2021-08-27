@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { FlexWrapper } from 'UI/FlexWrapper';
 import { Button } from 'UI/Button/Button';
-import { Text } from 'UI/Text';
 
 import { PaginationWrapper } from './styles';
 
@@ -24,11 +23,15 @@ export const Pagination = (props: IPaginationProps) => {
     () => Array.from({ length: totalPages }, (v, k) => k + 1),
     [totalPages]
   );
+  const amountPaginationButton = useMemo(() => 3, []);
 
   const renderNumberPages = useMemo(
     () =>
       numberPages.map(number => {
-        if (number < page + 3 && number > page - 3) {
+        if (
+          number < page + amountPaginationButton &&
+          number > page - amountPaginationButton
+        ) {
           return (
             <Button
               key={number}
@@ -43,7 +46,7 @@ export const Pagination = (props: IPaginationProps) => {
           return null;
         }
       }),
-    [numberPages, onDefinitePage, page]
+    [numberPages, onDefinitePage, page, amountPaginationButton]
   );
 
   return (
@@ -54,11 +57,26 @@ export const Pagination = (props: IPaginationProps) => {
         disabled={!hasPrevPage}
         background={!hasPrevPage ? 'gray100' : 'main'}
       />
-      {page - 3 > 0 && <Text fontSize="24px" text="..." color={'gray100'} />}
+      {page - amountPaginationButton > 0 && (
+        <Button
+          onClick={() => onDefinitePage(1)}
+          text="1"
+          background={1 === page ? 'main' : 'blue300'}
+          width={'75px'}
+        />
+      )}
       <FlexWrapper columnGap={'3px'} width={'auto'}>
         {renderNumberPages}
       </FlexWrapper>
-      {page + 3 <= totalPages && <Text fontSize="24px" text="..." color={'gray100'} />}
+      {page + amountPaginationButton <= totalPages && (
+        <Button
+          onClick={() => onDefinitePage(totalPages)}
+          text={totalPages.toString()}
+          disabled={!hasNextPage}
+          background={totalPages === page ? 'main' : 'blue300'}
+          width={'75px'}
+        />
+      )}
       <Button
         onClick={() => onNextPage()}
         text="next"

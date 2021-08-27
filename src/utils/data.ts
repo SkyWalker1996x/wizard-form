@@ -39,7 +39,7 @@ export const extractModifiedProperties = (obj1: FixTypeLater, obj2: FixTypeLater
 };
 
 export const generateUsers = () => {
-  return Array.from({ length: 50 }, (_, index) => {
+  return Array.from({ length: 90 }, (_, index) => {
     const password = faker.internet.password();
 
     return {

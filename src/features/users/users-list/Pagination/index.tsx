@@ -23,7 +23,7 @@ export const Pagination = (props: IPaginationProps) => {
     () => Array.from({ length: totalPages }, (v, k) => k + 1),
     [totalPages]
   );
-  const amountPaginationButton = useMemo(() => 3, []);
+  const amountPaginationButton = useMemo(() => 2, []);
 
   const renderNumberPages = useMemo(
     () =>
@@ -57,26 +57,31 @@ export const Pagination = (props: IPaginationProps) => {
         disabled={!hasPrevPage}
         background={!hasPrevPage ? 'gray100' : 'main'}
       />
-      {page - amountPaginationButton > 0 && (
-        <Button
-          onClick={() => onDefinitePage(1)}
-          text="1"
-          background={1 === page ? 'main' : 'blue300'}
-          width={'75px'}
-        />
-      )}
-      <FlexWrapper columnGap={'3px'} width={'auto'}>
-        {renderNumberPages}
+
+      <FlexWrapper columnGap={'45px'} width={'auto'}>
+        {page - amountPaginationButton > 0 && (
+          <Button
+            onClick={() => onDefinitePage(1)}
+            text="1"
+            background={1 === page ? 'main' : 'blue300'}
+            width={'75px'}
+          />
+        )}
+        <FlexWrapper columnGap={'3px'} width={'auto'} justifyContent={'center'}>
+          {renderNumberPages}
+        </FlexWrapper>
+
+        {page + amountPaginationButton <= totalPages && (
+          <Button
+            onClick={() => onDefinitePage(totalPages)}
+            text={totalPages.toString()}
+            disabled={!hasNextPage}
+            background={totalPages === page ? 'main' : 'blue300'}
+            width={'75px'}
+          />
+        )}
       </FlexWrapper>
-      {page + amountPaginationButton <= totalPages && (
-        <Button
-          onClick={() => onDefinitePage(totalPages)}
-          text={totalPages.toString()}
-          disabled={!hasNextPage}
-          background={totalPages === page ? 'main' : 'blue300'}
-          width={'75px'}
-        />
-      )}
+
       <Button
         onClick={() => onNextPage()}
         text="next"

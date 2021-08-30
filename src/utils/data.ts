@@ -70,7 +70,7 @@ export const generateUsers = () => {
   });
 };
 
-export const removeEmptyItems = (arr: Array<any>) => {
+export const removeEmptyItems = (arr: Array<unknown>) => {
   let newArr: Array<string> = [];
 
   arr.forEach(item => {
@@ -82,16 +82,13 @@ export const removeEmptyItems = (arr: Array<any>) => {
   return newArr;
 };
 
-export const removeEmptyArrayItems = (obj: FixTypeLater) => {
-  const newObj = {};
+export const removeEmptyArrayItems = (obj: { [key: string]: unknown }) => {
+  const newObj: { [key: string]: unknown } = {};
 
   Object.keys(obj).forEach(key => {
-    // @ts-ignore
     if (Array.isArray(obj[key])) {
-      // @ts-ignore
-      newObj[key] = removeEmptyItems(obj[key]);
+      newObj[key] = removeEmptyItems(obj[key] as unknown[]);
     } else {
-      // @ts-ignore
       newObj[key] = obj[key];
     }
   });

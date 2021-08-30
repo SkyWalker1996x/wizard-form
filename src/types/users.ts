@@ -1,4 +1,5 @@
 export interface IAccountForm {
+
   id?: number | string;
   username: string;
   password: string;
@@ -7,6 +8,7 @@ export interface IAccountForm {
 }
 
 export interface ICapabilitiesForm {
+
   id?: number | string;
   skills: Array<{ value: string; label: string }>;
   additionalInformation: string;
@@ -14,6 +16,7 @@ export interface ICapabilitiesForm {
 }
 
 export interface IContactsForm {
+
   id?: number | string;
   company: string;
   githubLink: string;
@@ -37,7 +40,9 @@ export interface ICreateUserForm
   extends IAccountForm,
     IProfileForm,
     IContactsForm,
-    ICapabilitiesForm {}
+    ICapabilitiesForm {
+  [key: string]: unknown
+}
 
 export interface ISendUserData extends ICreateUserForm {
   lastUpdate: number | null | undefined;

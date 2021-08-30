@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  ChangeEvent,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, ChangeEvent, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
@@ -130,15 +124,12 @@ export const UserListPage = () => {
         search,
       })
     );
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, history, page, perPage, search]);
 
   useEffect(() => {
-    if (pageQueryParam) {
-      dispatch(definePageNumber(Number(pageQueryParam)));
-    }
-  }, [dispatch, pageQueryParam, searchQueryParam]);
+    pageQueryParam && dispatch(definePageNumber(Number(pageQueryParam)));
+  }, [dispatch, pageQueryParam]);
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">

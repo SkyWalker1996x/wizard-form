@@ -1,4 +1,4 @@
-import { useCallback, useEffect, ChangeEvent, useMemo, useRef } from 'react';
+import { useCallback, useEffect, ChangeEvent, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
@@ -38,7 +38,6 @@ export const UserListPage = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const queryParams = useQueryParams();
-  const firstUpdate = useRef(true);
   const pageQueryParam = useMemo(() => queryParams.get('page'), [queryParams]);
   const searchQueryParam = useMemo(() => queryParams.get('search'), [queryParams]);
 
@@ -84,32 +83,8 @@ export const UserListPage = () => {
   );
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-
-    if (page) {
-      queryParams.set('page', page.toString());
-    } else {
-      queryParams.delete('page');
-    }
-
-    if (search) {
-      queryParams.set('search', search);
-    } else {
-      queryParams.delete('search');
-    }
-
-    history.push({
-      search: queryParams.toString(),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, history, page, perPage, search, firstUpdate]);
-
-  useEffect(() => {
-    dispatch(editSearch(searchQueryParam || ''));
-    dispatch(definePageNumber(pageQueryParam ? Number(pageQueryParam) : 1));
+    searchQueryParam && dispatch(editSearch(searchQueryParam));
+    pageQueryParam && dispatch(definePageNumber(Number(pageQueryParam)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -119,17 +94,30 @@ export const UserListPage = () => {
       behavior: 'smooth',
     });
 
+    page ? queryParams.set('page', page.toString()) : queryParams.delete('page');
+    search ? queryParams.set('search', search) : queryParams.delete('search');
+
+    history.push({
+      search: queryParams.toString(),
+    });
+
     if (pageQueryParam) {
-      // dispatch(definePageNumber(Number(pageQueryParam)));
       dispatch(
         fetchItems({
-          page: Number(pageQueryParam),
+          page,
           perPage,
-          search: searchQueryParam || '',
+          search,
         })
       );
     }
-  }, [dispatch, pageQueryParam, searchQueryParam, perPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, history, page, perPage, search]);
+
+  useEffect(() => {
+    if (pageQueryParam) {
+      dispatch(definePageNumber(Number(pageQueryParam)));
+    }
+  }, [dispatch, pageQueryParam, searchQueryParam]);
 
   return (
     <UserListWrapper flexDirection="column" alignItems="center">

@@ -7,8 +7,10 @@ export const toDecimal = (number: number) => {
   }
 };
 
-export const transformToRelativeTime = (value: Date) => {
-  const passedTime = new Date(new Date().getTime() - value.getTime());
+export const transformToRelativeTime = (value: Date | number) => {
+  const valueToDate = new Date(value);
+
+  const passedTime = new Date(new Date().getTime() - valueToDate.getTime());
 
   if (passedTime.getUTCFullYear() - 1970) {
     return passedTime.getUTCFullYear() > 1
@@ -34,7 +36,7 @@ export const transformToRelativeTime = (value: Date) => {
   if (passedTime.getMinutes() < 5) return 'few minutes ago';
 };
 
-export const transformDateToReadable = (value: Date) => {
+export const transformDateToReadable = (value: number) => {
   const date = new Date(value);
   return `${toDecimal(date.getDate())}.${toDecimal(
     date.getMonth() + 1

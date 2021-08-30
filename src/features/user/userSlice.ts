@@ -1,12 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import db from 'app/indexedDB';
+
+import { getUser, postModifyUser } from './api';
+
 import { RootState } from 'app/store';
+import { IUser } from 'types/users';
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) => {
-  const res = await db.table('users').get(+id);
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (id: string | number) => {
+    return getUser(id);
+  }
+);
 
-  return res;
-});
+export const modifyUser = createAsyncThunk(
+  'user/modifyUser',
+  async ({ id, payload }: { id: number | string; payload: Partial<IUser> }) => {
+    await postModifyUser(id, payload);
+    return getUser(id);
+  }
+);
 
 const initialState = {
   item: undefined,
@@ -18,6 +30,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    // fetch user
     builder.addCase(fetchUser.pending, state => {
       state.status = 'loading';
     });
@@ -26,6 +39,18 @@ export const userSlice = createSlice({
       state.item = payload;
     });
     builder.addCase(fetchUser.rejected, state => {
+      state.status = 'error';
+    });
+
+    // modify user
+    builder.addCase(modifyUser.pending, state => {
+      state.status = 'loading';
+    });
+    builder.addCase(modifyUser.fulfilled, (state, { payload }) => {
+      state.status = 'success';
+      state.item = payload;
+    });
+    builder.addCase(modifyUser.rejected, state => {
       state.status = 'error';
     });
   },

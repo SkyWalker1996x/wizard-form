@@ -6,7 +6,7 @@ import { TextInputWrapper } from './styles';
 
 import { IPasswordInputProps } from 'UI/PasswordInput';
 
-interface ITextInputProps extends IPasswordInputProps {
+interface ITextInputProps extends Partial<IPasswordInputProps> {
   type?:
     | 'email'
     | 'hidden'
@@ -25,13 +25,14 @@ export const TextInput = memo((props: ITextInputProps) => {
     onChange,
     onBlur,
     label = '',
-    value = '',
+    value = undefined,
     type = 'text',
     required = false,
     name,
     id,
     error,
     touched,
+    defaultValue = undefined,
   } = props;
 
   return (
@@ -47,6 +48,7 @@ export const TextInput = memo((props: ITextInputProps) => {
         onChange={onChange}
         name={name}
         onBlur={onBlur}
+        defaultValue={defaultValue}
       />
       {touched && error && <ValidationError error={error} />}
     </TextInputWrapper>

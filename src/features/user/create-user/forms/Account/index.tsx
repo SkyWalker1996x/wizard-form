@@ -1,23 +1,15 @@
-import { memo } from 'react';
+import { useFormikContext } from 'formik';
 
 import { TextInput } from 'UI/TextInput';
 import { PasswordInput } from 'UI/PasswordInput';
-
 import { ImageUpload } from './ImageUpload';
 
 import { AccountWrapper, InputGroupWrapper } from './styles';
 
-import { FixTypeLater } from 'types';
+import { ICreateUserForm } from 'types/users';
 
-/*export interface IAccountForm {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  avatar: string | undefined;
-}*/
-
-export const AccountForm = memo((props: FixTypeLater) => {
-  const { formik } = props;
+export const AccountForm = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
     <AccountWrapper>
@@ -67,4 +59,4 @@ export const AccountForm = memo((props: FixTypeLater) => {
       </InputGroupWrapper>
     </AccountWrapper>
   );
-});
+};

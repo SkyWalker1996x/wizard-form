@@ -5,7 +5,7 @@ import { TextInputWrapper } from 'UI/TextInput/styles';
 import { IGPACProps } from './index';
 
 const GPlace = memo((props: IGPACProps) => {
-  const { label, required, id, name, onChange } = props;
+  const { label, required, id, name, onChange, defaultValue } = props;
   const placeInputRef = useRef<HTMLInputElement>(null);
 
   const initPlaceAPI = useCallback(() => {
@@ -33,7 +33,13 @@ const GPlace = memo((props: IGPACProps) => {
         <span>{label}</span>
         {required && <span>*</span>}
       </label>
-      <input id={id} name={name} type="text" ref={placeInputRef} />
+      <input
+        id={id}
+        name={name}
+        type="text"
+        ref={placeInputRef}
+        defaultValue={defaultValue}
+      />
     </TextInputWrapper>
   );
 });

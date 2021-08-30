@@ -1,49 +1,62 @@
 export interface IAccountForm {
-    username: string;
-    password: string;
-    confirmPassword: string;
-    avatar: string | undefined;
+
+  id?: number | string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+  avatar: string | undefined;
 }
 
 export interface ICapabilitiesForm {
-    skills: Array<{ value: string; label: string }>;
-    addInformation: string;
-    hobbies: string[];
+
+  id?: number | string;
+  skills: Array<{ value: string; label: string }>;
+  additionalInformation: string;
+  hobbies: string[];
 }
 
 export interface IContactsForm {
-    company: string;
-    githubLink: string;
-    facebookLink: string;
-    mainLang: { value: string; label: string } | undefined;
-    fax: string;
-    phones: Array<string>;
+
+  id?: number | string;
+  company: string;
+  githubLink: string;
+  facebookLink: string;
+  mainLang: { value: string; label: string } | undefined;
+  fax: string;
+  phones: Array<string>;
 }
 
 export interface IProfileForm {
-    firstName: string;
-    lastName: string;
-    birthDate: Date | null | undefined;
-    email: string;
-    address: string;
-    gender: string;
+  id?: number | string;
+  firstName: string;
+  lastName: string;
+  birthDate: number | null | undefined;
+  email: string;
+  address: string;
+  gender: string;
 }
 
 export interface ICreateUserForm
-    extends IAccountForm,
-        IProfileForm,
-        IContactsForm,
-        ICapabilitiesForm {}
+  extends IAccountForm,
+    IProfileForm,
+    IContactsForm,
+    ICapabilitiesForm {
+  [key: string]: unknown
+}
 
 export interface ISendUserData extends ICreateUserForm {
-    lastUpdate: Date | null | undefined;
+  lastUpdate: number | null | undefined;
 }
 
 export interface IUser extends ISendUserData {
-    id: number;
+  id: number;
 }
 
 export interface IUsersState {
-    items: Array<IUser>;
-    status: string;
+  items: Array<IUser>;
+  status: string;
+  page: number;
+  total: number;
+  perPage: number;
+  search: string;
 }

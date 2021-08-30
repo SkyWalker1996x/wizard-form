@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Header } from 'UI/Header';
-import { CreateUserForm } from 'features/users/create-user';
+import { CreateUserForm } from 'features/user/create-user';
 import { UserListPage } from 'features/users/users-list';
 import { UserInfoPage } from 'features/user/user-info';
 

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import GPlace from './GPlace';
 
-import { FormikErrors } from 'formik';
-
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
 
 export interface IGPACProps {
@@ -11,11 +9,8 @@ export interface IGPACProps {
   name: string;
   label?: string;
   required: boolean;
-  onChange?: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<FormikErrors<any>> | Promise<void>;
+  defaultValue: string,
+  onChange?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
 const loadGoogleMapScript = (callback: () => void) => {

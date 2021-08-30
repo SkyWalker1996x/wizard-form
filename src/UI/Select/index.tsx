@@ -4,16 +4,10 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { ValidationError } from 'UI/ValidationError';
 import { TextInputWrapper } from 'UI/TextInput/styles';
 
-import { IContactsForm } from 'types/users';
-
 import { SelectStyled } from './styles';
 
 interface ISelectProps {
-  onChange: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<void> | Promise<FormikErrors<IContactsForm>>;
+  onChange: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
   onBlur: {
     (e: FocusEvent<any>): void;
     <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;

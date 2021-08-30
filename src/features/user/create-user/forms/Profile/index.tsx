@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useFormikContext } from 'formik';
 
 import { TextInput } from 'UI/TextInput';
 import { DatePicker } from 'UI/DatePicker';
@@ -9,12 +9,10 @@ import GooglePlaceAutoComplete from 'UI/GoogleAutocomplete';
 
 import { ProfileWrapper } from './styles';
 
-import { FixTypeLater } from 'types';
+import { ICreateUserForm } from 'types/users';
 
-
-
-export const ProfileForm = memo((props: FixTypeLater) => {
-  const { formik } = props;
+export const ProfileForm = () => {
+  const formik = useFormikContext<ICreateUserForm>();
 
   return (
     <ProfileWrapper>
@@ -62,6 +60,7 @@ export const ProfileForm = memo((props: FixTypeLater) => {
         name="address"
         label="Address"
         required={true}
+        defaultValue={formik.values.address}
         onChange={formik.setFieldValue}
       />
 
@@ -86,15 +85,17 @@ export const ProfileForm = memo((props: FixTypeLater) => {
             name="gender"
             value="Male"
             onChange={formik.handleChange}
+            checked={formik.values.gender === 'Male'}
           />
           <RadioButton
             id="female"
             name="gender"
             value="Female"
             onChange={formik.handleChange}
+            checked={formik.values.gender === 'Female'}
           />
         </FlexWrapper>
       </RadioButtonGroup>
     </ProfileWrapper>
   );
-});
+};

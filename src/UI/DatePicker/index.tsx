@@ -1,5 +1,5 @@
 import { FormikErrors, FormikTouched } from 'formik';
-import { ValidationError } from '../ValidationError';
+import { ValidationError } from 'UI/ValidationError';
 
 import { ReactComponent as CalendarIcon } from 'assets/calendar-mark.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right-mark.svg';
@@ -9,12 +9,8 @@ import { TextInputWrapper } from 'UI/TextInput/styles';
 import { DatePickerStyled } from './styles';
 
 interface IDatePickerProps {
-  onChange: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => Promise<FormikErrors<any>> | Promise<void>;
-  value: Date | null | undefined;
+  onChange: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  value: number | null | undefined;
   name: string;
   format?: string;
   label: string;
@@ -43,8 +39,8 @@ export const DatePicker = (props: IDatePickerProps) => {
       </label>
       <DatePickerStyled
         name={name}
-        onChange={(val: Date) => onChange(name, val)}
-        value={value}
+        onChange={(val: Date) => onChange(name, val.getTime())}
+        value={(value && new Date(value)) || undefined}
         format={format}
         dayPlaceholder="DD"
         monthPlaceholder="MM"

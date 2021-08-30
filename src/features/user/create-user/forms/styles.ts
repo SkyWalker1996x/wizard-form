@@ -17,7 +17,7 @@ export const FormWrapper = styled.form`
 
 export const ButtonWrapper = styled.div`
   width: 100%;
-  padding: 0 100px;
+  padding: 10px 100px;
   display: flex;
   justify-content: flex-end;
   column-gap: 100px;

@@ -1,4 +1,10 @@
-import { useCallback, useEffect, ChangeEvent, useMemo } from 'react';
+import {
+  useCallback,
+  useEffect,
+  ChangeEvent,
+  useMemo,
+  useRef,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector, useQueryParams } from 'app/hooks';
 
@@ -36,6 +42,7 @@ export const UserListPage = () => {
   const total = useAppSelector(selectTotal);
   const search = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
+  const firstUpdate = useRef(true);
   const history = useHistory();
   const queryParams = useQueryParams();
   const pageQueryParam = useMemo(() => queryParams.get('page'), [queryParams]);
@@ -51,7 +58,9 @@ export const UserListPage = () => {
 
   const onEditUser = useCallback(
     (id: number) => {
-      history.push(`/user/${id}`);
+      history.push({
+        pathname: `/user/${id}`,
+      });
     },
     [history]
   );
@@ -85,10 +94,23 @@ export const UserListPage = () => {
   useEffect(() => {
     searchQueryParam && dispatch(editSearch(searchQueryParam));
     pageQueryParam && dispatch(definePageNumber(Number(pageQueryParam)));
+
+    dispatch(
+      fetchItems({
+        page,
+        perPage,
+        search,
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -101,15 +123,14 @@ export const UserListPage = () => {
       search: queryParams.toString(),
     });
 
-    if (pageQueryParam) {
-      dispatch(
-        fetchItems({
-          page,
-          perPage,
-          search,
-        })
-      );
-    }
+    dispatch(
+      fetchItems({
+        page,
+        perPage,
+        search,
+      })
+    );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, history, page, perPage, search]);
 
